@@ -73,5 +73,10 @@ public class GalaxyPresenter
         model.SelectGalaxy(id);
     }
 
+    public void UnlockGalaxy(int id)
+    {
+        model.UnlockGalaxy(id);
+    }
+
     #endregion
 }

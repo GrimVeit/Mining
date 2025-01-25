@@ -17,6 +17,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     private GalaxyPresenter galaxyPresenter;
     private GalaxyInfoPresenter galaxyInfoPresenter;
     private GalaxyVisualizePresenter galaxyVisualizePresenter;
+    private GalaxyPlayBuyPresenter galaxyPlayBuyPresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -43,6 +44,8 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         galaxyVisualizePresenter = new GalaxyVisualizePresenter(new GalaxyVisualizeModel(), viewContainer.GetView<GalaxyVisualizeView>());
 
+        galaxyPlayBuyPresenter = new GalaxyPlayBuyPresenter(new GalaxyPlayBuyModel(bankPresenter), viewContainer.GetView<GalaxyPlayBuyView>());
+
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
 
@@ -56,6 +59,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         galaxyInfoPresenter.Initialize();
         galaxyVisualizePresenter.Initialize();
         galaxyPresenter.Initialize();
+        galaxyPlayBuyPresenter.Initialize();
     }
 
     private void ActivateEvents()
@@ -73,6 +77,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         galaxyPresenter.OnDeselectOpenGalaxy_Value += galaxyVisualizePresenter.Unlock;
 
         galaxyPresenter.OnSelectGalaxy += galaxyInfoPresenter.SetGalaxy;
+
+        galaxyPlayBuyPresenter.OnBuyGalaxy += galaxyPresenter.UnlockGalaxy;
+        galaxyPresenter.OnSelectOpenGalaxy_Value += galaxyPlayBuyPresenter.SetOpenGalaxy;
+        galaxyPresenter.OnSelectCloseGalaxy_Value += galaxyPlayBuyPresenter.SetCloseGalaxy;
     }
 
     private void DeactivateEvents()
@@ -90,6 +98,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         galaxyPresenter.OnDeselectOpenGalaxy_Value -= galaxyVisualizePresenter.Unlock;
 
         galaxyPresenter.OnSelectGalaxy -= galaxyInfoPresenter.SetGalaxy;
+
+        galaxyPlayBuyPresenter.OnBuyGalaxy -= galaxyPresenter.UnlockGalaxy;
+        galaxyPresenter.OnSelectOpenGalaxy_Value -= galaxyPlayBuyPresenter.SetOpenGalaxy;
+        galaxyPresenter.OnSelectCloseGalaxy_Value -= galaxyPlayBuyPresenter.SetCloseGalaxy;
     }
 
     private void ActivateTransitionsSceneEvents()
@@ -120,6 +132,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         galaxyInfoPresenter.Dispose();
         galaxyVisualizePresenter.Dispose();
         galaxyPresenter.Dispose();
+        galaxyPlayBuyPresenter.Dispose();
     }
 
     private void OnDestroy()

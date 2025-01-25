@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Galaxy_4
   m_EditorClassIdentifier: 
   id: 3
+  price: 100
+  GalaxyData:
+    Number: 3
+    IsOpen: 0
+    IsSelect: 0
   planets: {fileID: 11400000, guid: 0c29272c58de20641970510cd7dee751, type: 2}

@@ -85,23 +85,17 @@ public class GalaxyModel
         File.WriteAllText(FilePath, json);
     }
 
-    public void UnlockGame(int number)
+    public void UnlockGalaxy(int number)
     {
-        var progressData = galaxyDatas.FirstOrDefault(gd => gd.Number == number);
+        var galaxy = galaxies.GetGalaxyByID(number.ToString());
 
-        if (progressData != null && !progressData.IsOpen)
+        if (galaxy != null && !galaxy.GalaxyData.IsOpen)
         {
-            progressData.Open();
-
-            Debug.Log("Unlock Game:" + number);
-            for (int i = 0; i < galaxyDatas.Count; i++)
-            {
-                Debug.Log($"NumberGame - {galaxyDatas[i].Number}, Unlocked - {galaxyDatas[i].IsOpen}");
-            }
+            galaxy.GalaxyData.IsOpen = true;
 
             OnOpenGalaxy?.Invoke(number);
 
-            return;
+            SelectGalaxy(number);
         }
     }
 
@@ -109,8 +103,6 @@ public class GalaxyModel
     {
         if (currentGalaxy != null)
         {
-            if(currentGalaxy.GalaxyData.Number == number) return;
-
             if (currentGalaxy.GalaxyData.IsOpen)
             {
                 OnDeselectOpenGalaxy_Value?.Invoke(currentGalaxy);
