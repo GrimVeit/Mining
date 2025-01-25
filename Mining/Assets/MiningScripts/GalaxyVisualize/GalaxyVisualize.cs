@@ -11,7 +11,6 @@ public class GalaxyVisualize : MonoBehaviour, IPointerClickHandler
 
     public event Action<int> OnChooseGalaxy;
 
-    [SerializeField] private GameObject objectLock;
     [SerializeField] private LockObject lockObject;
     [SerializeField] private Image imageGalaxy;
     [SerializeField] private Sprite spriteLockGalaxy;
@@ -32,7 +31,6 @@ public class GalaxyVisualize : MonoBehaviour, IPointerClickHandler
 
     public void Lock()
     {
-        objectLock.SetActive(true);
         imageGalaxy.sprite = spriteLockGalaxy;
 
         lockObject.ShowLock();
@@ -40,7 +38,6 @@ public class GalaxyVisualize : MonoBehaviour, IPointerClickHandler
 
     public void Unlock()
     {
-        objectLock.SetActive(false);
         imageGalaxy.sprite = spriteUnlockGalaxy;
 
         lockObject.Hide();
@@ -48,7 +45,6 @@ public class GalaxyVisualize : MonoBehaviour, IPointerClickHandler
 
     public void LockSelect()
     {
-        objectLock.SetActive(true);
         imageGalaxy.sprite = spriteSelectGalaxy;
 
         lockObject.ShowSelectLock();
@@ -56,6 +52,8 @@ public class GalaxyVisualize : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log(id);
+
         OnChooseGalaxy?.Invoke(id);
     }
 }

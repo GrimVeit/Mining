@@ -37,19 +37,19 @@ public class Main_MenuScene : IGlobalState
 
         shopPackPresenter.OnBuyRandomSpin += ChangeStateToStartPackSpin;
 
-        sceneRoot.OpenShopPanel();
+        //sceneRoot.OpenShopPanel();
     }
 
     private void ActivateTransitions()
     {
-        sceneRoot.OnClickCollectionsButton += ChangeStateToReadBook;
-        sceneRoot.OnClickBackButtonFromShopPanel += ChangeStateToHello;
+        //sceneRoot.OnClickCollectionsButton += ChangeStateToReadBook;
+        //sceneRoot.OnClickBackButtonFromShopPanel += ChangeStateToHello;
     }
 
     private void DeactivateTransitions()
     {
-        sceneRoot.OnClickCollectionsButton -= ChangeStateToReadBook;
-        sceneRoot.OnClickBackButtonFromShopPanel -= ChangeStateToHello;
+        //sceneRoot.OnClickCollectionsButton -= ChangeStateToReadBook;
+        //sceneRoot.OnClickBackButtonFromShopPanel -= ChangeStateToHello;
     }
 
     public void ExitState()

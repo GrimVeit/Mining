@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GalaxyInfoView : MonoBehaviour
+public class GalaxyInfoView : View
 {
     [SerializeField] private Transform transformContentNamePlanets;
     [SerializeField] private Transform transformContentNameResources;
@@ -12,15 +12,15 @@ public class GalaxyInfoView : MonoBehaviour
 
     public void SetGalaxyInfo(Galaxy galaxy)
     {
-       
-        while(transformContentNamePlanets.childCount > 0)
+
+        for (int i = 0; i < transformContentNamePlanets.childCount; i++)
         {
-            Destroy(transformContentNamePlanets.GetChild(0).gameObject);
+            Destroy(transformContentNamePlanets.GetChild(i).gameObject);
         }
 
-        while (transformContentNameResources.childCount > 0)
+        for (int i = 0; i < transformContentNameResources.childCount; i++)
         {
-            Destroy(transformContentNameResources.GetChild(0).gameObject);
+            Destroy(transformContentNameResources.GetChild(i).gameObject);
         }
 
         for (int i = 0; i < galaxy.planets.planets.Count; i++)

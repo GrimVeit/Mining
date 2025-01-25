@@ -4,7 +4,7 @@ using UnityEngine;
 public class MainMenuEntryPoint : MonoBehaviour
 {
     [SerializeField] private Sounds sounds;
-    [SerializeField] private Cards cards;
+    [SerializeField] private Galaxys galaxys;
     [SerializeField] private UIMainMenuRoot menuRootPrefab;
 
     private UIMainMenuRoot sceneRoot;
@@ -14,27 +14,9 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ParticleEffectPresenter particleEffectPresenter;
     private SoundPresenter soundPresenter;
 
-    private ShopPackPresenter shopPackPresenter;
-    private ShopItemSelectPresenter shopItemSelectPresenter;
-
-    private UnpackerPackPresenter unpackerPackPresenter;
-    private UnpackerCardsPresenter unpackerCardsPresenter;
-    private AddCardCollectionPresenter addCardCollectionPresenter;
-
-    private CardCollectionPresenter cardCollectionPresenter;
-
-    private BookPagesPresenter bookPagesPresenter;
-
-    private SwipeClickAnimationPresenter swipeAnimationPresenter;
-    private SwipeClickDescriptionPresenter swipeClickDescriptionPresenter;
-    private SwipePresenter swipePresenter;
-    private ClickPresenter clickPresenter;
-
-    private CardTypeCollectionPresenter cardTypeCollectionPresenter;
-
-    private PackSpinPresenter packSpinPresenter;
-
-    private MenuGlobalStateMachine menuGlobalStateMachine;
+    private GalaxyPresenter galaxyPresenter;
+    private GalaxyInfoPresenter galaxyInfoPresenter;
+    private GalaxyVisualizePresenter galaxyVisualizePresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -55,101 +37,69 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
 
-        bookPagesPresenter = new BookPagesPresenter(new BookPagesModel(soundPresenter), viewContainer.GetView<BookPagesView>());
+        galaxyPresenter = new GalaxyPresenter(new GalaxyModel(galaxys));
 
-        cardCollectionPresenter = new CardCollectionPresenter(new CardCollectionModel(cards), viewContainer.GetView<CardCollectionView>());
+        galaxyInfoPresenter = new GalaxyInfoPresenter(new GalaxyInfoModel(), viewContainer.GetView<GalaxyInfoView>());
 
-        unpackerPackPresenter = new UnpackerPackPresenter(new UnpackerPackModel(), viewContainer.GetView<UnpackerPackView>());
-
-        unpackerCardsPresenter = new UnpackerCardsPresenter(new UnpackerCardsModel(cards, cardCollectionPresenter, soundPresenter, particleEffectPresenter), viewContainer.GetView<UnpackerCardsView>());
-
-        addCardCollectionPresenter = new AddCardCollectionPresenter(new AddCardCollectionModel(soundPresenter), viewContainer.GetView<AddCardCollectionView>());
-
-        shopPackPresenter = new ShopPackPresenter(new ShopPackModel(bankPresenter, 20), viewContainer.GetView<ShopPackView>());
-
-        shopItemSelectPresenter = new ShopItemSelectPresenter(new ShopItemSelectModel(soundPresenter), viewContainer.GetView<ShopItemSelectView>());
-
-        packSpinPresenter = new PackSpinPresenter(new PackSpinModel(soundPresenter, particleEffectPresenter), viewContainer.GetView<PackSpinView>());
-
-        swipeAnimationPresenter = new SwipeClickAnimationPresenter(new SwipeClickAnimationModel(), viewContainer.GetView<SwipeClickAnimationView>());
-
-        swipeClickDescriptionPresenter = new SwipeClickDescriptionPresenter(new SwipeClickDescriptionModel(), viewContainer.GetView<SwipeClickDescriptionView>());
-
-        clickPresenter = new ClickPresenter(new ClickModel(), viewContainer.GetView<ClickView>());
-
-        cardTypeCollectionPresenter = new CardTypeCollectionPresenter(new CardTypeCollectionModel(), viewContainer.GetView<CardTypeCollectionView>());
-
-        swipePresenter = new SwipePresenter(new SwipeModel(), viewContainer.GetView<SwipeView>());
-
-        menuGlobalStateMachine = new MenuGlobalStateMachine(
-            sceneRoot, 
-            shopPackPresenter, 
-            shopItemSelectPresenter,
-            unpackerPackPresenter, 
-            unpackerCardsPresenter,
-            bookPagesPresenter,
-            packSpinPresenter,
-            addCardCollectionPresenter,
-            cardCollectionPresenter,
-            swipeAnimationPresenter,
-            swipePresenter,
-            clickPresenter,
-            swipeClickDescriptionPresenter,
-            soundPresenter,
-            particleEffectPresenter);
+        galaxyVisualizePresenter = new GalaxyVisualizePresenter(new GalaxyVisualizeModel(), viewContainer.GetView<GalaxyVisualizeView>());
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
 
         ActivateEvents();
 
-
         soundPresenter.Initialize();
         particleEffectPresenter.Initialize();
         sceneRoot.Initialize();
         bankPresenter.Initialize();
 
-        cardTypeCollectionPresenter.Initialize();
-        cardCollectionPresenter.Initialize();
-        bookPagesPresenter.Initialize();
-        unpackerPackPresenter.Initialize();
-        unpackerCardsPresenter.Initialize();
-        packSpinPresenter.Initialize();
-        shopPackPresenter.Initialize();
-        shopItemSelectPresenter.Initialize();
-        addCardCollectionPresenter.Initialize();
-        swipeAnimationPresenter.Initialize();
-        swipeClickDescriptionPresenter.Initialize();
-        swipePresenter.Initialize();
-        clickPresenter.Initialize();
-
-        menuGlobalStateMachine.Initialize();
+        galaxyInfoPresenter.Initialize();
+        galaxyVisualizePresenter.Initialize();
+        galaxyPresenter.Initialize();
     }
 
     private void ActivateEvents()
     {
         ActivateTransitionsSceneEvents();
 
-        cardCollectionPresenter.OnOpenCard += cardTypeCollectionPresenter.AddCardType;
-        bookPagesPresenter.OnChoosePage_Second += cardTypeCollectionPresenter.OpenDisplay;
+        galaxyVisualizePresenter.OnChooseGalaxy += galaxyPresenter.SelectGalaxy;
+
+        galaxyPresenter.OnOpenGalaxy += galaxyVisualizePresenter.Unlock;
+        galaxyPresenter.OnCloseGalaxy += galaxyVisualizePresenter.Lock;
+
+        galaxyPresenter.OnSelectOpenGalaxy_Value += galaxyVisualizePresenter.Unlock;
+        galaxyPresenter.OnSelectCloseGalaxy_Value += galaxyVisualizePresenter.UnlockSelect;
+        galaxyPresenter.OnDeselectCloseGalaxy_Value += galaxyVisualizePresenter.Lock;
+        galaxyPresenter.OnDeselectOpenGalaxy_Value += galaxyVisualizePresenter.Unlock;
+
+        galaxyPresenter.OnSelectGalaxy += galaxyInfoPresenter.SetGalaxy;
     }
 
     private void DeactivateEvents()
     {
         DeactivateTransitionsSceneEvents();
 
-        cardCollectionPresenter.OnOpenCard -= cardTypeCollectionPresenter.AddCardType;
-        bookPagesPresenter.OnChoosePage_Second -= cardTypeCollectionPresenter.OpenDisplay;
+        galaxyVisualizePresenter.OnChooseGalaxy -= galaxyPresenter.SelectGalaxy;
+
+        galaxyPresenter.OnOpenGalaxy -= galaxyVisualizePresenter.Unlock;
+        galaxyPresenter.OnCloseGalaxy -= galaxyVisualizePresenter.Lock;
+
+        galaxyPresenter.OnSelectOpenGalaxy_Value -= galaxyVisualizePresenter.Unlock;
+        galaxyPresenter.OnSelectCloseGalaxy_Value -= galaxyVisualizePresenter.UnlockSelect;
+        galaxyPresenter.OnDeselectCloseGalaxy_Value -= galaxyVisualizePresenter.Lock;
+        galaxyPresenter.OnDeselectOpenGalaxy_Value -= galaxyVisualizePresenter.Unlock;
+
+        galaxyPresenter.OnSelectGalaxy -= galaxyInfoPresenter.SetGalaxy;
     }
 
     private void ActivateTransitionsSceneEvents()
     {
-        sceneRoot.OnGoToGame += HandleGoToGame;
+        sceneRoot.OnGoToMain += sceneRoot.OpenMainPanel;
     }
 
     private void DeactivateTransitionsSceneEvents()
     {
-        sceneRoot.OnGoToGame -= HandleGoToGame;
+        sceneRoot.OnGoToMain -= sceneRoot.OpenMainPanel;
     }
 
     private void Deactivate()
@@ -166,18 +116,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot?.Dispose();
         particleEffectPresenter?.Dispose();
         bankPresenter?.Dispose();
-        bookPagesPresenter?.Dispose();
-        shopItemSelectPresenter?.Dispose();
-        shopPackPresenter?.Dispose();
-        cardCollectionPresenter?.Dispose();
-        packSpinPresenter?.Dispose();
-        unpackerPackPresenter?.Dispose();
-        swipeAnimationPresenter?.Dispose();
-        swipePresenter?.Dispose();
-        clickPresenter?.Dispose();
-        swipeClickDescriptionPresenter?.Dispose();
-        cardTypeCollectionPresenter?.Dispose();
-        menuGlobalStateMachine?.Dispose();
+
+        galaxyInfoPresenter.Dispose();
+        galaxyVisualizePresenter.Dispose();
+        galaxyPresenter.Dispose();
     }
 
     private void OnDestroy()

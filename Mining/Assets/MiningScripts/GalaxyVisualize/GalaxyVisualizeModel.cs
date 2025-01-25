@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GalaxyVisualizeModel : MonoBehaviour
+public class GalaxyVisualizeModel
 {
     public event Action<int> OnLock;
     public event Action<int> OnUnlock;

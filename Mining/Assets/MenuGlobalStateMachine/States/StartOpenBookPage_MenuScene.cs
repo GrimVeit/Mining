@@ -27,7 +27,7 @@ public class StartOpenBookPage_MenuScene : IGlobalState
 
         if (addCardCollectionPresenter.CurrentAddCard != null)
         {
-            sceneRoot.OpenCollectionPanel();
+            //sceneRoot.OpenCollectionPanel();
             ChangeStateToOpenBookPage();
         }
         else

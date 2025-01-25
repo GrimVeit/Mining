@@ -44,7 +44,7 @@ public class PackSpin_MenuScene : IGlobalState
 
         shopItemSelectPresenter.OnEndSelect += ChangeStateToStartOpenPack;
 
-        sceneRoot.OpenSpinPackPanel();
+        //sceneRoot.OpenSpinPackPanel();
         packSpinPresenter.Spin();
     }
 

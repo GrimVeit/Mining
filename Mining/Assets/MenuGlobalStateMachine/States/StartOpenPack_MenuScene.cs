@@ -31,7 +31,7 @@ public class StartOpenPack_MenuScene : IGlobalState
 
         unpackerPackPresenter.OnOpenPack += ChangeStateToOpenPack;
         
-        sceneRoot.OpenPackPanel();
+        //sceneRoot.OpenPackPanel();
         shopItemSelectPresenter.Unselect();
         unpackerPackPresenter.MovePackToOpen();
         //soundProvider.PlayOneShot("NewPack");

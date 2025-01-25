@@ -12,6 +12,8 @@ public class GalaxyModel
     public event Action<Galaxy> OnDeselectOpenGalaxy_Value;
     public event Action<Galaxy> OnDeselectCloseGalaxy_Value;
 
+    public event Action<Galaxy> OnSelectGalaxy;
+
 
     public event Action<int> OnOpenGalaxy;
     public event Action<int> OnCloseGalaxy;
@@ -46,7 +48,7 @@ public class GalaxyModel
         {
             galaxyDatas = new List<GalaxyData>();
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (i == 0)
                 {
@@ -59,16 +61,22 @@ public class GalaxyModel
             }
         }
 
+        for (int i = 0; i < galaxies.Galaxies.Count; i++)
+        {
+            galaxies.Galaxies[i].SetData(galaxyDatas[i]);
+        }
+
 
         for (int i = 0; i < galaxyDatas.Count; i++)
         {
             if (galaxyDatas[i].IsOpen)
                 OnOpenGalaxy?.Invoke(galaxyDatas[i].Number);
+
+            if (!galaxyDatas[i].IsOpen)
+                OnCloseGalaxy?.Invoke(galaxyDatas[i].Number);
         }
 
-
-        currentGalaxy = galaxies.GetGalaxyByID(GetSelectProgressData());
-        OnSelectOpenGalaxy_Value?.Invoke(currentGalaxy);
+        SelectGalaxy(GetSelectGalaxy());
     }
 
     public void Dispose()
@@ -97,51 +105,55 @@ public class GalaxyModel
         }
     }
 
-    public void SelectGame(int number)
+    public void SelectGalaxy(int number)
     {
-        if(currentGalaxyData != null)
+        if (currentGalaxy != null)
         {
-            var galaxy = galaxies.GetGalaxyByID(currentGalaxyData.Number.ToString());
+            if(currentGalaxy.GalaxyData.Number == number) return;
 
-            currentGalaxyData.IsSelect = false;
-
-            if (currentGalaxyData.IsOpen)
+            if (currentGalaxy.GalaxyData.IsOpen)
             {
-                OnDeselectOpenGalaxy_Value?.Invoke(galaxy);
+                OnDeselectOpenGalaxy_Value?.Invoke(currentGalaxy);
+
+                Debug.Log($"Deselect открытой галактики под номером {currentGalaxy.GalaxyData.Number}");
             }
             else
             {
-                OnDeselectCloseGalaxy_Value?.Invoke(galaxy);
+                OnDeselectCloseGalaxy_Value?.Invoke(currentGalaxy);
+
+                Debug.Log($"Deselect закрытой галактики под номером {currentGalaxy.GalaxyData.Number}");
             }
+
+            currentGalaxy.GalaxyData.IsSelect = false;
         }
 
-        currentGalaxyData = galaxyDatas.FirstOrDefault(gd => gd.Number == number);
+        currentGalaxy = galaxies.GetGalaxyByID(number.ToString());
 
-        if (currentGalaxyData != null)
+        if (currentGalaxy != null)
         {
-            currentGalaxyData.IsSelect = true;
-
-            if (currentGalaxyData.IsOpen)
+            if (currentGalaxy.GalaxyData.IsOpen)
             {
-                OnSelectOpenGalaxy_Value?.Invoke(galaxies.GetGalaxyByID(currentGalaxyData.Number.ToString()));
+                OnSelectOpenGalaxy_Value?.Invoke(currentGalaxy);
+
+                Debug.Log($"Select открытой галактики под номером {currentGalaxy.GalaxyData.Number}");
             }
             else
             {
-                OnSelectCloseGalaxy_Value?.Invoke(galaxies.GetGalaxyByID(currentGalaxyData.Number.ToString()));
+                OnSelectCloseGalaxy_Value?.Invoke(currentGalaxy);
+
+                Debug.Log($"Select закрытой галактики под номером {currentGalaxy.GalaxyData.Number}");
             }
+
+            currentGalaxy.GalaxyData.IsSelect = true;
+
+            OnSelectGalaxy?.Invoke(currentGalaxy);
         }
     }
 
 
-    public bool IsOpenTypeGame(int id)
+    private int GetSelectGalaxy()
     {
-        return galaxyDatas.FirstOrDefault(data => data.Number == id).IsOpen;
-    }
-
-
-    private string GetSelectProgressData()
-    {
-        return galaxyDatas.FirstOrDefault(data => data.IsSelect).Number.ToString();
+        return galaxyDatas.FirstOrDefault(data => data.IsSelect).Number;
     }
 }
 

@@ -16,14 +16,14 @@ public class Hello_MenuScene : IGlobalState
 
     public void EnterState()
     {
-        sceneRoot.OnGoToShop += ChangeStateToMain;
+        //sceneRoot.OnGoToShop += ChangeStateToMain;
 
         sceneRoot.OpenMainPanel();
     }
 
     public void ExitState()
     {
-        sceneRoot.OnGoToShop -= ChangeStateToMain;
+        //sceneRoot.OnGoToShop -= ChangeStateToMain;
     }
 
     private void ChangeStateToMain()
