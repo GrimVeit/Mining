@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779715a7cc614ae498fc07aa9146814e, type: 3}
+  m_Name: Planets_5
+  m_EditorClassIdentifier: 
+  planets:
+  - {fileID: 11400000, guid: 1734936211b279045aefa81fe6265147, type: 2}
+  - {fileID: 11400000, guid: d935c55e90af9e24594341ba87f53fca, type: 2}
+  - {fileID: 11400000, guid: edc3a09580aa29e489efa1b6a01340c7, type: 2}
