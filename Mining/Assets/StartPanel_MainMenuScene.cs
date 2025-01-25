@@ -1,12 +1,14 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainPanel_MainMenuScene : MovePanel
+public class StartPanel_MainMenuScene : MovePanel
 {
     [SerializeField] private Button play_Button;
 
-    public event Action OnGoToShop;
+    public event Action OnGoToMain;
 
     private ISoundProvider soundProvider;
 
@@ -19,19 +21,19 @@ public class MainPanel_MainMenuScene : MovePanel
     {
         base.ActivatePanel();
 
-        play_Button.onClick.AddListener(HandleGoToChooseGamePanel);
+        play_Button.onClick.AddListener(HandleGoToMainPanel);
     }
 
     public override void DeactivatePanel()
     {
         base.DeactivatePanel();
 
-        play_Button.onClick.RemoveListener(HandleGoToChooseGamePanel);
+        play_Button.onClick.RemoveListener(HandleGoToMainPanel);
     }
 
-    private void HandleGoToChooseGamePanel()
+    private void HandleGoToMainPanel()
     {
-        soundProvider.PlayOneShot("Button_Click");
-        OnGoToShop?.Invoke();
+        //soundProvider.PlayOneShot("Button_Click");
+        OnGoToMain?.Invoke();
     }
 }

@@ -5,12 +5,10 @@ using UnityEngine;
 public class GalaxyPresenter
 {
     private GalaxyModel model;
-    private GalaxyView view;
 
-    public GalaxyPresenter(GalaxyModel model, GalaxyView view)
+    public GalaxyPresenter(GalaxyModel model)
     {
         this.model = model;
-        this.view = view;
     }
 
     public void Initialize()

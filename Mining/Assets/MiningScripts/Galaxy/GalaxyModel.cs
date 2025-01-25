@@ -7,16 +7,22 @@ using UnityEngine;
 
 public class GalaxyModel
 {
-    public event Action<Galaxy> OnChooseOpenGalaxy_Value;
-    public event Action<Galaxy> OnChooseCloseGalaxy_Value;
-    public event Action<int> OnOpenGameType;
-    public event Action OnChooseGameType;
+    public event Action<Galaxy> OnSelectOpenGalaxy_Value;
+    public event Action<Galaxy> OnSelectCloseGalaxy_Value;
+    public event Action<Galaxy> OnDeselectOpenGalaxy_Value;
+    public event Action<Galaxy> OnDeselectCloseGalaxy_Value;
+
+
+    public event Action<int> OnOpenGalaxy;
+    public event Action<int> OnCloseGalaxy;
 
 
     private Galaxys galaxies;
 
     private Galaxy currentGalaxy;
-    private List<GalaxyData> progressDatas = new List<GalaxyData>();
+    private GalaxyData currentGalaxyData;
+
+    private List<GalaxyData> galaxyDatas = new List<GalaxyData>();
 
     public readonly string FilePath = Path.Combine(Application.persistentDataPath, "Progress.json");
 
@@ -34,59 +40,58 @@ public class GalaxyModel
 
             Debug.Log("Success");
 
-            this.progressDatas = progressDatas.Datas.ToList();
+            this.galaxyDatas = progressDatas.Datas.ToList();
         }
         else
         {
-            progressDatas = new List<GalaxyData>();
+            galaxyDatas = new List<GalaxyData>();
 
             for (int i = 0; i < 7; i++)
             {
                 if (i == 0)
                 {
-                    progressDatas.Add(new GalaxyData(i, true, true));
+                    galaxyDatas.Add(new GalaxyData(i, true, true));
                 }
                 else
                 {
-                    progressDatas.Add(new GalaxyData(i, false, false));
+                    galaxyDatas.Add(new GalaxyData(i, false, false));
                 }
             }
         }
 
 
-        for (int i = 0; i < progressDatas.Count; i++)
+        for (int i = 0; i < galaxyDatas.Count; i++)
         {
-            if (progressDatas[i].IsOpen)
-                OnOpenGameType?.Invoke(progressDatas[i].Number);
+            if (galaxyDatas[i].IsOpen)
+                OnOpenGalaxy?.Invoke(galaxyDatas[i].Number);
         }
 
 
         currentGalaxy = galaxies.GetGalaxyByID(GetSelectProgressData());
-        OnChooseOpenGalaxy_Value?.Invoke(currentGalaxy);
-        OnChooseGameType?.Invoke();
+        OnSelectOpenGalaxy_Value?.Invoke(currentGalaxy);
     }
 
     public void Dispose()
     {
-        string json = JsonUtility.ToJson(new GalaxyDatas(progressDatas.ToArray()));
+        string json = JsonUtility.ToJson(new GalaxyDatas(galaxyDatas.ToArray()));
         File.WriteAllText(FilePath, json);
     }
 
     public void UnlockGame(int number)
     {
-        var progressData = progressDatas.FirstOrDefault(gd => gd.Number == number);
+        var progressData = galaxyDatas.FirstOrDefault(gd => gd.Number == number);
 
         if (progressData != null && !progressData.IsOpen)
         {
             progressData.Open();
 
             Debug.Log("Unlock Game:" + number);
-            for (int i = 0; i < progressDatas.Count; i++)
+            for (int i = 0; i < galaxyDatas.Count; i++)
             {
-                Debug.Log($"NumberGame - {progressDatas[i].Number}, Unlocked - {progressDatas[i].IsOpen}");
+                Debug.Log($"NumberGame - {galaxyDatas[i].Number}, Unlocked - {galaxyDatas[i].IsOpen}");
             }
 
-            OnOpenGameType?.Invoke(number);
+            OnOpenGalaxy?.Invoke(number);
 
             return;
         }
@@ -94,23 +99,35 @@ public class GalaxyModel
 
     public void SelectGame(int number)
     {
-        var currentSelectGame = progressDatas.FirstOrDefault(data => data.IsSelect);
-        currentSelectGame.IsSelect = false;
-
-        var progressData = progressDatas.FirstOrDefault(gd => gd.Number == number);
-
-        if (progressData != null && progressData.IsOpen)
+        if(currentGalaxyData != null)
         {
-            if (progressData.IsOpen)
-            {
-                progressData.Select();
+            var galaxy = galaxies.GetGalaxyByID(currentGalaxyData.Number.ToString());
 
-                OnChooseOpenGalaxy_Value?.Invoke(galaxies.GetGalaxyByID(progressData.Number.ToString()));
-                OnChooseGameType?.Invoke();
+            currentGalaxyData.IsSelect = false;
+
+            if (currentGalaxyData.IsOpen)
+            {
+                OnDeselectOpenGalaxy_Value?.Invoke(galaxy);
             }
             else
             {
-                OnChooseCloseGalaxy_Value?.Invoke(galaxies.GetGalaxyByID(progressData.Number.ToString()));
+                OnDeselectCloseGalaxy_Value?.Invoke(galaxy);
+            }
+        }
+
+        currentGalaxyData = galaxyDatas.FirstOrDefault(gd => gd.Number == number);
+
+        if (currentGalaxyData != null)
+        {
+            currentGalaxyData.IsSelect = true;
+
+            if (currentGalaxyData.IsOpen)
+            {
+                OnSelectOpenGalaxy_Value?.Invoke(galaxies.GetGalaxyByID(currentGalaxyData.Number.ToString()));
+            }
+            else
+            {
+                OnSelectCloseGalaxy_Value?.Invoke(galaxies.GetGalaxyByID(currentGalaxyData.Number.ToString()));
             }
         }
     }
@@ -118,13 +135,13 @@ public class GalaxyModel
 
     public bool IsOpenTypeGame(int id)
     {
-        return progressDatas.FirstOrDefault(data => data.Number == id).IsOpen;
+        return galaxyDatas.FirstOrDefault(data => data.Number == id).IsOpen;
     }
 
 
     private string GetSelectProgressData()
     {
-        return progressDatas.FirstOrDefault(data => data.IsSelect).Number.ToString();
+        return galaxyDatas.FirstOrDefault(data => data.IsSelect).Number.ToString();
     }
 }
 
