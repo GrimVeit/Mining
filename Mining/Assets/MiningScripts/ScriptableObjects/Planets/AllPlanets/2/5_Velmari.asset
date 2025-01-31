@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Velmari
   resourceType: 3
   planetType: 2
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: 772ed7970d9cb104b852f23da4c7497c, type: 3}

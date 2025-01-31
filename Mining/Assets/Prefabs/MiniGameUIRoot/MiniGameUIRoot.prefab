@@ -412,7 +412,6 @@ GameObject:
   - component: {fileID: 3703239481277369992}
   - component: {fileID: 183632834563657394}
   - component: {fileID: 771350075330599796}
-  - component: {fileID: 3276832801442805633}
   m_Layer: 5
   m_Name: MiniGameUIRoot
   m_TagString: Untagged
@@ -517,23 +516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1715db47db19243a846b0ed602d194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3276832801442805633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008504652750170357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c59fdd33b541784c8df8f33c772f3f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainPanel: {fileID: 7228538813714472629}
-  headerPanel: {fileID: 6854731144271636583}
-  footerPanel: {fileID: 2697004400685082577}
-  winPanel: {fileID: 7067455535905492516}
-  failPanel: {fileID: 3668496087691131740}
 --- !u!1 &1437112880451619636
 GameObject:
   m_ObjectHideFlags: 0

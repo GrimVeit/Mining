@@ -40,7 +40,7 @@ public class MiniGame_GlobalState : IGlobalState
         eggCatcherPresenter.SetTimerSpawnerData(2, 0.5f, 0.01f, 1);
         eggCatcherPresenter.StartSpawner();
 
-        sceneRoot.OpenHeaderPanel();
+        //sceneRoot.OpenHeaderPanel();
     }
 
     public void ExitState()
@@ -54,8 +54,8 @@ public class MiniGame_GlobalState : IGlobalState
         eggCatcherPresenter.DeactivateSpawner();
         basketPresenter.Stop();
 
-        sceneRoot.CloseHeaderPanel();
-        sceneRoot.CloseFooterPanel();
+        //sceneRoot.CloseHeaderPanel();
+        //sceneRoot.CloseFooterPanel();
     }
 
     private void ChangeStateToWin()

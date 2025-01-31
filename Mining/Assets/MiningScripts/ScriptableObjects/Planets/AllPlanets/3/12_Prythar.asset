@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Prythar
   resourceType: 11
   planetType: 1
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: a3e89061b1e445b43a3197be56da8466, type: 3}

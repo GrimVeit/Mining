@@ -5,16 +5,8 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class GalaxyModel
+public class StoreShipModel : MonoBehaviour
 {
-    public event Action<Galaxy> OnSelectOpenGalaxy_Value;
-    public event Action<Galaxy> OnSelectCloseGalaxy_Value;
-    public event Action<Galaxy> OnDeselectOpenGalaxy_Value;
-    public event Action<Galaxy> OnDeselectCloseGalaxy_Value;
-
-    public event Action<Galaxy> OnSelectGalaxy;
-
-
     public event Action<int> OnOpenGalaxy;
     public event Action<int> OnCloseGalaxy;
 
@@ -28,7 +20,7 @@ public class GalaxyModel
 
     public readonly string FilePath = Path.Combine(Application.persistentDataPath, "Progress.json");
 
-    public GalaxyModel(Galaxys galaxies)
+    public StoreShipModel(Galaxys galaxies)
     {
         this.galaxies = galaxies;
     }
@@ -101,45 +93,7 @@ public class GalaxyModel
 
     public void SelectGalaxy(int number)
     {
-        if (currentGalaxy != null)
-        {
-            if (currentGalaxy.GalaxyData.IsOpen)
-            {
-                OnDeselectOpenGalaxy_Value?.Invoke(currentGalaxy);
 
-                Debug.Log($"Deselect открытой галактики под номером {currentGalaxy.GalaxyData.Number}");
-            }
-            else
-            {
-                OnDeselectCloseGalaxy_Value?.Invoke(currentGalaxy);
-
-                Debug.Log($"Deselect закрытой галактики под номером {currentGalaxy.GalaxyData.Number}");
-            }
-
-            currentGalaxy.GalaxyData.IsSelect = false;
-        }
-
-        currentGalaxy = galaxies.GetGalaxyByID(number.ToString());
-
-        if (currentGalaxy != null)
-        {
-            if (currentGalaxy.GalaxyData.IsOpen)
-            {
-                OnSelectOpenGalaxy_Value?.Invoke(currentGalaxy);
-
-                Debug.Log($"Select открытой галактики под номером {currentGalaxy.GalaxyData.Number}");
-            }
-            else
-            {
-                OnSelectCloseGalaxy_Value?.Invoke(currentGalaxy);
-
-                Debug.Log($"Select закрытой галактики под номером {currentGalaxy.GalaxyData.Number}");
-            }
-
-            currentGalaxy.GalaxyData.IsSelect = true;
-
-            OnSelectGalaxy?.Invoke(currentGalaxy);
-        }
     }
 
 
@@ -149,24 +103,24 @@ public class GalaxyModel
     }
 }
 
-public class GalaxyDatas
+public class ShipDatas
 {
-    public GalaxyData[] Datas;
+    public ShipData[] Datas;
 
-    public GalaxyDatas(GalaxyData[] datas)
+    public ShipDatas(ShipData[] datas)
     {
         Datas = datas;
     }
 }
 
 [Serializable]
-public class GalaxyData
+public class ShipData
 {
     public int Number;
     public bool IsOpen;
     public bool IsSelect;
 
-    public GalaxyData(int number, bool isOpen, bool isSelect)
+    public ShipData(int number, bool isOpen, bool isSelect)
     {
         this.Number = number;
         this.IsOpen = isOpen;

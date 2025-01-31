@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Lomivor
   resourceType: 12
   planetType: 2
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: dbb157bddaa96144993686309805fb5a, type: 3}

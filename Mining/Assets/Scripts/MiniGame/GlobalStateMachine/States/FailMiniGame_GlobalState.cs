@@ -31,10 +31,10 @@ public class FailMiniGame_GlobalState : IGlobalState
     {
         eggCatcherPresenter.OnEggDown_Position += pointAnimationPresenter.PlayAnimation;
 
-        sceneRoot.OpenFailPanel();
+        //sceneRoot.OpenFailPanel();
 
-        sceneRoot.CloseFooterPanel();
-        sceneRoot.CloseHeaderPanel();
+        //sceneRoot.CloseFooterPanel();
+        //sceneRoot.CloseHeaderPanel();
 
         soundBackground.SetVolume(0.4f, 0.1f, 0.1f, EndSound);
     }

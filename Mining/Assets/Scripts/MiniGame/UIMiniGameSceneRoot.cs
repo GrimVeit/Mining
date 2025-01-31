@@ -5,11 +5,7 @@ using UnityEngine;
 
 public class UIMiniGameSceneRoot : MonoBehaviour
 {
-    [SerializeField] private MiniGamePanel_MiniGameScene mainPanel;
-    [SerializeField] private HeaderPanel_MiniGameScene headerPanel;
-    [SerializeField] private FooterPanel_MiniGameScene footerPanel;
-    [SerializeField] private WinPanel_MiniGameScene winPanel;
-    [SerializeField] private FailPanel_MiniGameScene failPanel;
+    [SerializeField] private PlanetInfoPanel planetInfoPanel;
 
     private ISoundProvider soundProvider;
 
@@ -22,99 +18,36 @@ public class UIMiniGameSceneRoot : MonoBehaviour
 
     public void Initialize()
     {
-        headerPanel.SetSoundProvider(soundProvider);
-        winPanel.SetSoundProvider(soundProvider);
-        failPanel.SetSoundProvider(soundProvider);
-
-        mainPanel.Initialize();
-        headerPanel.Initialize();
-        footerPanel.Initialize();
-        winPanel.Initialize();
-        failPanel.Initialize();
+        planetInfoPanel.Initialize();
     }
 
     public void Dispose()
     {
-        mainPanel.Dispose();
-        headerPanel.Dispose();
-        footerPanel.Dispose();
-        winPanel.Dispose();
-        failPanel.Dispose();
+        planetInfoPanel.Dispose();
     }
 
     public void Activate()
     {
-        headerPanel.OnGoToMainMenu += GoToMainMenu;
-        winPanel.OnClickToButtonExit += GoToMainMenu;
-        failPanel.OnClickToButtonExit += GoToMainMenu;
-        winPanel.OnClickToButtonRestart += GoToRestart;
-        failPanel.OnClickToButtonRestart += GoToRestart;
+
     }
 
     public void Deactivate()
     {
-        headerPanel.OnGoToMainMenu -= GoToMainMenu;
-        winPanel.OnClickToButtonExit -= GoToMainMenu;
-        failPanel.OnClickToButtonExit -= GoToMainMenu;
-        winPanel.OnClickToButtonRestart -= GoToRestart;
-        failPanel.OnClickToButtonRestart -= GoToRestart;
 
         CloseOtherPanel(currentPanel);
     }
 
 
 
-    public void OpenMainPanel()
+
+    public void OpenPlanetInfoPanel()
     {
-        OpenPanel(mainPanel);
+        OpenOtherPanel(planetInfoPanel);
     }
 
-
-
-    public void OpenWinPanel()
+    public void ClosePlanetInfoPanel()
     {
-        OpenOtherPanel(winPanel);
-    }
-
-    public void CloseWinPanel()
-    {
-        CloseOtherPanel(winPanel);
-    }
-
-
-
-    public void OpenFailPanel()
-    {
-        OpenOtherPanel(failPanel);
-    }
-
-    public void CloseFailPanel()
-    {
-        CloseOtherPanel(failPanel);
-    }
-
-
-
-    public void OpenFooterPanel()
-    {
-        OpenOtherPanel(footerPanel);
-    }
-
-    public void CloseFooterPanel()
-    {
-        CloseOtherPanel(footerPanel);
-    }
-
-
-
-    public void OpenHeaderPanel()
-    {
-        OpenOtherPanel(headerPanel);
-    }
-
-    public void CloseHeaderPanel()
-    {
-        CloseOtherPanel(headerPanel);
+        CloseOtherPanel(planetInfoPanel);
     }
 
 
@@ -139,21 +72,12 @@ public class UIMiniGameSceneRoot : MonoBehaviour
         panel.DeactivatePanel();
     }
 
-
-
     #region Input
 
-    public event Action OnGoToMainMenu;
-    public event Action OnGoToRestart;
-
-    private void GoToMainMenu()
+    public event Action OnClickToClose_InfoPlanet
     {
-        OnGoToMainMenu?.Invoke();
-    }
-
-    private void GoToRestart()
-    {
-        OnGoToRestart?.Invoke();
+        add { planetInfoPanel.OnClickToClosePanel += value; }
+        remove { planetInfoPanel.OnClickToClosePanel -= value; }
     }
 
     #endregion

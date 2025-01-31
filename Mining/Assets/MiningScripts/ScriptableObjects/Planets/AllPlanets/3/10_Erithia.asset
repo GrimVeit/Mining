@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Erithia
   resourceType: 3
   planetType: 2
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: 30dd770e0685c4241a7e0dec371846d8, type: 3}

@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Myolentis
   resourceType: 8
   planetType: 1
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: 8ae057866361ed648930ecd78bdda7e7, type: 3}

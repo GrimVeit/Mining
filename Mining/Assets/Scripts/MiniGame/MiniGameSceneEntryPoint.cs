@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MiniGameSceneEntryPoint : MonoBehaviour
 {
+    [SerializeField] private Galaxys galaxies;
     [SerializeField] private Sounds sounds;
     [SerializeField] private UIMiniGameSceneRoot sceneRootPrefab;
 
@@ -13,19 +14,16 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
     private ParticleEffectPresenter particleEffectPresenter;
     private BankPresenter bankPresenter;
 
-    private BasketPresenter basketPresenter;
-    private EggCatcherPresenter eggCatcherPresenter;
-    private ScorePresenter scorePresenter;
-    private PointAnimationPresenter pointAnimationPresenter;
-    private TimerPresenter timerPresenter;
+    private StoreGalaxyPresenter storeGalaxyPresenter;
+    private StorePlanetPresenter storePlanetPresenter;
+    private PlanetInteractivePresenter planetInteractivePresenter;
+    private PlanetInfoPresenter planetInfoPresenter;
 
-    private MiniGameGlobalStateMachine globalStateMachine;
-
-    public void Run(UIRootView uIRootView)
+    private void Awake()
     {
-        sceneRoot = Instantiate(sceneRootPrefab);
+        sceneRoot = sceneRootPrefab;
         sceneRoot.Activate();
-        uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
+        //uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
 
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
         viewContainer.Initialize();
@@ -42,48 +40,54 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
         bankPresenter.Initialize();
 
-        basketPresenter = new BasketPresenter(new BasketModel(3, 1, soundPresenter), viewContainer.GetView<BasketView_LeftRightControl>());
-        basketPresenter.Initialize();
+        storeGalaxyPresenter = new StoreGalaxyPresenter(new StoreGalaxyModel(galaxies));
 
-        eggCatcherPresenter = new EggCatcherPresenter(new EggCatcherModel(4f, 2f, 0.001f, soundPresenter, particleEffectPresenter), viewContainer.GetView<EggCatcherView>());
-        eggCatcherPresenter.Initialize();
+        storePlanetPresenter = new StorePlanetPresenter(new StorePlanetModel());
 
-        scorePresenter = new ScorePresenter(new ScoreModel(bankPresenter, soundPresenter), viewContainer.GetView<ScoreView>());
-        scorePresenter.Initialize();
+        planetInfoPresenter = new PlanetInfoPresenter(new PlanetInfoModel(), viewContainer.GetView<PlanetInfoView>());
 
-        pointAnimationPresenter = new PointAnimationPresenter
-            (new PointAnimationModel(), 
-            viewContainer.GetView<PointAnimationView_BabyChicken>(), 
-            soundPresenter);
-        pointAnimationPresenter.Initialize();
-
-        timerPresenter = new TimerPresenter(new TimerModel(), viewContainer.GetView<TimerView>());
-        timerPresenter.Initialize();
-
-        globalStateMachine = new MiniGameGlobalStateMachine
-            (sceneRoot, 
-            basketPresenter, 
-            eggCatcherPresenter, 
-            scorePresenter, 
-            pointAnimationPresenter, 
-            timerPresenter,
-            soundPresenter,
-            particleEffectPresenter);
-        globalStateMachine.Initialize();
+        planetInteractivePresenter = new PlanetInteractivePresenter(new PlanetInteractiveModel(), viewContainer.GetView<PlanetInteractiveView>());
 
         ActivateEvents();
+
+        planetInteractivePresenter.Initialize();
+        planetInfoPresenter.Initialize();
+        storePlanetPresenter.Initialize();
+        storeGalaxyPresenter.Initialize();
     }
 
     private void ActivateEvents()
     {
-        sceneRoot.OnGoToMainMenu += HandleGoToMainMenu;
-        sceneRoot.OnGoToRestart += HandleGoToRestart;
+        storeGalaxyPresenter.OnSelectGalaxy += storePlanetPresenter.SetGalaxy;
+        storePlanetPresenter.OnSetPlanets += planetInteractivePresenter.SetPlanets;
+
+        planetInteractivePresenter.OnChoosePlanet += storePlanetPresenter.SelectPlanet;
+        storePlanetPresenter.OnSelectPlanet_Value += planetInfoPresenter.SetPlanet;
+
+        ActivateTransitionEvents();
     }
 
     private void DeactivateEvents()
     {
-        sceneRoot.OnGoToMainMenu -= HandleGoToMainMenu;
-        sceneRoot.OnGoToRestart -= HandleGoToRestart;
+        storeGalaxyPresenter.OnSelectGalaxy -= storePlanetPresenter.SetGalaxy;
+        storePlanetPresenter.OnSetPlanets -= planetInteractivePresenter.SetPlanets;
+
+        planetInteractivePresenter.OnChoosePlanet -= storePlanetPresenter.SelectPlanet;
+        storePlanetPresenter.OnSelectPlanet_Value -= planetInfoPresenter.SetPlanet;
+
+        DeactivateTransitionEvents();
+    }
+
+    private void ActivateTransitionEvents()
+    {
+        storePlanetPresenter.OnSelectPlanet += sceneRoot.OpenPlanetInfoPanel;
+        sceneRoot.OnClickToClose_InfoPlanet += sceneRoot.ClosePlanetInfoPanel;
+    }
+
+    private void DeactivateTransitionEvents()
+    {
+        storePlanetPresenter.OnSelectPlanet -= sceneRoot.OpenPlanetInfoPanel;
+        sceneRoot.OnClickToClose_InfoPlanet -= sceneRoot.ClosePlanetInfoPanel;
     }
 
     public void Dispose()
@@ -93,15 +97,6 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         sceneRoot?.Dispose();
         soundPresenter?.Dispose();
         bankPresenter?.Dispose();
-        basketPresenter?.Dispose();
-        eggCatcherPresenter?.Dispose();
-        particleEffectPresenter?.Dispose();
-        eggCatcherPresenter?.Dispose();
-        scorePresenter?.Dispose();
-        pointAnimationPresenter?.Dispose();
-        timerPresenter?.Dispose();
-
-        globalStateMachine?.Dispose();
     }
 
     #region Input
@@ -117,22 +112,9 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private void HandleGoToMainMenu()
     {
-        eggCatcherPresenter.DeactivateSpawner();
         sceneRoot.Deactivate();
-        sceneRoot.CloseWinPanel();
-        sceneRoot.CloseFailPanel();
         soundPresenter.Dispose();
         OnGoToMainMenu?.Invoke();
-    }
-
-    private void HandleGoToRestart()
-    {
-        eggCatcherPresenter.DeactivateSpawner();
-        sceneRoot.Deactivate();
-        sceneRoot.CloseWinPanel();
-        sceneRoot.CloseFailPanel();
-        soundPresenter.Dispose();
-        OnGoToRestart?.Invoke();
     }
 
     #endregion

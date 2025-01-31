@@ -34,10 +34,10 @@ public class WinMiniGame_GlobalState : IGlobalState
     {
         eggCatcherPresenter.OnEggDown_Position += pointAnimationPresenter.PlayAnimation;
 
-        sceneRoot.OpenWinPanel();
+        //sceneRoot.OpenWinPanel();
 
-        sceneRoot.CloseFooterPanel();
-        sceneRoot.CloseHeaderPanel();
+        //sceneRoot.CloseFooterPanel();
+        //sceneRoot.CloseHeaderPanel();
 
         soundBackground.SetVolume(0.4f, 0.1f, 0.1f, EndSound);
         particleEffectProvider.Play("GameWin");

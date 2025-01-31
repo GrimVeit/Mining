@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Tharvok
   resourceType: 2
   planetType: 0
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: 59322d6ac2d66e64fa594d8cd06c99fa, type: 3}

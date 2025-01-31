@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Solvexis
   resourceType: 4
   planetType: 1
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: c975636ce3f69c747bec6c5ed5ca16ba, type: 3}

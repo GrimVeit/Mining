@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GalaxyPresenter
+public class StoreGalaxyPresenter
 {
-    private GalaxyModel model;
+    private StoreGalaxyModel model;
 
-    public GalaxyPresenter(GalaxyModel model)
+    public StoreGalaxyPresenter(StoreGalaxyModel model)
     {
         this.model = model;
     }

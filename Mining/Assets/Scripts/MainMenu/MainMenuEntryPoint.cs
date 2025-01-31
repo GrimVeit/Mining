@@ -14,7 +14,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ParticleEffectPresenter particleEffectPresenter;
     private SoundPresenter soundPresenter;
 
-    private GalaxyPresenter galaxyPresenter;
+    private StoreGalaxyPresenter galaxyPresenter;
     private GalaxyInfoPresenter galaxyInfoPresenter;
     private GalaxyVisualizePresenter galaxyVisualizePresenter;
     private GalaxyPlayBuyPresenter galaxyPlayBuyPresenter;
@@ -38,7 +38,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
 
-        galaxyPresenter = new GalaxyPresenter(new GalaxyModel(galaxys));
+        galaxyPresenter = new StoreGalaxyPresenter(new StoreGalaxyModel(galaxys));
 
         galaxyInfoPresenter = new GalaxyInfoPresenter(new GalaxyInfoModel(), viewContainer.GetView<GalaxyInfoView>());
 

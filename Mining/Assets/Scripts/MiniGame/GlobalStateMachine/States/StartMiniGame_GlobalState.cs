@@ -24,8 +24,8 @@ public class StartMiniGame_GlobalState : IGlobalState
 
         timerPresenter.ActivateTimer(3);
         basketPresenter.Start();
-        sceneRoot.OpenMainPanel();
-        sceneRoot.OpenFooterPanel();
+        //sceneRoot.OpenMainPanel();
+        //sceneRoot.OpenFooterPanel();
     }
 
     public void ExitState()

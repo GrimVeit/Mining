@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Farnixa
   resourceType: 7
   planetType: 1
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: 16941959b5082e947ad11edd49daf69e, type: 3}

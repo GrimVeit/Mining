@@ -16,3 +16,5 @@ MonoBehaviour:
   namePlanet: Grionex
   resourceType: 10
   planetType: 1
+  resourceReserve: 0
+  planetSprite: {fileID: 21300000, guid: ee5748a494ea96e4596f1aa16e6abb08, type: 3}
