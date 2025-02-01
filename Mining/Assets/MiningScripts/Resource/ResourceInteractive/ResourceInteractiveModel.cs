@@ -7,32 +7,25 @@ public class ResourceInteractiveModel
 {
     public event Action<ResourceType> OnSelectResource;
     public event Action<ResourceType> OnDeselectResource;
+
+    public event Action OnClickToSaleResource;
     public event Action<ResourceType> OnChooseResource;
 
     public event Action<Resource> OnVisualizeResource;
 
-    private ResourcesGroup resources;
-
-    public void SetResources(ResourcesGroup resources)
+    public void VisualizeResource(Resource resource)
     {
-        this.resources = resources;
-
-        Debug.Log(resources.resources.Count);
-
-        VisualizeResources();
-    }
-
-    private void VisualizeResources()
-    {
-        for (int i = 0; i < resources.resources.Count; i++)
-        {
-            OnVisualizeResource?.Invoke(resources.resources[i]);
-        }
+        OnVisualizeResource?.Invoke(resource);
     }
 
     public void ChooseResource(ResourceType resourceType)
     {
         OnChooseResource?.Invoke(resourceType);
+    }
+
+    public void SaleResource()
+    {
+        OnClickToSaleResource?.Invoke();
     }
 
     public void SelectResource(ResourceType resourceType)

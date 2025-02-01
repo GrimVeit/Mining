@@ -24,10 +24,10 @@ public class StoreResourcePresenter
 
     #region Input
 
-    public event Action<ResourcesGroup> OnVisualizeResource
+    public event Action<Resource> OnVisualizeResource
     {
-        add { model.OnSetResources += value; }
-        remove { model.OnSetResources -= value; }
+        add { model.OnVisualizeResource += value; }
+        remove { model.OnVisualizeResource -= value; }
     }
 
     public event Action<Resource> OnSelectResource_Value
@@ -45,6 +45,11 @@ public class StoreResourcePresenter
     public void SelectResource(ResourceType resourceType)
     {
         model.SelectResource(resourceType);
+    }
+
+    public void SaleSelectResource()
+    {
+        model.SaleSelectResource();
     }
 
     #endregion

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class StoreResourceModel
 {
-    public event Action<ResourcesGroup> OnSetResources;
+    public event Action<Resource> OnVisualizeResource;
 
     public event Action<Resource> OnSelectResource_Value;
     public event Action<Resource> OnDeselectResource_Value;
@@ -21,9 +21,12 @@ public class StoreResourceModel
 
     public readonly string FilePath = Path.Combine(Application.persistentDataPath, "Resources.json");
 
-    public StoreResourceModel(ResourcesGroup resources)
+    private IMoneyProvider moneyProvider;
+
+    public StoreResourceModel(ResourcesGroup resources, IMoneyProvider moneyProvider)
     {
         this.resources = resources;
+        this.moneyProvider = moneyProvider;
     }
 
     public void Initialize()
@@ -41,7 +44,7 @@ public class StoreResourceModel
 
             for (int i = 0; i < 14; i++)
             {
-                resourceDatas.Add(new ResourceData(0));
+                resourceDatas.Add(new ResourceData(4));
             }
         }
 
@@ -49,9 +52,9 @@ public class StoreResourceModel
         {
             Debug.Log(resourceDatas.Count);
             resources.resources[i].SetData(resourceDatas[i]);
-        }
 
-        OnSetResources?.Invoke(resources);
+            OnVisualizeResource?.Invoke(resources.resources[i]);
+        }
     }
 
     public void Dispose()
@@ -71,15 +74,18 @@ public class StoreResourceModel
         OnSelectResource_Value?.Invoke(currentResource);
     }
 
-    //public void AddResource(ResourceType resourceType, int count)
-    //{
+    public void SaleSelectResource()
+    {
+        if(currentResource == null) return;
 
-    //}
+        var moneyCount = currentResource.Price * currentResource.ResourceData.MineCount;
 
-    //public void RemoveResource(ResourceType resourceType)
-    //{
+        moneyProvider.SendMoney(moneyCount);
 
-    //}
+        currentResource.ResourceData.MineCount = 0;
+
+        OnVisualizeResource.Invoke(currentResource);
+    }
 }
 
 public class ResourceDatas

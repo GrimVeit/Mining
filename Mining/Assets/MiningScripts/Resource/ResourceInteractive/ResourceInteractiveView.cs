@@ -3,21 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceInteractiveView : View
 {
     [SerializeField] private ResourceInteractive resourceInteractivePrefab;
     [SerializeField] private Transform transformResources;
+    [SerializeField] private Button buttonSaleResource;
 
     private List<ResourceInteractive> resourceInteractives = new List<ResourceInteractive>();
 
+    public void Initialize()
+    {
+        buttonSaleResource.onClick.AddListener(HandleSaleResource);
+    }
+
     public void VisualizeResource(Resource resource)
     {
-        var interactive = Instantiate(resourceInteractivePrefab, transformResources);
-        interactive.OnChooseResource += HandleChooseResource;
-        interactive.SetData(resource);
+        var interactive = resourceInteractives.FirstOrDefault(interactive => interactive.ResourceType == resource.Type);
 
-        resourceInteractives.Add(interactive);
+        if(interactive != null)
+        {
+            interactive.SetData(resource);
+        }
+        else
+        {
+            interactive = Instantiate(resourceInteractivePrefab, transformResources);
+            interactive.OnChooseResource += HandleChooseResource;
+            resourceInteractives.Add(interactive);
+        }
+
+        interactive.SetData(resource);
     }
 
     public void SelectResource(ResourceType resourceType)
@@ -38,15 +54,23 @@ public class ResourceInteractiveView : View
         }
 
         resourceInteractives.Clear();
+
+        buttonSaleResource.onClick.RemoveListener(HandleSaleResource);
     }
 
     #region Input
 
+    public event Action OnSaleResource;
     public event Action<ResourceType> OnChooseResource;
 
     private void HandleChooseResource(ResourceType type)
     {
         OnChooseResource?.Invoke(type);
+    }
+
+    private void HandleSaleResource()
+    {
+        OnSaleResource?.Invoke();
     }
 
     #endregion

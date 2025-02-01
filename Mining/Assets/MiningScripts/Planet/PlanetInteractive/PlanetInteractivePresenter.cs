@@ -42,7 +42,13 @@ public class PlanetInteractivePresenter
 
     #region Input
 
-    public event Action<int> OnChoosePlanet
+    public event Action<int> OnChoosePlanet_Value
+    {
+        add { model.OnChoosePlanet_Value += value; }
+        remove { model.OnChoosePlanet_Value -= value; }
+    }
+
+    public event Action OnChoosePlanet
     {
         add { model.OnChoosePlanet += value; }
         remove { model.OnChoosePlanet -= value; }

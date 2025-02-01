@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class UIMiniGameSceneRoot : MonoBehaviour
 {
+    [SerializeField] private GameplayButtonsPanel gameplayButtonsPanel;
     [SerializeField] private PlanetInfoPanel planetInfoPanel;
+    [SerializeField] private ShopPanel_MiniGameScene shopPanel;
+    [SerializeField] private ResourceDescriptionPanel resourceDescriptionPanel;
+    [SerializeField] private ResourceSalePanel resourceSalePanel;
 
     private ISoundProvider soundProvider;
 
@@ -18,23 +22,47 @@ public class UIMiniGameSceneRoot : MonoBehaviour
 
     public void Initialize()
     {
+        gameplayButtonsPanel.Initialize();
         planetInfoPanel.Initialize();
+        shopPanel.Initialize();
+        resourceDescriptionPanel.Initialize();
+        resourceSalePanel.Initialize();
     }
 
     public void Dispose()
     {
+        gameplayButtonsPanel.Dispose();
         planetInfoPanel.Dispose();
+        shopPanel.Dispose();
+        resourceDescriptionPanel.Dispose();
+        resourceSalePanel.Dispose();
     }
+
+
+
 
     public void Activate()
     {
-
+        OpenGameplayButtonsPanel();
     }
 
     public void Deactivate()
     {
-
         CloseOtherPanel(currentPanel);
+    }
+
+
+
+
+
+    public void OpenGameplayButtonsPanel()
+    {
+        OpenOtherPanel(gameplayButtonsPanel);
+    }
+
+    public void CloseGameplayButtonsPanel()
+    {
+        CloseOtherPanel(gameplayButtonsPanel);
     }
 
 
@@ -48,6 +76,44 @@ public class UIMiniGameSceneRoot : MonoBehaviour
     public void ClosePlanetInfoPanel()
     {
         CloseOtherPanel(planetInfoPanel);
+    }
+
+
+
+
+    public void OpenShopPanel()
+    {
+        OpenOtherPanel(shopPanel);
+    }
+
+    public void CloseShopPanel()
+    {
+        CloseOtherPanel(shopPanel);
+    }
+
+
+    
+    public void OpenResourceDescriptionPanel()
+    {
+        OpenOtherPanel(resourceDescriptionPanel);
+    }
+
+    public void CloseResourceDescriptionPanel()
+    {
+        CloseOtherPanel(resourceDescriptionPanel);
+    }
+
+
+
+
+    public void OpenResourceSalePanel()
+    {
+        OpenOtherPanel(resourceSalePanel);
+    }
+
+    public void CloseResourceSalePanel()
+    {
+        CloseOtherPanel(resourceSalePanel);
     }
 
 
@@ -78,6 +144,52 @@ public class UIMiniGameSceneRoot : MonoBehaviour
     {
         add { planetInfoPanel.OnClickToClosePanel += value; }
         remove { planetInfoPanel.OnClickToClosePanel -= value; }
+    }
+
+    public event Action OnClickToClose_Shop
+    {
+        add { shopPanel.OnClickToClosePanel += value; }
+        remove { shopPanel.OnClickToClosePanel -= value; }
+    }
+
+    public event Action OnClickToClose_ResourceDescription
+    {
+        add { resourceDescriptionPanel.OnClickToClosePanel += value; }
+        remove { resourceDescriptionPanel.OnClickToClosePanel -= value; }
+    }
+
+    public event Action OnClickToClose_ResourceSale
+    {
+        add { resourceSalePanel.OnClickToClosePanel += value; }
+        remove { resourceSalePanel.OnClickToClosePanel -= value; }
+    }
+
+
+
+
+
+    public event Action OnClickToOpen_PlanetInfo
+    {
+        add { gameplayButtonsPanel.OnClickToOpen_PlanetInfo += value; }
+        remove { gameplayButtonsPanel.OnClickToOpen_PlanetInfo -= value; }
+    }
+
+    public event Action OnClickToOpen_ResourceDescription
+    {
+        add { gameplayButtonsPanel.OnClickToOpen_ResourceDescription += value; }
+        remove { gameplayButtonsPanel.OnClickToOpen_ResourceDescription -= value; }
+    }
+
+    public event Action OnClickToOpen_ResourceSale
+    {
+        add { gameplayButtonsPanel.OnClickToOpen_ResourceSale += value; }
+        remove { gameplayButtonsPanel.OnClickToOpen_ResourceSale -= value; }
+    }
+
+    public event Action OnClickToOpen_Shop
+    {
+        add { gameplayButtonsPanel.OnClickToOpen_Shop += value; }
+        remove { gameplayButtonsPanel.OnClickToOpen_Shop -= value; }
     }
 
     #endregion

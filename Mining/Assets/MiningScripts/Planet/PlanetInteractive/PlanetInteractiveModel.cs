@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlanetInteractiveModel
 {
-    public event Action<int> OnChoosePlanet;
+    public event Action<int> OnChoosePlanet_Value;
+    public event Action OnChoosePlanet;
 
     public event Action<Planet> OnVisualizePlanet;
 
@@ -28,6 +29,7 @@ public class PlanetInteractiveModel
 
     public void ChoosePlanet(int id)
     {
-        OnChoosePlanet?.Invoke(id);
+        OnChoosePlanet_Value?.Invoke(id);
+        OnChoosePlanet?.Invoke();
     }
 }

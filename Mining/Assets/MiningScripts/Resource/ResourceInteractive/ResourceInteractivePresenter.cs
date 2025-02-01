@@ -17,16 +17,21 @@ public class ResourceInteractivePresenter
     public void Initialize()
     {
         ActivateEvents();
+
+        view.Initialize();
     }
 
     public void Dispose()
     {
         DeactivateEvents();
+
+        view.Dispose();
     }
 
     private void ActivateEvents()
     {
         view.OnChooseResource += model.ChooseResource;
+        view.OnSaleResource += model.SaleResource;
 
         model.OnVisualizeResource += view.VisualizeResource;
         model.OnSelectResource += view.SelectResource;
@@ -36,6 +41,7 @@ public class ResourceInteractivePresenter
     private void DeactivateEvents()
     {
         view.OnChooseResource -= model.ChooseResource;
+        view.OnSaleResource -= model.SaleResource;
 
         model.OnVisualizeResource -= view.VisualizeResource;
         model.OnSelectResource -= view.SelectResource;
@@ -50,9 +56,15 @@ public class ResourceInteractivePresenter
         remove { model.OnChooseResource -= value; }
     }
 
-    public void SetResources(ResourcesGroup resourceGroup)
+    public event Action OnClickToSaleResource
     {
-        model.SetResources(resourceGroup);
+        add { model.OnClickToSaleResource += value; }
+        remove { model.OnClickToSaleResource -= value; }
+    }
+
+    public void VisualizeResource(Resource resource)
+    {
+        model.VisualizeResource(resource);
     }
 
     public void SelectResource(Resource resource)
