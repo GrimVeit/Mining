@@ -4,6 +4,7 @@ using UnityEngine;
 public class MiniGameSceneEntryPoint : MonoBehaviour
 {
     [SerializeField] private Galaxys galaxies;
+    [SerializeField] private ResourcesGroup resources;
     [SerializeField] private Sounds sounds;
     [SerializeField] private UIMiniGameSceneRoot sceneRootPrefab;
 
@@ -18,6 +19,9 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
     private StorePlanetPresenter storePlanetPresenter;
     private PlanetInteractivePresenter planetInteractivePresenter;
     private PlanetInfoPresenter planetInfoPresenter;
+
+    private StoreResourcePresenter storeResourcePresenter;
+    private ResourceInteractivePresenter resourceInteractivePresenter;
 
     private void Awake()
     {
@@ -44,14 +48,20 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         storePlanetPresenter = new StorePlanetPresenter(new StorePlanetModel());
 
+        storeResourcePresenter = new StoreResourcePresenter(new StoreResourceModel(resources));
+
         planetInfoPresenter = new PlanetInfoPresenter(new PlanetInfoModel(), viewContainer.GetView<PlanetInfoView>());
 
         planetInteractivePresenter = new PlanetInteractivePresenter(new PlanetInteractiveModel(), viewContainer.GetView<PlanetInteractiveView>());
 
+        resourceInteractivePresenter = new ResourceInteractivePresenter(new ResourceInteractiveModel(), viewContainer.GetView<ResourceInteractiveView>());
+
         ActivateEvents();
 
+        resourceInteractivePresenter.Initialize();
         planetInteractivePresenter.Initialize();
         planetInfoPresenter.Initialize();
+        storeResourcePresenter.Initialize();
         storePlanetPresenter.Initialize();
         storeGalaxyPresenter.Initialize();
     }
@@ -64,6 +74,11 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         planetInteractivePresenter.OnChoosePlanet += storePlanetPresenter.SelectPlanet;
         storePlanetPresenter.OnSelectPlanet_Value += planetInfoPresenter.SetPlanet;
 
+        storeResourcePresenter.OnVisualizeResource += resourceInteractivePresenter.SetResources;
+        resourceInteractivePresenter.OnChooseResource += storeResourcePresenter.SelectResource;
+        storeResourcePresenter.OnSelectResource_Value += resourceInteractivePresenter.SelectResource;
+        storeResourcePresenter.OnDeselectResource_Value += resourceInteractivePresenter.DeselectResource;
+
         ActivateTransitionEvents();
     }
 
@@ -74,6 +89,11 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         planetInteractivePresenter.OnChoosePlanet -= storePlanetPresenter.SelectPlanet;
         storePlanetPresenter.OnSelectPlanet_Value -= planetInfoPresenter.SetPlanet;
+
+        storeResourcePresenter.OnVisualizeResource -= resourceInteractivePresenter.SetResources;
+        resourceInteractivePresenter.OnChooseResource -= storeResourcePresenter.SelectResource;
+        storeResourcePresenter.OnSelectResource_Value -= resourceInteractivePresenter.SelectResource;
+        storeResourcePresenter.OnDeselectResource_Value -= resourceInteractivePresenter.DeselectResource;
 
         DeactivateTransitionEvents();
     }
