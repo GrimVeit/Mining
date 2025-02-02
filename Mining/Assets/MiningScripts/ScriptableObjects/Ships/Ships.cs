@@ -1,18 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Ships : MonoBehaviour
+[CreateAssetMenu(fileName = "Ships")]
+public class Ships : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<Ship> ships = new List<Ship>();
 
-    // Update is called once per frame
-    void Update()
+    public Ship GetShipByID(string id)
     {
-        
+        return ships.FirstOrDefault(ship => ship.GetID() == id);
     }
 }

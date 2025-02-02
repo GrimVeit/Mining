@@ -4,6 +4,8 @@ using UnityEngine;
 public class MiniGameSceneEntryPoint : MonoBehaviour
 {
     [SerializeField] private Galaxys galaxies;
+    [SerializeField] private Ships ships;
+    [SerializeField] private Rockets rockets;
     [SerializeField] private ResourcesGroup resources;
     [SerializeField] private Sounds sounds;
     [SerializeField] private UIMiniGameSceneRoot sceneRootPrefab;
@@ -22,6 +24,12 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private StoreResourcePresenter storeResourcePresenter;
     private ResourceInteractivePresenter resourceInteractivePresenter;
+
+    private StoreShipPresenter storeShipPresenter;
+    private ShopShipPresenter shopShipPresenter;
+
+    private StoreRocketPresenter storeRocketPresenter;
+    private ShopRocketPresenter shopRocketPresenter;
 
     private MiniGameGlobalStateMachine globalStateMachine;
 
@@ -47,9 +55,9 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         bankPresenter.Initialize();
 
         storeGalaxyPresenter = new StoreGalaxyPresenter(new StoreGalaxyModel(galaxies));
-
         storePlanetPresenter = new StorePlanetPresenter(new StorePlanetModel());
-
+        storeShipPresenter = new StoreShipPresenter(new StoreShipModel(ships, bankPresenter));
+        storeRocketPresenter = new StoreRocketPresenter(new StoreRocketModel(rockets, bankPresenter));
         storeResourcePresenter = new StoreResourcePresenter(new StoreResourceModel(resources, bankPresenter));
 
         planetInfoPresenter = new PlanetInfoPresenter(new PlanetInfoModel(), viewContainer.GetView<PlanetInfoView>());
@@ -57,6 +65,10 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         planetInteractivePresenter = new PlanetInteractivePresenter(new PlanetInteractiveModel(), viewContainer.GetView<PlanetInteractiveView>());
 
         resourceInteractivePresenter = new ResourceInteractivePresenter(new ResourceInteractiveModel(), viewContainer.GetView<ResourceInteractiveView>());
+
+        shopShipPresenter = new ShopShipPresenter(new ShopShipModel(), viewContainer.GetView<ShopShipView>());
+
+        shopRocketPresenter = new ShopRocketPresenter(new ShopRocketModel(), viewContainer.GetView<ShopRocketView>());
 
         globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter);
 
@@ -66,6 +78,11 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         resourceInteractivePresenter.Initialize();
         planetInteractivePresenter.Initialize();
         planetInfoPresenter.Initialize();
+        shopShipPresenter.Initialize();
+        shopRocketPresenter.Initialize();
+
+        storeRocketPresenter.Initialize();
+        storeShipPresenter.Initialize();
         storeResourcePresenter.Initialize();
         storePlanetPresenter.Initialize();
         storeGalaxyPresenter.Initialize();
@@ -85,6 +102,14 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storeResourcePresenter.OnDeselectResource_Value += resourceInteractivePresenter.DeselectResource;
         resourceInteractivePresenter.OnClickToSaleResource += storeResourcePresenter.SaleSelectResource;
 
+        storeShipPresenter.OnOpenShip += shopShipPresenter.SetOpenShip;
+        storeShipPresenter.OnCloseShip += shopShipPresenter.SetCloseShip;
+        shopShipPresenter.OnBuyShipShip += storeShipPresenter.BuyShip;
+
+        storeRocketPresenter.OnOpenRocket += shopRocketPresenter.SetOpenRocket;
+        storeRocketPresenter.OnCloseRocket += shopRocketPresenter.SetCloseRocket;
+        shopRocketPresenter.OnBuyRocket += storeRocketPresenter.BuyRocket;
+
         ActivateTransitionEvents();
     }
 
@@ -100,6 +125,14 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         resourceInteractivePresenter.OnChooseResource -= storeResourcePresenter.SelectResource;
         storeResourcePresenter.OnSelectResource_Value -= resourceInteractivePresenter.SelectResource;
         storeResourcePresenter.OnDeselectResource_Value -= resourceInteractivePresenter.DeselectResource;
+
+        storeShipPresenter.OnOpenShip -= shopShipPresenter.SetOpenShip;
+        storeShipPresenter.OnCloseShip -= shopShipPresenter.SetCloseShip;
+        shopShipPresenter.OnBuyShipShip -= storeShipPresenter.BuyShip;
+
+        storeRocketPresenter.OnOpenRocket -= shopRocketPresenter.SetOpenRocket;
+        storeRocketPresenter.OnCloseRocket -= shopRocketPresenter.SetCloseRocket;
+        shopRocketPresenter.OnBuyRocket -= storeRocketPresenter.BuyRocket;
 
         DeactivateTransitionEvents();
     }
@@ -124,9 +157,14 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         soundPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        shopRocketPresenter?.Dispose();
+        shopShipPresenter?.Dispose();
         resourceInteractivePresenter?.Dispose();
         planetInteractivePresenter?.Dispose();
         planetInfoPresenter.Dispose();
+
+        storeRocketPresenter?.Dispose();
+        storeShipPresenter?.Dispose();
         storeResourcePresenter.Dispose();
         storePlanetPresenter?.Dispose();
         storeGalaxyPresenter?.Dispose();

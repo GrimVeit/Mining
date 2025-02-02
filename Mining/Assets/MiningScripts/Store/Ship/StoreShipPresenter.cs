@@ -1,18 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoreShipPresenter : MonoBehaviour
+public class StoreShipPresenter
 {
-    // Start is called before the first frame update
-    void Start()
+    private StoreShipModel model;
+
+    public StoreShipPresenter(StoreShipModel model)
     {
-        
+        this.model = model;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
-        
+        model.Initialize(); 
     }
+
+    public void Dispose()
+    {
+        model.Dispose();
+    }
+
+    #region Input
+
+    public event Action<Ship> OnOpenShip
+    {
+        add { model.OnOpenShip += value; }
+        remove { model.OnOpenShip -= value; }
+    }
+
+    public event Action<Ship> OnCloseShip
+    {
+        add { model.OnCloseShip += value; }
+        remove { model.OnCloseShip -= value; }
+    }
+
+    public event Action<Ship> OnSelectShip
+    {
+        add { model.OnSelectShip += value; }
+        remove { model.OnSelectShip -= value; }
+    }
+
+    public void BuyShip(int id)
+    {
+        model.BuyShip(id);
+    }
+
+    #endregion
 }

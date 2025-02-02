@@ -7,22 +7,26 @@ using UnityEngine;
 
 public class StoreShipModel : MonoBehaviour
 {
-    public event Action<int> OnOpenGalaxy;
-    public event Action<int> OnCloseGalaxy;
+    public event Action<Ship> OnOpenShip;
+    public event Action<Ship> OnCloseShip;
+    public event Action<Ship> OnSelectShip;
 
 
-    private Galaxys galaxies;
+    private Ships ships;
 
-    private Galaxy currentGalaxy;
-    private GalaxyData currentGalaxyData;
+    private Ship currentShip;
+    private ShipData currentGalaxyData;
 
-    private List<GalaxyData> galaxyDatas = new List<GalaxyData>();
+    private List<ShipData> shipDatas = new List<ShipData>();
 
-    public readonly string FilePath = Path.Combine(Application.persistentDataPath, "Progress.json");
+    public readonly string FilePath = Path.Combine(Application.persistentDataPath, "Ship.json");
 
-    public StoreShipModel(Galaxys galaxies)
+    private IMoneyProvider moneyProvider;
+
+    public StoreShipModel(Ships ships, IMoneyProvider moneyProvider)
     {
-        this.galaxies = galaxies;
+        this.ships = ships;
+        this.moneyProvider = moneyProvider;
     }
 
     public void Initialize()
@@ -30,76 +34,75 @@ public class StoreShipModel : MonoBehaviour
         if (File.Exists(FilePath))
         {
             string loadedJson = File.ReadAllText(FilePath);
-            GalaxyDatas progressDatas = JsonUtility.FromJson<GalaxyDatas>(loadedJson);
+            ShipDatas shipDatas = JsonUtility.FromJson<ShipDatas>(loadedJson);
 
             Debug.Log("Success");
 
-            this.galaxyDatas = progressDatas.Datas.ToList();
+            this.shipDatas = shipDatas.Datas.ToList();
         }
         else
         {
-            galaxyDatas = new List<GalaxyData>();
+            shipDatas = new List<ShipData>();
 
             for (int i = 0; i < 5; i++)
             {
                 if (i == 0)
                 {
-                    galaxyDatas.Add(new GalaxyData(i, true, true));
+                    shipDatas.Add(new ShipData(true, true));
                 }
                 else
                 {
-                    galaxyDatas.Add(new GalaxyData(i, false, false));
+                    shipDatas.Add(new ShipData(false, false));
                 }
             }
         }
 
-        for (int i = 0; i < galaxies.Galaxies.Count; i++)
+        for (int i = 0; i < ships.ships.Count; i++)
         {
-            galaxies.Galaxies[i].SetData(galaxyDatas[i]);
+            ships.ships[i].SetData(shipDatas[i]);
+
+            if(shipDatas[i].IsOpen)
+                OnOpenShip?.Invoke(ships.ships[i]);
+            else
+                OnCloseShip?.Invoke(ships.ships[i]);
         }
 
-
-        for (int i = 0; i < galaxyDatas.Count; i++)
-        {
-            if (galaxyDatas[i].IsOpen)
-                OnOpenGalaxy?.Invoke(galaxyDatas[i].Number);
-
-            if (!galaxyDatas[i].IsOpen)
-                OnCloseGalaxy?.Invoke(galaxyDatas[i].Number);
-        }
-
-        SelectGalaxy(GetSelectGalaxy());
+        SelectGalaxy(GetSelectGalaxyIndex());
     }
 
     public void Dispose()
     {
-        string json = JsonUtility.ToJson(new GalaxyDatas(galaxyDatas.ToArray()));
+        string json = JsonUtility.ToJson(new ShipDatas(shipDatas.ToArray()));
         File.WriteAllText(FilePath, json);
     }
 
-    public void UnlockGalaxy(int number)
+    public void BuyShip(int number)
     {
-        var galaxy = galaxies.GetGalaxyByID(number.ToString());
+        var galaxy = ships.GetShipByID(number.ToString());
 
-        if (galaxy != null && !galaxy.GalaxyData.IsOpen)
+        if(galaxy.ShipData.IsOpen) return;
+
+        if (moneyProvider.CanAfford(galaxy.Price))
         {
-            galaxy.GalaxyData.IsOpen = true;
+            moneyProvider.SendMoney(-galaxy.Price);
 
-            OnOpenGalaxy?.Invoke(number);
+            galaxy.ShipData.IsOpen = true;
 
-            SelectGalaxy(number);
+            OnOpenShip?.Invoke(galaxy);
         }
     }
 
     public void SelectGalaxy(int number)
     {
+        currentShip = ships.GetShipByID(number.ToString());
 
+        OnSelectShip?.Invoke(currentShip);
     }
 
 
-    private int GetSelectGalaxy()
+    private int GetSelectGalaxyIndex()
     {
-        return galaxyDatas.FirstOrDefault(data => data.IsSelect).Number;
+        return int.Parse(ships.ships.FirstOrDefault(ship => ship.ShipData.IsSelect == true).GetID());
     }
 }
 
@@ -116,13 +119,11 @@ public class ShipDatas
 [Serializable]
 public class ShipData
 {
-    public int Number;
     public bool IsOpen;
     public bool IsSelect;
 
-    public ShipData(int number, bool isOpen, bool isSelect)
+    public ShipData(bool isOpen, bool isSelect)
     {
-        this.Number = number;
         this.IsOpen = isOpen;
         this.IsSelect = isSelect;
     }
