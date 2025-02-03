@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RocketBuyLevelPrices
   m_EditorClassIdentifier: 
   rocketBuyLevelPrices:
-  - buyLevelNumber: 0
+  - BuyLevelNumber: 0
     rocketBuyPrices:
     - rocketID: 0
       price: 10
@@ -23,7 +23,7 @@ MonoBehaviour:
       price: 40
     - rocketID: 3
       price: 70
-  - buyLevelNumber: 1
+  - BuyLevelNumber: 1
     rocketBuyPrices:
     - rocketID: 0
       price: 100
@@ -33,7 +33,7 @@ MonoBehaviour:
       price: 400
     - rocketID: 3
       price: 700
-  - buyLevelNumber: 2
+  - BuyLevelNumber: 2
     rocketBuyPrices:
     - rocketID: 0
       price: 1000
@@ -43,7 +43,7 @@ MonoBehaviour:
       price: 4000
     - rocketID: 3
       price: 7000
-  - buyLevelNumber: 3
+  - BuyLevelNumber: 3
     rocketBuyPrices:
     - rocketID: 0
       price: 10000
@@ -53,7 +53,7 @@ MonoBehaviour:
       price: 40000
     - rocketID: 3
       price: 70000
-  - buyLevelNumber: 4
+  - BuyLevelNumber: 4
     rocketBuyPrices:
     - rocketID: 0
       price: 100000
@@ -63,7 +63,7 @@ MonoBehaviour:
       price: 400000
     - rocketID: 3
       price: 700000
-  - buyLevelNumber: 4
+  - BuyLevelNumber: 5
     rocketBuyPrices:
     - rocketID: 0
       price: 1000000

@@ -42,14 +42,16 @@ public class RocketBuyView : View
         rocketBuyDisplay.SetRocketVisualize(rocket);
     }
 
-    public void SelectRocket(Rocket rocket)
+    public void SelectRocket(Rocket rocket, int price)
     {
+        buttonBuy.gameObject.SetActive(true);
         rocketBuyDisplay.SelectRocket(rocket);
-        textPrice.text = rocket.Price.ToString();
+        textPrice.text = price.ToString();
     }
 
     public void DeselectRocket(Rocket rocket)
     {
+        buttonBuy.gameObject.SetActive(false);
         rocketBuyDisplay.DeselectRocket(rocket);
     }
 

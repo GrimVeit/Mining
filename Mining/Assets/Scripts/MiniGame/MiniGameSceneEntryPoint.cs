@@ -6,6 +6,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
     [SerializeField] private Galaxys galaxies;
     [SerializeField] private Ships ships;
     [SerializeField] private Rockets rockets;
+    [SerializeField] private RocketBuyLevelPrices prices;
     [SerializeField] private ResourcesGroup resources;
     [SerializeField] private Sounds sounds;
     [SerializeField] private UIMiniGameSceneRoot sceneRootPrefab;
@@ -75,7 +76,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         shopRocketPresenter = new ShopRocketPresenter(new ShopRocketModel(), viewContainer.GetView<ShopRocketView>());
 
-        rocketBuyPresenter = new RocketBuyPresenter(new RocketBuyModel(), viewContainer.GetView<RocketBuyView>());
+        rocketBuyPresenter = new RocketBuyPresenter(new RocketBuyModel(prices, bankPresenter), viewContainer.GetView<RocketBuyView>());
 
         globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter);
 

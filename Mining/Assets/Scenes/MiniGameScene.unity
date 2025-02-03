@@ -4278,6 +4278,7 @@ MonoBehaviour:
   galaxies: {fileID: 11400000, guid: 08d98fd881da4504fb2d8107793c2d8e, type: 2}
   ships: {fileID: 11400000, guid: d1ca0f879a33646448cedf0c7b4f489d, type: 2}
   rockets: {fileID: 11400000, guid: 72bf3fecfd8fcae47939b0ae654bdc60, type: 2}
+  prices: {fileID: 11400000, guid: 6653ce3858714124eaeee12780b24fa6, type: 2}
   resources: {fileID: 11400000, guid: f8225b316e5023a4ea873b3385469aa1, type: 2}
   sounds: {fileID: 1084492703}
   sceneRootPrefab: {fileID: 8897940833853368869}

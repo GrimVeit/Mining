@@ -9,7 +9,7 @@ public class RocketBuyModel
     public event Action OnOpenBuyPanel;
     public event Action OnCloseBuyPanel;
 
-    public event Action<Rocket> OnSelectRocket;
+    public event Action<Rocket, int> OnSelectRocket;
     public event Action<Rocket> OnDeselectRocket;
 
     public event Action<int, Rocket> OnBuyRocket;
@@ -21,6 +21,16 @@ public class RocketBuyModel
     private int planetID;
 
     private Rocket currentRocket;
+
+    private IMoneyProvider moneyProvider;
+    private RocketBuyLevelPrices prices;
+    private int levelBuy = 0;
+
+    public RocketBuyModel(RocketBuyLevelPrices prices, IMoneyProvider moneyProvider)
+    {
+        this.prices = prices;
+        this.moneyProvider = moneyProvider;
+    }
 
     public void SetRockets(Rocket rocket)
     {
@@ -51,11 +61,21 @@ public class RocketBuyModel
 
         currentRocket = rocket;
         Debug.Log("Select - " + rocket.Name);
-        OnSelectRocket?.Invoke(currentRocket);
+        OnSelectRocket?.Invoke(currentRocket, prices.rocketBuyLevelPrices.
+            FirstOrDefault(data => data.BuyLevelNumber == levelBuy).rocketBuyPrices.
+            FirstOrDefault(data => data.rocketID == int.Parse(currentRocket.GetID())).price);
     }
 
     public void BuyRocket()
     {
-        OnBuyRocket?.Invoke(planetID, currentRocket);
+        if (moneyProvider.CanAfford(prices.rocketBuyLevelPrices.
+            FirstOrDefault(data => data.BuyLevelNumber == levelBuy).rocketBuyPrices.
+            FirstOrDefault(data => data.rocketID == int.Parse(currentRocket.GetID())).price))
+        {
+            levelBuy += 1;
+            OnBuyRocket?.Invoke(planetID, currentRocket);
+
+            OnDeselectRocket?.Invoke(currentRocket);
+        }
     }
 }

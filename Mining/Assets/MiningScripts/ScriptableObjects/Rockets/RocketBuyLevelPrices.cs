@@ -12,7 +12,7 @@ public class RocketBuyLevelPrices : ScriptableObject
 [Serializable]
 public class RocketBuyLevelPrice
 {
-    public int buyLevelNumber;
+    public int BuyLevelNumber;
 
     public List<RocketBuyPrice> rocketBuyPrices = new List<RocketBuyPrice>();
 }
