@@ -7,12 +7,14 @@ public class Planet : ScriptableObject, IIdentify
     [SerializeField] private string namePlanet;
     [SerializeField] private ResourceType resourceType;
     [SerializeField] private PlanetType planetType;
+    [SerializeField] private int planetPrice;
     [SerializeField] private int resourceReserve;
     [SerializeField] private Sprite planetSprite;
     private PlanetData planetData;
 
     public string GetID() => id;
     public string NamePlanet => namePlanet;
+    public int Price => planetPrice;
     public ResourceType ResourceType => resourceType;
     public PlanetType PlanetType => planetType;
     public int ResourceReserve => resourceReserve;

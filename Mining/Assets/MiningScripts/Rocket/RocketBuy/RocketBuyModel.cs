@@ -39,13 +39,20 @@ public class RocketBuyModel
         OnVisualizeRocket?.Invoke(rocket);
     }
 
-    public void SelectRocketPlanet()
+    public void SelectRocketOpenPlanet()
     {
         OnCloseBuyPanel?.Invoke();
     }
 
-    public void SelectNoneRocketPlanet(int planetID)
+    public void SelectClosePlanet()
     {
+        OnCloseBuyPanel?.Invoke();
+    }
+
+    public void SelectNoneRocketOpenPlanet(int planetID)
+    {
+
+        Debug.Log(planetID);
         this.planetID = planetID;
 
         OnOpenBuyPanel?.Invoke();

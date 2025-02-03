@@ -41,7 +41,7 @@ public class PlanetInteractiveView : View
         }
 
         planetVisualize.OnClickToPlanet += HandleChoosePlanet;
-        planetVisualize.SetData(planet.PlanetSprite);
+        planetVisualize.SetData(planet.PlanetSprite, planet.Price);
         planetVisualize.Initialize(int.Parse(planet.GetID()));
     }
 

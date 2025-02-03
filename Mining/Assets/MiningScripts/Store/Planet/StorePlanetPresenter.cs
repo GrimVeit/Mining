@@ -60,6 +60,32 @@ public class StorePlanetPresenter
 
 
 
+    public event Action<Planet> OnSelectClosePlanet_Value
+    {
+        add { model.OnSelectClosePlanet_Value += value; }
+        remove { model.OnSelectClosePlanet_Value -= value; }
+    }
+
+    public event Action<Planet> OnDeselectClosePlanet_Value
+    {
+        add { model.OnDeselectClosePlanet_Value += value; }
+        remove { model.OnDeselectClosePlanet_Value -= value; }
+    }
+
+    public event Action<Planet> OnSelectOpenPlanet_Value
+    {
+        add { model.OnSelectOpenPlanet_Value += value; }
+        remove { model.OnSelectOpenPlanet_Value -= value; }
+    }
+
+    public event Action<Planet> OnDeselectOpenPlanet_Value
+    {
+        add { model.OnDeselectOpenPlanet_Value += value; }
+        remove { model.OnDeselectOpenPlanet_Value -= value; }
+    }
+
+
+
     public event Action<Planets> OnSetPlanets
     {
         add { model.OnSetPlanets += value; }
@@ -102,6 +128,11 @@ public class StorePlanetPresenter
         Debug.Log(id);
 
         model.SelectPlanet(id);
+    }
+
+    public void BuyPlanet(int id)
+    {
+        model.BuyPlanet(id);
     }
 
     public void BuyRocketToPlanet(int planetID, Rocket rocket)

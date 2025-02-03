@@ -11,12 +11,15 @@ public class StorePlanetModel
     public event Action<int> OnDeselectRocketOpenPlanet_Index;
     public event Action<int> OnDeselectNoneRocketOpenPlanet_Index;
 
-    public event Action<Planet> OnSelectClosePlanet;
-    public event Action<Planet> OnDeselectClosePlanet;
+    public event Action<Planet> OnSelectClosePlanet_Value;
+    public event Action<Planet> OnDeselectClosePlanet_Value;
+    public event Action<Planet> OnSelectOpenPlanet_Value;
+    public event Action<Planet> OnDeselectOpenPlanet_Value;
 
 
     public event Action<Planet> OnSelectPlanet_Value;
     public event Action<Planet> OnDeselectPlanet_Value;
+
     public event Action OnSelectPlanet;
     public event Action OnDeselectPlanet;
 
@@ -31,7 +34,14 @@ public class StorePlanetModel
 
         for (int i = 0; i < currentPlanets.planets.Count; i++)
         {
-            currentPlanets.planets[i].SetData(new PlanetData(false, false));
+            if(i == 0)
+            {
+                currentPlanets.planets[i].SetData(new PlanetData(false, false));
+            }
+            else
+            {
+                currentPlanets.planets[i].SetData(new PlanetData(false, false));
+            }
         }
 
         OnSetPlanets?.Invoke(currentPlanets);
@@ -41,22 +51,32 @@ public class StorePlanetModel
     {
         if(currentPlanet != null)
         {
-            if (!currentPlanet.PlanetData.IsOpen) { }
-
-            if (currentPlanet.PlanetData.Rocket == null)
+            if (!currentPlanet.PlanetData.IsOpen)
             {
-                OnDeselectNoneRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+                OnDeselectClosePlanet_Value?.Invoke(currentPlanet);
             }
             else
             {
-                OnDeselectRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+                if (currentPlanet.PlanetData.Rocket == null)
+                {
+                    OnDeselectNoneRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+                }
+                else
+                {
+                    OnDeselectRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+                }
+
+                OnDeselectOpenPlanet_Value?.Invoke(currentPlanet);
             }
 
             OnDeselectPlanet_Value?.Invoke(currentPlanet);
             OnDeselectPlanet?.Invoke();
         }
 
+
+
         currentPlanet = currentPlanets.GetPlanetById(id.ToString());
+
 
         if(currentPlanet.PlanetData.Rocket != null)
         {
@@ -68,26 +88,48 @@ public class StorePlanetModel
         }
 
 
-        if (currentPlanet.PlanetData.Rocket == null)
+
+        if (!currentPlanet.PlanetData.IsOpen)
         {
-            OnSelectNoneRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+            OnSelectClosePlanet_Value?.Invoke(currentPlanet);
         }
         else
         {
-            OnSelectRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+            if (currentPlanet.PlanetData.Rocket == null)
+            {
+                OnSelectNoneRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+            }
+            else
+            {
+                OnSelectRocketOpenPlanet_Index?.Invoke(int.Parse(currentPlanet.GetID()));
+            }
+
+            OnSelectOpenPlanet_Value?.Invoke(currentPlanet);
         }
 
         OnSelectPlanet_Value?.Invoke(currentPlanet);
         OnSelectPlanet?.Invoke();
     }
 
+    public void BuyPlanet(int planetID)
+    {
+        var planet = currentPlanets.GetPlanetById(planetID.ToString());
+
+        planet.PlanetData.Open();
+
+        SelectPlanet(planetID);
+    }
+
     public void BuyRocketToPlanet(int planetID, Rocket rocket)
     {
+
+        Debug.Log(planetID);
+
         var planet = currentPlanets.GetPlanetById(planetID.ToString());
 
         planet.PlanetData.SetRocket(rocket);
 
-        SelectPlanet(int.Parse(currentPlanet.GetID()));
+        SelectPlanet(planetID);
     }
 }
 
