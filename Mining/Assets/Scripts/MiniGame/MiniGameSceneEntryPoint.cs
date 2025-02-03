@@ -24,12 +24,15 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private StoreResourcePresenter storeResourcePresenter;
     private ResourceInteractivePresenter resourceInteractivePresenter;
+    private ResourceInfoPresenter resourceInfoPresenter;
 
     private StoreShipPresenter storeShipPresenter;
     private ShopShipPresenter shopShipPresenter;
 
     private StoreRocketPresenter storeRocketPresenter;
     private ShopRocketPresenter shopRocketPresenter;
+
+    private RocketBuyPresenter rocketBuyPresenter;
 
     private MiniGameGlobalStateMachine globalStateMachine;
 
@@ -66,9 +69,13 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         resourceInteractivePresenter = new ResourceInteractivePresenter(new ResourceInteractiveModel(), viewContainer.GetView<ResourceInteractiveView>());
 
+        resourceInfoPresenter = new ResourceInfoPresenter(new ResourceInfoModel(), viewContainer.GetView<ResourceInfoView>());
+
         shopShipPresenter = new ShopShipPresenter(new ShopShipModel(), viewContainer.GetView<ShopShipView>());
 
         shopRocketPresenter = new ShopRocketPresenter(new ShopRocketModel(), viewContainer.GetView<ShopRocketView>());
+
+        rocketBuyPresenter = new RocketBuyPresenter(new RocketBuyModel(), viewContainer.GetView<RocketBuyView>());
 
         globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter);
 
@@ -76,10 +83,12 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         globalStateMachine.Initialize();
         resourceInteractivePresenter.Initialize();
+        resourceInfoPresenter.Initialize();
         planetInteractivePresenter.Initialize();
         planetInfoPresenter.Initialize();
         shopShipPresenter.Initialize();
         shopRocketPresenter.Initialize();
+        rocketBuyPresenter.Initialize();
 
         storeRocketPresenter.Initialize();
         storeShipPresenter.Initialize();
@@ -97,6 +106,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storePlanetPresenter.OnSelectPlanet_Value += planetInfoPresenter.SetPlanet;
 
         storeResourcePresenter.OnVisualizeResource += resourceInteractivePresenter.VisualizeResource;
+        storeResourcePresenter.OnVisualizeResource += resourceInfoPresenter.VisualizeResource;
         resourceInteractivePresenter.OnChooseResource += storeResourcePresenter.SelectResource;
         storeResourcePresenter.OnSelectResource_Value += resourceInteractivePresenter.SelectResource;
         storeResourcePresenter.OnDeselectResource_Value += resourceInteractivePresenter.DeselectResource;
@@ -110,6 +120,11 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storeRocketPresenter.OnCloseRocket += shopRocketPresenter.SetCloseRocket;
         shopRocketPresenter.OnBuyRocket += storeRocketPresenter.BuyRocket;
 
+        storeRocketPresenter.OnOpenRocket += rocketBuyPresenter.SetRocket;
+        storePlanetPresenter.OnSelectRocketPlanet_Index += rocketBuyPresenter.SelectRocketPlanet;
+        storePlanetPresenter.OnSelectNoneRocketPlanet_Index += rocketBuyPresenter.SelectNoneRocketPlanet;
+        rocketBuyPresenter.OnBuyRocket += storePlanetPresenter.BuyRocketToPlanet;
+
         ActivateTransitionEvents();
     }
 
@@ -122,6 +137,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storePlanetPresenter.OnSelectPlanet_Value -= planetInfoPresenter.SetPlanet;
 
         storeResourcePresenter.OnVisualizeResource -= resourceInteractivePresenter.VisualizeResource;
+        storeResourcePresenter.OnVisualizeResource -= resourceInfoPresenter.VisualizeResource;
         resourceInteractivePresenter.OnChooseResource -= storeResourcePresenter.SelectResource;
         storeResourcePresenter.OnSelectResource_Value -= resourceInteractivePresenter.SelectResource;
         storeResourcePresenter.OnDeselectResource_Value -= resourceInteractivePresenter.DeselectResource;
@@ -133,6 +149,11 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storeRocketPresenter.OnOpenRocket -= shopRocketPresenter.SetOpenRocket;
         storeRocketPresenter.OnCloseRocket -= shopRocketPresenter.SetCloseRocket;
         shopRocketPresenter.OnBuyRocket -= storeRocketPresenter.BuyRocket;
+
+        storeRocketPresenter.OnOpenRocket -= rocketBuyPresenter.SetRocket;
+        storePlanetPresenter.OnSelectRocketPlanet_Index -= rocketBuyPresenter.SelectRocketPlanet;
+        storePlanetPresenter.OnSelectNoneRocketPlanet_Index -= rocketBuyPresenter.SelectNoneRocketPlanet;
+        rocketBuyPresenter.OnBuyRocket -= storePlanetPresenter.BuyRocketToPlanet;
 
         DeactivateTransitionEvents();
     }
@@ -160,6 +181,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         shopRocketPresenter?.Dispose();
         shopShipPresenter?.Dispose();
         resourceInteractivePresenter?.Dispose();
+        resourceInfoPresenter?.Dispose();
         planetInteractivePresenter?.Dispose();
         planetInfoPresenter.Dispose();
 

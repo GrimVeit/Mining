@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ResourceInfoPresenter
 {
     private ResourceInfoModel model;
@@ -16,20 +12,33 @@ public class ResourceInfoPresenter
     public void Initialize()
     {
         ActivateEvents();
+
+        view.Initialize();
     }
 
     public void Dispose()
     {
         DeactivateEvents();
+
+        view.Dispose();
     }
 
     private void ActivateEvents()
     {
-
+        model.OnVisualizeResource += view.VisualizeResource;
     }
 
     private void DeactivateEvents()
     {
-
+        model.OnVisualizeResource -= view.VisualizeResource;
     }
+
+    #region Input
+
+    public void VisualizeResource(Resource resource)
+    {
+        model.VisualizeResource(resource);
+    }
+
+    #endregion
 }

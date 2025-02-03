@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ecd3de42b95d7469e11cde24d5a231, type: 3}
+  m_Name: RocketBuyLevelPrices
+  m_EditorClassIdentifier: 
+  rocketBuyLevelPrices:
+  - buyLevelNumber: 0
+    rocketBuyPrices:
+    - rocketID: 0
+      price: 10
+    - rocketID: 1
+      price: 25
+    - rocketID: 2
+      price: 40
+    - rocketID: 3
+      price: 70
+  - buyLevelNumber: 1
+    rocketBuyPrices:
+    - rocketID: 0
+      price: 100
+    - rocketID: 1
+      price: 250
+    - rocketID: 2
+      price: 400
+    - rocketID: 3
+      price: 700
+  - buyLevelNumber: 2
+    rocketBuyPrices:
+    - rocketID: 0
+      price: 1000
+    - rocketID: 1
+      price: 2500
+    - rocketID: 2
+      price: 4000
+    - rocketID: 3
+      price: 7000
+  - buyLevelNumber: 3
+    rocketBuyPrices:
+    - rocketID: 0
+      price: 10000
+    - rocketID: 1
+      price: 25000
+    - rocketID: 2
+      price: 40000
+    - rocketID: 3
+      price: 70000
+  - buyLevelNumber: 4
+    rocketBuyPrices:
+    - rocketID: 0
+      price: 100000
+    - rocketID: 1
+      price: 250000
+    - rocketID: 2
+      price: 400000
+    - rocketID: 3
+      price: 700000
+  - buyLevelNumber: 4
+    rocketBuyPrices:
+    - rocketID: 0
+      price: 1000000
+    - rocketID: 1
+      price: 2500000
+    - rocketID: 2
+      price: 4000000
+    - rocketID: 3
+      price: 7000000

@@ -34,6 +34,32 @@ public class StorePlanetPresenter
 
     #region Input
 
+    public event Action<int> OnSelectRocketPlanet_Index
+    {
+        add { model.OnSelectRocketOpenPlanet_Index += value; }
+        remove { model.OnSelectRocketOpenPlanet_Index -= value; }
+    }
+
+    public event Action<int> OnSelectNoneRocketPlanet_Index
+    {
+        add { model.OnSelectNoneRocketOpenPlanet_Index += value; }
+        remove { model.OnSelectNoneRocketOpenPlanet_Index -= value; }
+    }
+
+    public event Action<int> OnDeselectRocketPlanet_Index
+    {
+        add { model.OnDeselectRocketOpenPlanet_Index += value; }
+        remove { model.OnDeselectRocketOpenPlanet_Index -= value; }
+    }
+
+    public event Action<int> OnDeselectNoneRocketPlanet_Index
+    {
+        add { model.OnDeselectNoneRocketOpenPlanet_Index += value; }
+        remove { model.OnDeselectNoneRocketOpenPlanet_Index -= value; }
+    }
+
+
+
     public event Action<Planets> OnSetPlanets
     {
         add { model.OnSetPlanets += value; }
@@ -66,7 +92,7 @@ public class StorePlanetPresenter
 
     public void SetGalaxy(Galaxy galaxy)
     {
-        model.SeyGalaxy(galaxy);
+        model.SetGalaxy(galaxy);
     }
 
 
@@ -76,7 +102,12 @@ public class StorePlanetPresenter
         Debug.Log(id);
 
         model.SelectPlanet(id);
-    } 
+    }
+
+    public void BuyRocketToPlanet(int planetID, Rocket rocket)
+    {
+        model.BuyRocketToPlanet(planetID, rocket);
+    }
 
     #endregion
 }

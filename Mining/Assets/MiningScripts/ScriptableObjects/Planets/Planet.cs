@@ -9,6 +9,7 @@ public class Planet : ScriptableObject, IIdentify
     [SerializeField] private PlanetType planetType;
     [SerializeField] private int resourceReserve;
     [SerializeField] private Sprite planetSprite;
+    private PlanetData planetData;
 
     public string GetID() => id;
     public string NamePlanet => namePlanet;
@@ -16,6 +17,12 @@ public class Planet : ScriptableObject, IIdentify
     public PlanetType PlanetType => planetType;
     public int ResourceReserve => resourceReserve;
     public Sprite PlanetSprite => planetSprite;
+    public PlanetData PlanetData => planetData;
+
+    public void SetData(PlanetData data)
+    {
+        planetData = data;
+    }
 }
 
 public enum ResourceType

@@ -1,18 +1,34 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class ResourceInfoView : MonoBehaviour
+public class ResourceInfoView : View
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private ResourceInfo resourceInfoPrefab;
+    [SerializeField] private Transform transformResources;
+
+    private List<ResourceInfo> resourceInfos = new List<ResourceInfo>();
+
+    public void Initialize()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void VisualizeResource(Resource resource)
     {
-        
+        var interactive = resourceInfos.FirstOrDefault(interactive => interactive.ResourceType == resource.Type);
+
+        if (interactive == null)
+        {
+            interactive = Instantiate(resourceInfoPrefab, transformResources);
+            resourceInfos.Add(interactive);
+        }
+
+        interactive.SetData(resource);
+    }
+
+    public void Dispose()
+    {
+        resourceInfos.Clear();
     }
 }
