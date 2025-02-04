@@ -127,6 +127,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storePlanetPresenter.OnSelectClosePlanet_Value += planetBuyPresenter.SetClosePlanet;
         storePlanetPresenter.OnSelectOpenPlanet_Value += planetBuyPresenter.SetOpenPlanet;
         planetBuyPresenter.OnBuyPlanet += storePlanetPresenter.BuyPlanet;
+        storePlanetPresenter.OnBuyPlanet_Index += planetInteractivePresenter.Unlock;
 
         storeRocketPresenter.OnOpenRocket += rocketBuyPresenter.SetRocket;
         storePlanetPresenter.OnSelectClosePlanet_Value += rocketBuyPresenter.SelectClosePlanet;
@@ -162,6 +163,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storePlanetPresenter.OnSelectClosePlanet_Value -= planetBuyPresenter.SetClosePlanet;
         storePlanetPresenter.OnSelectOpenPlanet_Value -= planetBuyPresenter.SetOpenPlanet;
         planetBuyPresenter.OnBuyPlanet -= storePlanetPresenter.BuyPlanet;
+        storePlanetPresenter.OnBuyPlanet_Index -= planetInteractivePresenter.Unlock;
 
         storeRocketPresenter.OnOpenRocket -= rocketBuyPresenter.SetRocket;
         storePlanetPresenter.OnSelectClosePlanet_Value -= rocketBuyPresenter.SelectClosePlanet;

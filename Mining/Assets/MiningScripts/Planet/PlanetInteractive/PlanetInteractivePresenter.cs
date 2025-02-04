@@ -31,6 +31,7 @@ public class PlanetInteractivePresenter
         view.OnChoosePlanet += model.ChoosePlanet;
 
         model.OnVisualizePlanet += view.VisualizePlanet;
+        model.OnUnlockPlanet += view.Unlock;
     }
 
     private void DeactivateEvents()
@@ -38,6 +39,7 @@ public class PlanetInteractivePresenter
         view.OnChoosePlanet -= model.ChoosePlanet;
 
         model.OnVisualizePlanet -= view.VisualizePlanet;
+        model.OnUnlockPlanet -= view.Unlock;
     }
 
     #region Input
@@ -57,6 +59,11 @@ public class PlanetInteractivePresenter
     public void SetPlanets(Planets planets)
     {
         model.SetPlanets(planets);
+    }
+
+    public void Unlock(int id)
+    {
+        model.Unlock(id);
     }
 
     #endregion

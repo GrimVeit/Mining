@@ -8,6 +8,8 @@ public class PlanetInteractiveModel
 
     public event Action<Planet> OnVisualizePlanet;
 
+    public event Action<int> OnUnlockPlanet;
+
     private Planets planets;
 
     public void SetPlanets(Planets planets)
@@ -31,5 +33,10 @@ public class PlanetInteractiveModel
     {
         OnChoosePlanet_Value?.Invoke(id);
         OnChoosePlanet?.Invoke();
+    }
+
+    public void Unlock(int planetID)
+    {
+        OnUnlockPlanet?.Invoke(planetID);
     }
 }

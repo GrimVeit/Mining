@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlanetInteractiveView : View
@@ -43,6 +44,8 @@ public class PlanetInteractiveView : View
         planetVisualize.OnClickToPlanet += HandleChoosePlanet;
         planetVisualize.SetData(planet.PlanetSprite, planet.Price);
         planetVisualize.Initialize(int.Parse(planet.GetID()));
+
+        planetVisualizes.Add(planetVisualize);
     }
 
     public void Dispose()
@@ -54,6 +57,11 @@ public class PlanetInteractiveView : View
         }
 
         planetVisualizes.Clear();
+    }
+
+    public void Unlock(int id)
+    {
+        planetVisualizes.FirstOrDefault(visualize => visualize.ID == id).Unlock();
     }
 
     #region Input

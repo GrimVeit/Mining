@@ -23,6 +23,7 @@ public class StorePlanetModel
     public event Action OnSelectPlanet;
     public event Action OnDeselectPlanet;
 
+    public event Action<int> OnBuyPlanet_Index;
 
     private Planets currentPlanets;
 
@@ -116,6 +117,8 @@ public class StorePlanetModel
         var planet = currentPlanets.GetPlanetById(planetID.ToString());
 
         planet.PlanetData.Open();
+
+        OnBuyPlanet_Index.Invoke(planetID);
 
         SelectPlanet(planetID);
     }

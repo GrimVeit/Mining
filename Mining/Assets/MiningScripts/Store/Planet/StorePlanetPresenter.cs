@@ -116,6 +116,17 @@ public class StorePlanetPresenter
         remove { model.OnDeselectPlanet -= value; }
     }
 
+
+
+
+    public event Action<int> OnBuyPlanet_Index
+    {
+        add { model.OnBuyPlanet_Index += value; }
+        remove { model.OnBuyPlanet_Index -= value; }
+    }
+
+
+
     public void SetGalaxy(Galaxy galaxy)
     {
         model.SetGalaxy(galaxy);
