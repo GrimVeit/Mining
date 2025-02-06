@@ -74,14 +74,14 @@ public class RocketBuyPresenter
         model.SelectRocketOpenPlanet();
     }
 
-    public void SelectRocketOpenPlanet(int planeetID)
+    public void SelectRocketOpenPlanet(Planet planet)
     {
         model.SelectRocketOpenPlanet();
     }
 
-    public void SelectNoneRocketOpenPlanet(int planetID)
+    public void SelectNoneRocketOpenPlanet(Planet planet)
     {
-        model.SelectNoneRocketOpenPlanet(planetID);
+        model.SelectNoneRocketOpenPlanet(int.Parse(planet.GetID()));
     }
 
     #endregion

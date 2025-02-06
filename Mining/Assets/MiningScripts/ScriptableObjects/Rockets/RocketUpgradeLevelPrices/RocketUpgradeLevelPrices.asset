@@ -1,0 +1,528 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d06e46424db62f4cb20e49c62950345, type: 3}
+  m_Name: RocketUpgradeLevelPrices
+  m_EditorClassIdentifier: 
+  rocketUpgradeLevelPrices:
+  - UpgradeLevelNumber: 0
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 21
+      price: 50
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 11
+      price: 25
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 1
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 22
+      price: 100
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 12
+      price: 50
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 2
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 23
+      price: 170
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 13
+      price: 85
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 3
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 24
+      price: 270
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 14
+      price: 135
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 4
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 25
+      price: 400
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 15
+      price: 200
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 5
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 26
+      price: 580
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 16
+      price: 290
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 6
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 27
+      price: 830
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 17
+      price: 410
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 7
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 28
+      price: 1160
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 18
+      price: 570
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 8
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 29
+      price: 1600
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 19
+      price: 785
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 9
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 30
+      price: 2190
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 20
+      price: 1065
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 10
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 31
+      price: 2970
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 21
+      price: 1445
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 11
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 32
+      price: 4010
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 22
+      price: 1960
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 12
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 33
+      price: 5410
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 23
+      price: 2645
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 13
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 34
+      price: 7310
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 24
+      price: 3555
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 14
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 35
+      price: 9810
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 25
+      price: 4765
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 15
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 36
+      price: 13110
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 26
+      price: 6365
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 16
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 37
+      price: 17510
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 27
+      price: 8565
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 17
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 38
+      price: 23410
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 28
+      price: 11665
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0
+  - UpgradeLevelNumber: 18
+    rocketUpgradeSpeedPrices:
+    - rocketID: 0
+      speedValue: 39
+      price: 31210
+    - rocketID: 1
+      speedValue: 0
+      price: 0
+    - rocketID: 2
+      speedValue: 0
+      price: 0
+    - rocketID: 3
+      speedValue: 0
+      price: 0
+    rocketUpgradeCapacityPrices:
+    - rocketID: 0
+      capacityValue: 29
+      price: 15765
+    - rocketID: 1
+      capacityValue: 15
+      price: 0
+    - rocketID: 2
+      capacityValue: 25
+      price: 0
+    - rocketID: 3
+      capacityValue: 40
+      price: 0

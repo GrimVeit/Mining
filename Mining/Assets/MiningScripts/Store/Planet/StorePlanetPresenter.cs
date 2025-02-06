@@ -34,28 +34,28 @@ public class StorePlanetPresenter
 
     #region Input
 
-    public event Action<int> OnSelectRocketPlanet_Index
+    public event Action<Planet> OnSelectRocketPlanet_Value
     {
-        add { model.OnSelectRocketOpenPlanet_Index += value; }
-        remove { model.OnSelectRocketOpenPlanet_Index -= value; }
+        add { model.OnSelectRocketOpenPlanet_Value += value; }
+        remove { model.OnSelectRocketOpenPlanet_Value -= value; }
     }
 
-    public event Action<int> OnSelectNoneRocketPlanet_Index
+    public event Action<Planet> OnSelectNoneRocketPlanet_Value
     {
-        add { model.OnSelectNoneRocketOpenPlanet_Index += value; }
-        remove { model.OnSelectNoneRocketOpenPlanet_Index -= value; }
+        add { model.OnSelectNoneRocketOpenPlanet_Value += value; }
+        remove { model.OnSelectNoneRocketOpenPlanet_Value -= value; }
     }
 
-    public event Action<int> OnDeselectRocketPlanet_Index
+    public event Action<Planet> OnDeselectRocketPlanet_Value
     {
-        add { model.OnDeselectRocketOpenPlanet_Index += value; }
-        remove { model.OnDeselectRocketOpenPlanet_Index -= value; }
+        add { model.OnDeselectRocketOpenPlanet_Value += value; }
+        remove { model.OnDeselectRocketOpenPlanet_Value -= value; }
     }
 
-    public event Action<int> OnDeselectNoneRocketPlanet_Index
+    public event Action<Planet> OnDeselectNoneRocketPlanet_Value
     {
-        add { model.OnDeselectNoneRocketOpenPlanet_Index += value; }
-        remove { model.OnDeselectNoneRocketOpenPlanet_Index -= value; }
+        add { model.OnDeselectNoneRocketOpenPlanet_Value += value; }
+        remove { model.OnDeselectNoneRocketOpenPlanet_Value -= value; }
     }
 
 
@@ -149,6 +149,17 @@ public class StorePlanetPresenter
     public void BuyRocketToPlanet(int planetID, Rocket rocket)
     {
         model.BuyRocketToPlanet(planetID, rocket);
+    }
+
+
+    public void UpgradeRocketSpeed(int planetID, float value)
+    {
+        model.UpgradeSpeedRocket(planetID, value);
+    }
+
+    public void UpgradeRocketCapacity(int planetID, float value)
+    {
+        model.UpgradeCapacityRocket(planetID, value);
     }
 
     #endregion

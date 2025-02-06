@@ -57,7 +57,7 @@ public class StoreRocketModel
 
         for (int i = 0; i < rockets.rockets.Count; i++)
         {
-            rockets.rockets[i].SetData(rocketDatas[i]);
+            rockets.rockets[i].SetRocketData(rocketDatas[i]);
 
             if (rocketDatas[i].IsOpen)
                 OnOpenRocket?.Invoke(rockets.rockets[i]);

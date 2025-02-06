@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 3
   nameRocket: Gold
   spriteRocket: {fileID: 21300000, guid: 93e33bfe193cb0041b310e269eeb0cdc, type: 3}
-  baseLoadCapacity: 100
+  baseLoadCapacity: 40
   price: 35000

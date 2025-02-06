@@ -10,7 +10,9 @@ public class Planet : ScriptableObject, IIdentify
     [SerializeField] private int planetPrice;
     [SerializeField] private int resourceReserve;
     [SerializeField] private Sprite planetSprite;
+
     private PlanetData planetData;
+    private RocketPlanetData rocketPlanetData;
 
     public string GetID() => id;
     public string NamePlanet => namePlanet;
@@ -20,10 +22,16 @@ public class Planet : ScriptableObject, IIdentify
     public int ResourceReserve => resourceReserve;
     public Sprite PlanetSprite => planetSprite;
     public PlanetData PlanetData => planetData;
+    public RocketPlanetData RocketPlanetData => rocketPlanetData;
 
-    public void SetData(PlanetData data)
+    public void SetPlanetData(PlanetData data)
     {
         planetData = data;
+    }
+
+    public void SetRocketPlanetData(RocketPlanetData rocketUpgradeData)
+    {
+        this.rocketPlanetData = rocketUpgradeData;
     }
 }
 
