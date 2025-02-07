@@ -147,6 +147,11 @@ public class StorePlanetPresenter
         model.SelectPlanet(id);
     }
 
+    public void SelectSecondPlanet()
+    {
+        model.SelectSecondPlanet();
+    }
+
     public void BuyPlanet(int id)
     {
         model.BuyPlanet(id);

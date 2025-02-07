@@ -160,6 +160,16 @@ public class StorePlanetModel
 
         SelectPlanet(planetID);
     }
+
+    public void SelectSecondPlanet()
+    {
+        int currentIndex = currentPlanets.planets.IndexOf(currentPlanet);
+        int nextIndex = (currentIndex + 1) % currentPlanets.planets.Count;
+
+
+
+        SelectPlanet(int.Parse(currentPlanets.planets[nextIndex].GetID()));
+    }
 }
 
 [Serializable]

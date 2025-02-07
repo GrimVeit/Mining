@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlanetInteractiveView : View
 {
+    [SerializeField] private Button buttonSecondPlanet;
     [SerializeField] private PlanetInteractive_Big planetBigPrefab;
     [SerializeField] private PlanetInteractive_Middle planetMiddlePrefab;
     [SerializeField] private PlanetInteractive_Small planetSmallPrefab;
@@ -50,6 +52,11 @@ public class PlanetInteractiveView : View
         planet.SetPosition(position);
     }
 
+    public void Initialize()
+    {
+        buttonSecondPlanet.onClick.AddListener(()=> OnChooseSecondPlanet?.Invoke());
+    }
+
     public void Dispose()
     {
         for (int i = 0; i < planetVisualizes.Count; i++)
@@ -57,6 +64,8 @@ public class PlanetInteractiveView : View
             planetVisualizes[i].OnClickToPlanet -= HandleChoosePlanet;
             planetVisualizes[i].Dispose();
         }
+
+        buttonSecondPlanet.onClick.RemoveListener(() => OnChooseSecondPlanet?.Invoke());
 
         planetVisualizes.Clear();
     }
@@ -69,6 +78,7 @@ public class PlanetInteractiveView : View
     #region Input
 
     public event Action<int> OnChoosePlanet;
+    public event Action OnChooseSecondPlanet;
 
     private void HandleChoosePlanet(int id)
     {

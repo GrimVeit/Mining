@@ -122,6 +122,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storeGalaxyPresenter.OnSelectGalaxy += storePlanetPresenter.SetGalaxy;
         storePlanetPresenter.OnSetPlanets += planetInteractivePresenter.SetPlanets;
 
+        planetInteractivePresenter.OnChooseSecondPlanet += storePlanetPresenter.SelectSecondPlanet;
         planetInteractivePresenter.OnChoosePlanet_Value += storePlanetPresenter.SelectPlanet;
         storePlanetPresenter.OnSelectPlanet_Value += planetInfoPresenter.SetPlanet;
 
@@ -170,6 +171,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storeGalaxyPresenter.OnSelectGalaxy -= storePlanetPresenter.SetGalaxy;
         storePlanetPresenter.OnSetPlanets -= planetInteractivePresenter.SetPlanets;
 
+        planetInteractivePresenter.OnChooseSecondPlanet -= storePlanetPresenter.SelectSecondPlanet;
         planetInteractivePresenter.OnChoosePlanet_Value -= storePlanetPresenter.SelectPlanet;
         storePlanetPresenter.OnSelectPlanet_Value -= planetInfoPresenter.SetPlanet;
 

@@ -3,14 +3,14 @@ using UnityEngine;
 public class PlanetInteractivePosition : MonoBehaviour
 {
     public Transform TransformPlanet => transformPositionPlanet;
-    public int ID => id;
+    public int PlanetID => planetID;
 
     [SerializeField] private Transform transformPositionPlanet;
 
-    private int id;
+    private int planetID;
 
     public void SetID(int id)
     {
-        this.id = id;
+        this.planetID = id;
     }
 }

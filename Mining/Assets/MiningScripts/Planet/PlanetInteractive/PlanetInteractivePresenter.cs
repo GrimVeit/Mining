@@ -17,6 +17,8 @@ public class PlanetInteractivePresenter
     public void Initialize()
     {
         ActivateEvents();
+
+        view.Initialize();
     }
 
     public void Dispose()
@@ -29,6 +31,7 @@ public class PlanetInteractivePresenter
     private void ActivateEvents()
     {
         view.OnChoosePlanet += model.ChoosePlanet;
+        view.OnChooseSecondPlanet += model.ChooseSecondPlanet;
 
         model.OnVisualizePlanet += view.VisualizePlanet;
         model.OnUnlockPlanet += view.Unlock;
@@ -37,6 +40,7 @@ public class PlanetInteractivePresenter
     private void DeactivateEvents()
     {
         view.OnChoosePlanet -= model.ChoosePlanet;
+        view.OnChooseSecondPlanet -= model.ChooseSecondPlanet;
 
         model.OnVisualizePlanet -= view.VisualizePlanet;
         model.OnUnlockPlanet -= view.Unlock;
@@ -54,6 +58,12 @@ public class PlanetInteractivePresenter
     {
         add { model.OnChoosePlanet += value; }
         remove { model.OnChoosePlanet -= value; }
+    }
+
+    public event Action OnChooseSecondPlanet
+    {
+        add { model.OnChooseSecondPlanet += value; }
+        remove { model.OnChooseSecondPlanet -= value; }
     }
 
     public void SetPlanets(Planets planets)

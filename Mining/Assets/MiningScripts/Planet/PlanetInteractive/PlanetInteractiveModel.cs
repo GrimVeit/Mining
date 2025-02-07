@@ -5,6 +5,7 @@ public class PlanetInteractiveModel
 {
     public event Action<int> OnChoosePlanet_Value;
     public event Action OnChoosePlanet;
+    public event Action OnChooseSecondPlanet;
 
     public event Action<Planet> OnVisualizePlanet;
 
@@ -33,6 +34,11 @@ public class PlanetInteractiveModel
     {
         OnChoosePlanet_Value?.Invoke(id);
         OnChoosePlanet?.Invoke();
+    }
+
+    public void ChooseSecondPlanet()
+    {
+        OnChooseSecondPlanet?.Invoke();
     }
 
     public void Unlock(int planetID)
