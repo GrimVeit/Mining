@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class PlanetResourceView : MonoBehaviour
+public class PlanetResourceView : View
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private TextMeshProUGUI textNameResource;
+    [SerializeField] private TextMeshProUGUI textPersentMined;
+    [SerializeField] private TextMeshProUGUI textCountMined;
 
-    // Update is called once per frame
-    void Update()
+    public void VisualizePlanetResourceData(Planet planet, int countMined, float persentMined)
     {
-        
+        textNameResource.text = planet.ResourceType.ToString();
+        textCountMined.text = countMined.ToString();
+        textPersentMined.text = persentMined.ToString() + "%";
     }
 }

@@ -1,33 +1,56 @@
 using System;
-using UnityEngine;
 
-public class PlanetResource
+public class PlanetResource : IPlanetResource
 {
-    public float ResourceCount { get; private set; }
-    public event Action<float> OnChangeResource;
+    public Planet CurrentPlanet { get; private set; }
 
-    private Planet currentPlanet;
+    public event Action<int, float> OnChangePlanetResourceData;
+
+    public event Action<Planet> OnEndResources;
+
+    public float PersentMined() => MathF.Round(((float)allResourceCount - currentResourceCount) / allResourceCount * 100f * 1f, 2);
+    public int AllResourceCount() => allResourceCount;
+    public int ResourceCount() => currentResourceCount;
+    public int PlanetID() => int.Parse(CurrentPlanet.GetID());
+
+    private float percentMined;
+    private int currentResourceCount;
+    private int allResourceCount;
 
     public void SetPlanet(Planet planet)
     {
-        currentPlanet = planet;
+        CurrentPlanet = planet;
+
+        allResourceCount = planet.ResourceReserve;
+        currentResourceCount = allResourceCount;
     }
 
     public void PickUpResource(int count)
     {
-        if(ResourceCount >= count)
+        if(currentResourceCount >= count)
         {
-
+            currentResourceCount -= count;
+        } 
+        else if(currentResourceCount <= 0)
+        {
+            currentResourceCount = 0;
+            OnEndResources?.Invoke(CurrentPlanet);
         }
+
+        percentMined = MathF.Round((((float)allResourceCount - currentResourceCount) / allResourceCount * 100f * 1f), 2);
+        OnChangePlanetResourceData?.Invoke(allResourceCount - currentResourceCount, percentMined);
     }
 
     public bool CanAfford(int count)
     {
-        return ResourceCount >= count;
+        return currentResourceCount >= count;
     }
 }
 
 public interface IPlanetResource
 {
+    public int ResourceCount();
+    public int PlanetID();
     public bool CanAfford(int count);
+    public void PickUpResource(int count);
 }

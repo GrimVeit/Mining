@@ -163,7 +163,7 @@ public class StorePlanetPresenter
         model.UpgradeSpeedRocket(planetID, value);
     }
 
-    public void UpgradeRocketCapacity(int planetID, float value)
+    public void UpgradeRocketCapacity(int planetID, int value)
     {
         model.UpgradeCapacityRocket(planetID, value);
     }

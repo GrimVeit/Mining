@@ -8,7 +8,7 @@ public class PlanetRocketUpgradeModel
     public event Action OnSelectCapacityInteractive;
 
     public event Action<int, float> OnUpgradeSpeed;
-    public event Action<int, float> OnUpgradeCapacity;
+    public event Action<int, int> OnUpgradeCapacity;
 
     public event Action OnActivateDisplay;
     public event Action OnDeactivateDisplay;

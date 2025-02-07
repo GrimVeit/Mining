@@ -152,7 +152,7 @@ public class StorePlanetModel
         SelectPlanet(planetID);
     }
 
-    public void UpgradeCapacityRocket(int planetID, float capacity)
+    public void UpgradeCapacityRocket(int planetID, int capacity)
     {
         var planet = currentPlanets.GetPlanetById(planetID.ToString());
 
@@ -185,7 +185,7 @@ public class RocketPlanetData
     public int UpgradeLevelSpeed { get; private set; }
     public int UpgradeLevelCapacity { get; private set; }
     public float Speed { get; private set; }
-    public float Capacity { get; private set; }
+    public int Capacity { get; private set; }
 
     public RocketPlanetData(Rocket rocket)
     {
@@ -206,7 +206,7 @@ public class RocketPlanetData
         UpgradeLevelSpeed += 1;
     }
 
-    public void SetCapacity(float capacity)
+    public void SetCapacity(int capacity)
     {
         Capacity = capacity;
 

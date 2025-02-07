@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class RocketTransfer : MonoBehaviour
 {
-    public event Action OnEndMoveToShip;
-    public event Action OnEndMoveToPlanet;
+    public int ID => int.Parse(planet.GetID());
+    public event Action<ResourceType, int> OnSendResources;
 
     [SerializeField] private Transform transformRocket;
     [SerializeField] private Image imageRocket;
@@ -24,20 +24,25 @@ public class RocketTransfer : MonoBehaviour
 
     private Planet planet;
     private float speed => 30 / planet.RocketPlanetData.Speed;
-    private float capacity => planet.RocketPlanetData.Capacity;
+    private int capacity => planet.RocketPlanetData.Capacity;
 
     private Transform targetRotate;
 
+    private IPlanetResource planetResource;
+
+    private int currentCapacityBoat;
+
     public void Initialize()
     {
-        transformRocket.localPosition = Vector3.zero;
+        transformRocket.localPosition = transformShip.localPosition;
 
         MoveToPlanet();
     }
 
-    public void SetData(Planet planet, Transform transformShip)
+    public void SetData(Planet planet, IPlanetResource planetResource, Transform transformShip)
     {
         this.planet = planet;
+        this.planetResource = planetResource;
         this.transformShip = transformShip;
         this.transformPlanet = planet.interactivePosition.TransformPlanet;
 
@@ -60,12 +65,11 @@ public class RocketTransfer : MonoBehaviour
 
     public void MoveToShip()
     {
-
         Debug.Log(speed);
         tweenMove?.Kill();
 
         targetRotate = transformShip;
-        tweenMove = transformRocket.DOMove(transformShip.position, speed).OnUpdate(RotateTo).OnComplete(MoveToPlanet);
+        tweenMove = transformRocket.DOLocalMove(transformShip.localPosition, speed).OnUpdate(RotateTo).OnComplete(SendResources);
     }
 
     public void MoveToPlanet()
@@ -73,7 +77,30 @@ public class RocketTransfer : MonoBehaviour
         tweenMove?.Kill();
 
         targetRotate = transformPlanet;
-        tweenMove = transformRocket.DOMove(transformPlanet.position, speed).OnUpdate(RotateTo).OnComplete(MoveToShip);
+        tweenMove = transformRocket.DOLocalMove(transformPlanet.localPosition, speed).OnUpdate(RotateTo).OnComplete(CalculateResource);
+    }
+
+    private void CalculateResource()
+    {
+        if (planetResource.CanAfford(capacity))
+        {
+            currentCapacityBoat = capacity;
+        }
+        else
+        {
+            currentCapacityBoat = planetResource.ResourceCount();
+        }
+
+        planetResource.PickUpResource(currentCapacityBoat);
+
+        MoveToShip();
+    }
+
+    private void SendResources()
+    {
+        OnSendResources?.Invoke(planet.ResourceType, currentCapacityBoat);
+
+        MoveToPlanet();
     }
 
 

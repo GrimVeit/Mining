@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,19 +26,36 @@ public class RocketTransferPresenter
 
     private void ActivateEvents()
     {
-        model.OnActivateRocket += view.ActivateRocket;
+        view.OnSendResources += model.SendResources;
+
+        model.OnSpawnRocket += view.SpawnRocket;
+        model.OnReturnRocketToShip += view.ReturnRocketToShip;
     }
 
     private void DeactivateEvents()
     {
-        model.OnActivateRocket -= view.ActivateRocket;
+        view.OnSendResources -= model.SendResources;
+
+        model.OnSpawnRocket -= view.SpawnRocket;
+        model.OnReturnRocketToShip -= view.ReturnRocketToShip;
     }
 
     #region Input
 
+    public event Action<ResourceType, int> OnSendResources
+    {
+        add { model.OnSendResources += value; }
+        remove { model.OnSendResources -= value; }
+    }
+
     public void SetPlanet(Planet planet)
     {
-        model.ActivateRocket(planet);
+        model.SpawnRocket(planet);
+    }
+
+    public void ReturnRocketToShip(Planet planet)
+    {
+        model.ReturnRocketToShip(planet);
     }
 
     #endregion

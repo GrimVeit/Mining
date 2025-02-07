@@ -78,7 +78,7 @@ public class PlanetRocketUpgradePresenter
         remove { model.OnUpgradeSpeed -= value; }
     }
 
-    public event Action<int, float> OnUpgradeCapacity
+    public event Action<int, int> OnUpgradeCapacity
     {
         add { model.OnUpgradeCapacity += value; }
         remove { model.OnUpgradeCapacity -= value; }

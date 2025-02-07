@@ -41,6 +41,8 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private RocketTransferPresenter rocketTransferPresenter;
 
+    private PlanetResourcePresenter planetResourcePresenter;
+
     private MiniGameGlobalStateMachine globalStateMachine;
 
     private void Awake()
@@ -87,7 +89,9 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         planetRocketUpgradePresenter = new PlanetRocketUpgradePresenter(new PlanetRocketUpgradeModel(upgradeLevelPrices), viewContainer.GetView<PlanetRocketUpgradeView>());
 
-        rocketTransferPresenter = new RocketTransferPresenter(new RocketTransferModel(), viewContainer.GetView<RocketTransferView>());
+        planetResourcePresenter = new PlanetResourcePresenter(new PlanetResourceModel(), viewContainer.GetView<PlanetResourceView>());
+
+        rocketTransferPresenter = new RocketTransferPresenter(new RocketTransferModel(planetResourcePresenter), viewContainer.GetView<RocketTransferView>());
 
         globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter);
 
@@ -104,6 +108,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         rocketBuyPresenter.Initialize();
         planetRocketUpgradePresenter.Initialize();
         rocketTransferPresenter.Initialize();
+        planetResourcePresenter.Initialize();
 
         storeRocketPresenter.Initialize();
         storeShipPresenter.Initialize();
@@ -151,6 +156,9 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storePlanetPresenter.OnSelectNoneRocketPlanet_Value += planetRocketUpgradePresenter.SetNoneRocketPlanet;
         planetRocketUpgradePresenter.OnUpgradeCapacity += storePlanetPresenter.UpgradeRocketCapacity;
         planetRocketUpgradePresenter.OnUpgradeSpeed += storePlanetPresenter.UpgradeRocketSpeed;
+
+        storePlanetPresenter.OnSetPlanets += planetResourcePresenter.SetPlanets;
+        storePlanetPresenter.OnSelectPlanet_Value += planetResourcePresenter.SelectPlanet;
 
         storePlanetPresenter.OnBuyRocketToPlanet_Value += rocketTransferPresenter.SetPlanet;
 
@@ -221,6 +229,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         soundPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        planetResourcePresenter?.Dispose();
         rocketTransferPresenter?.Dispose();
         planetRocketUpgradePresenter?.Dispose();
         planetBuyPresenter?.Dispose();

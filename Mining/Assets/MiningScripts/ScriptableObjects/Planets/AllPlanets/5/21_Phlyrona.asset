@@ -17,5 +17,6 @@ MonoBehaviour:
   resourceType: 9
   planetType: 2
   planetPrice: 2000
-  resourceReserve: 0
+  resourceReserve: 3500
   planetSprite: {fileID: 21300000, guid: 433700819110f284c832a2b1f5a5a36d, type: 3}
+  interactivePosition: {fileID: 0}
