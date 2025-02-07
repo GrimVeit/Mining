@@ -119,10 +119,16 @@ public class StorePlanetPresenter
 
 
 
-    public event Action<int> OnBuyPlanet_Index
+    public event Action<Planet> OnBuyPlanet_Value
     {
-        add { model.OnBuyPlanet_Index += value; }
-        remove { model.OnBuyPlanet_Index -= value; }
+        add { model.OnBuyPlanet_Value += value; }
+        remove { model.OnBuyPlanet_Value -= value; }
+    }
+
+    public event Action<Planet> OnBuyRocketToPlanet_Value
+    {
+        add { model.OnBuyRocketToPlanet_Value += value; }
+        remove { model.OnBuyRocketToPlanet_Value -= value; }
     }
 
 

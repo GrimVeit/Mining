@@ -46,6 +46,8 @@ public class PlanetInteractiveView : View
         planetVisualize.Initialize(int.Parse(planet.GetID()));
 
         planetVisualizes.Add(planetVisualize);
+
+        planet.SetPosition(position);
     }
 
     public void Dispose()

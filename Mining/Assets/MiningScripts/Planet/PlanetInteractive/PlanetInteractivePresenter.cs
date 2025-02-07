@@ -61,9 +61,9 @@ public class PlanetInteractivePresenter
         model.SetPlanets(planets);
     }
 
-    public void Unlock(int id)
+    public void Unlock(Planet planet)
     {
-        model.Unlock(id);
+        model.Unlock(int.Parse(planet.GetID()));
     }
 
     #endregion

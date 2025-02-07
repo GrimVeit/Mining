@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RocketTransfer : MonoBehaviour
 {
@@ -10,37 +11,57 @@ public class RocketTransfer : MonoBehaviour
     public event Action OnEndMoveToPlanet;
 
     [SerializeField] private Transform transformRocket;
+    [SerializeField] private Image imageRocket;
+    [SerializeField] private Sprite spriteStandard;
+    [SerializeField] private Sprite spriteBronze;
+    [SerializeField] private Sprite spriteSilver;
+    [SerializeField] private Sprite spriteGold;
 
-
-    [SerializeField] private Transform transformShip;
-    [SerializeField] private Transform transformPlanet;
+    private Transform transformShip;
+    private Transform transformPlanet;
 
     private Tween tweenMove;
 
-    [SerializeField] private float speed;
+    private Planet planet;
+    private float speed => 30 / planet.RocketPlanetData.Speed;
+    private float capacity => planet.RocketPlanetData.Capacity;
 
     private Transform targetRotate;
 
-    private void Awake()
+    public void Initialize()
     {
-        transformRocket.position = transformShip.position;
+        transformRocket.localPosition = Vector3.zero;
 
         MoveToPlanet();
     }
 
-    public void SetData(Transform transformShip, Transform transformPlanet)
+    public void SetData(Planet planet, Transform transformShip)
     {
+        this.planet = planet;
         this.transformShip = transformShip;
-        this.transformPlanet = transformPlanet;
-    }
+        this.transformPlanet = planet.interactivePosition.TransformPlanet;
 
-    public void SetSpeed(float speed)
-    {
-        this.speed = speed;
+        switch (planet.RocketPlanetData.RocketID)
+        {
+            case 0:
+                imageRocket.sprite = spriteStandard;
+                break;
+            case 1:
+                imageRocket.sprite = spriteSilver;
+                break;
+            case 2:
+                imageRocket.sprite = spriteBronze;
+                break;
+            case 3:
+                imageRocket.sprite = spriteGold;
+                break;
+        }
     }
 
     public void MoveToShip()
     {
+
+        Debug.Log(speed);
         tweenMove?.Kill();
 
         targetRotate = transformShip;
@@ -53,14 +74,6 @@ public class RocketTransfer : MonoBehaviour
 
         targetRotate = transformPlanet;
         tweenMove = transformRocket.DOMove(transformPlanet.position, speed).OnUpdate(RotateTo).OnComplete(MoveToShip);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            MoveToPlanet();
-        }
     }
 
 

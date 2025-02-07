@@ -1,14 +1,16 @@
 using System;
 using UnityEngine;
 
-public class PlanetResource : MonoBehaviour
+public class PlanetResource
 {
     public float ResourceCount { get; private set; }
-    public event Action<float> OnRemoveResource;
+    public event Action<float> OnChangeResource;
 
-    public void SetPlanet()
+    private Planet currentPlanet;
+
+    public void SetPlanet(Planet planet)
     {
-
+        currentPlanet = planet;
     }
 
     public void PickUpResource(int count)

@@ -1,17 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class PlanetRocketUpgradeModel
 {
+    public event Action OnSelectSpeedInteractive;
+    public event Action OnSelectCapacityInteractive;
+
     public event Action<int, float> OnUpgradeSpeed;
     public event Action<int, float> OnUpgradeCapacity;
 
     public event Action OnActivateDisplay;
     public event Action OnDeactivateDisplay;
 
+    public event Action OnAllDeactivated;
     public event Action<int> OnActivateButtonSpeed;
     public event Action OnDeactivateButtonSpeed;
     public event Action<int> OnActivateButtonCapacity;
@@ -35,8 +37,7 @@ public class PlanetRocketUpgradeModel
 
     public void SetRocketPlanet(Planet planet)
     {
-        OnDeactivateButtonCapacity?.Invoke();
-        OnDeactivateButtonSpeed?.Invoke();
+        OnAllDeactivated?.Invoke();
 
         currentPlanet = planet;
 
@@ -46,7 +47,11 @@ public class PlanetRocketUpgradeModel
         upgradeSecondLevelSpeed = upgradeLevelPrices.rocketUpgradeLevelPrices
             .FirstOrDefault(data => data.UpgradeLevelNumber == currentPlanet.RocketPlanetData.UpgradeLevelSpeed + 1);
 
-        Debug.Log($"Следующий уровень прокачки грузоподъёмности - {upgradeSecondLevelCapacity.UpgradeLevelNumber}");
+        if(upgradeSecondLevelSpeed != null)
+              Debug.Log($"Следующий уровень прокачки скорости - {upgradeSecondLevelSpeed.UpgradeLevelNumber}");
+
+        if(upgradeSecondLevelCapacity != null)
+              Debug.Log($"Следующий уровень прокачки грузоподъёмности - {upgradeSecondLevelCapacity.UpgradeLevelNumber}");
 
         OnVisualizeRocketData?.Invoke(currentPlanet.RocketPlanetData);
 
@@ -61,7 +66,7 @@ public class PlanetRocketUpgradeModel
 
     public void SelectSpeed()
     {
-        if (upgradeSecondLevelCapacity == null)
+        if (upgradeSecondLevelSpeed == null)
         {
             OnDeactivateButtonCapacity?.Invoke();
             OnDeactivateButtonSpeed?.Invoke();
@@ -72,6 +77,8 @@ public class PlanetRocketUpgradeModel
             OnActivateButtonSpeed?.Invoke(upgradeSecondLevelSpeed.rocketUpgradeSpeedPrices.FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).price);
             OnDeactivateButtonCapacity?.Invoke();
         }
+
+        OnSelectSpeedInteractive?.Invoke();
     }
 
     public void SelectCapacity()
@@ -83,9 +90,11 @@ public class PlanetRocketUpgradeModel
         }
         else
         {
-            OnActivateButtonSpeed?.Invoke(upgradeSecondLevelCapacity.rocketUpgradeCapacityPrices.FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).price);
-            OnDeactivateButtonCapacity?.Invoke();
+            OnActivateButtonCapacity?.Invoke(upgradeSecondLevelCapacity.rocketUpgradeCapacityPrices.FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).price);
+            OnDeactivateButtonSpeed?.Invoke();
         }
+
+        OnSelectCapacityInteractive?.Invoke();
     }
 
     public void UpgradeSpeed()
@@ -98,7 +107,7 @@ public class PlanetRocketUpgradeModel
     public void UpgradeCapacity()
     {
         OnUpgradeCapacity?.Invoke(int.Parse(currentPlanet.GetID()),
-            upgradeSecondLevelSpeed.rocketUpgradeCapacityPrices
+            upgradeSecondLevelCapacity.rocketUpgradeCapacityPrices
             .FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).capacityValue);
     }
 }

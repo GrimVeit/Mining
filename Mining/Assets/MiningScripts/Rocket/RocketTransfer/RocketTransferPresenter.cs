@@ -25,11 +25,20 @@ public class RocketTransferPresenter
 
     private void ActivateEvents()
     {
-
+        model.OnActivateRocket += view.ActivateRocket;
     }
 
     private void DeactivateEvents()
     {
-
+        model.OnActivateRocket -= view.ActivateRocket;
     }
+
+    #region Input
+
+    public void SetPlanet(Planet planet)
+    {
+        model.ActivateRocket(planet);
+    }
+
+    #endregion
 }

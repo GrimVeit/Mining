@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class RocketTransferModel : MonoBehaviour
+public class RocketTransferModel
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public event Action<Planet> OnActivateRocket;
 
-    // Update is called once per frame
-    void Update()
+    public void ActivateRocket(Planet planet)
     {
-        
+        OnActivateRocket?.Invoke(planet);
     }
 }

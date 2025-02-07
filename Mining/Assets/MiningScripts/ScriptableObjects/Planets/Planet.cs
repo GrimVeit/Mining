@@ -11,6 +11,7 @@ public class Planet : ScriptableObject, IIdentify
     [SerializeField] private int resourceReserve;
     [SerializeField] private Sprite planetSprite;
 
+    public PlanetInteractivePosition interactivePosition;
     private PlanetData planetData;
     private RocketPlanetData rocketPlanetData;
 
@@ -23,6 +24,7 @@ public class Planet : ScriptableObject, IIdentify
     public Sprite PlanetSprite => planetSprite;
     public PlanetData PlanetData => planetData;
     public RocketPlanetData RocketPlanetData => rocketPlanetData;
+    public PlanetInteractivePosition InteractivePosition => interactivePosition;
 
     public void SetPlanetData(PlanetData data)
     {
@@ -32,6 +34,11 @@ public class Planet : ScriptableObject, IIdentify
     public void SetRocketPlanetData(RocketPlanetData rocketUpgradeData)
     {
         this.rocketPlanetData = rocketUpgradeData;
+    }
+
+    public void SetPosition(PlanetInteractivePosition planetInteractive)
+    {
+        this.interactivePosition = planetInteractive;
     }
 }
 

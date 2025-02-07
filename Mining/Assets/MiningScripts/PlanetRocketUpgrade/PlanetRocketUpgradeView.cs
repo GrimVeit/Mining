@@ -20,7 +20,7 @@ public class PlanetRocketUpgradeView : View
     public void Initialize()
     {
         buttonUpgradeSpeed.onClick.AddListener(()=> OnClickToUpgradeSpeed?.Invoke());
-        buttonUpgradeCapacity.onClick.AddListener(() => OnClickToUpgradeSpeed?.Invoke());
+        buttonUpgradeCapacity.onClick.AddListener(() => OnClickToUpgradeCapacity?.Invoke());
 
         speedInteractive.OnChoose += HandleSelectSpeed;
         capacityInteractive.OnChoose += HandleSelectCapacity;
@@ -29,7 +29,7 @@ public class PlanetRocketUpgradeView : View
     public void Dispose()
     {
         buttonUpgradeSpeed.onClick.RemoveListener(() => OnClickToUpgradeSpeed?.Invoke());
-        buttonUpgradeCapacity.onClick.RemoveListener(() => OnClickToUpgradeSpeed?.Invoke());
+        buttonUpgradeCapacity.onClick.RemoveListener(() => OnClickToUpgradeCapacity?.Invoke());
 
         speedInteractive.OnChoose -= HandleSelectSpeed;
         capacityInteractive.OnChoose -= HandleSelectCapacity;
@@ -97,7 +97,14 @@ public class PlanetRocketUpgradeView : View
     }
 
 
+    public void AllDeactivate()
+    {
+        speedInteractive.DeselectUpgrade();
+        capacityInteractive.DeselectUpgrade();
 
+        DeactivateCapacityButton();
+        DeactivateSpeedButton();
+    }
 
 
     #region Input

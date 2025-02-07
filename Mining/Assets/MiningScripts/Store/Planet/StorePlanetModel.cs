@@ -29,7 +29,8 @@ public class StorePlanetModel
     public event Action OnSelectPlanet;
     public event Action OnDeselectPlanet;
 
-    public event Action<int> OnBuyPlanet_Index;
+    public event Action<Planet> OnBuyPlanet_Value;
+    public event Action<Planet> OnBuyRocketToPlanet_Value;
 
     private Planets currentPlanets;
 
@@ -124,7 +125,7 @@ public class StorePlanetModel
 
         planet.PlanetData.Open();
 
-        OnBuyPlanet_Index.Invoke(planetID);
+        OnBuyPlanet_Value.Invoke(planet);
 
         SelectPlanet(planetID);
     }
@@ -136,6 +137,8 @@ public class StorePlanetModel
         var planet = currentPlanets.GetPlanetById(planetID.ToString());
 
         planet.SetRocketPlanetData(new RocketPlanetData(rocket));
+
+        OnBuyRocketToPlanet_Value?.Invoke(planet);
 
         SelectPlanet(planetID);
     }

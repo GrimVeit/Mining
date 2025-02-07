@@ -35,6 +35,7 @@ public class PlanetRocketUpgradePresenter
 
         model.OnActivateDisplay += view.ActivateRocketUpgradeDisplay;
         model.OnDeactivateDisplay += view.DeactivateRocketUpgradeDisplay;
+        model.OnAllDeactivated += view.AllDeactivate;
 
         model.OnVisualizeRocketData += view.SetRocketPlanetData;
 
@@ -42,6 +43,9 @@ public class PlanetRocketUpgradePresenter
         model.OnDeactivateButtonSpeed += view.DeactivateSpeedButton;
         model.OnActivateButtonCapacity += view.ActivateCapacityButton;
         model.OnDeactivateButtonCapacity += view.DeactivateCapacityButton;
+
+        model.OnSelectCapacityInteractive += view.SelectCapacityInteractive;
+        model.OnSelectSpeedInteractive += view.SelectSpeedInteractive;
     }
 
     private void DeactivateEvents()
@@ -53,6 +57,7 @@ public class PlanetRocketUpgradePresenter
 
         model.OnActivateDisplay -= view.ActivateRocketUpgradeDisplay;
         model.OnDeactivateDisplay -= view.DeactivateRocketUpgradeDisplay;
+        model.OnAllDeactivated -= view.AllDeactivate;
 
         model.OnVisualizeRocketData -= view.SetRocketPlanetData;
 
@@ -60,6 +65,9 @@ public class PlanetRocketUpgradePresenter
         model.OnDeactivateButtonSpeed -= view.DeactivateSpeedButton;
         model.OnActivateButtonCapacity -= view.ActivateCapacityButton;
         model.OnDeactivateButtonCapacity -= view.DeactivateCapacityButton;
+
+        model.OnSelectCapacityInteractive -= view.SelectCapacityInteractive;
+        model.OnSelectSpeedInteractive -= view.SelectSpeedInteractive;
     }
 
     #region Input
