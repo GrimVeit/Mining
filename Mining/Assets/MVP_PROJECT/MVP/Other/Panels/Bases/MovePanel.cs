@@ -5,17 +5,22 @@ using UnityEngine;
 
 public class MovePanel : Panel
 {
+    public bool IsActive => isActive;
+
     [SerializeField] protected Vector3 from;
     [SerializeField] protected Vector3 to;
     [SerializeField] protected float time;
     [SerializeField] protected CanvasGroup canvasGroup;
     protected Tween tween;
 
+    private bool isActive;
+
     public override void ActivatePanel()
     {
         if (tween != null) { tween.Kill(); }
 
         panel.SetActive(true);
+        isActive = true;
         tween = panel.transform.DOLocalMove(to, time);
         CanvasGroupAlpha(canvasGroup, 0, 1, time);
     }
@@ -24,6 +29,7 @@ public class MovePanel : Panel
     {
         if (tween != null) { tween.Kill(); }
 
+        isActive = false;
         tween = panel.transform.DOLocalMove(from, time).OnComplete(() => panel.SetActive(false));
         CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }

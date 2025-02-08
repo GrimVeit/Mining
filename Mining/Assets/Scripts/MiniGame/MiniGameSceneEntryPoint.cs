@@ -97,7 +97,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         planetRocketVisualPresenter = new PlanetRocketVisualPresenter(new PlanetRocketVisualModel(), viewContainer.GetView<PlanetRocketVisualView>());
 
-        globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter);
+        globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter, planetRocketVisualPresenter);
 
         ActivateEvents();
 
@@ -171,11 +171,6 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         rocketTransferPresenter.OnSendResources += storeResourcePresenter.SendResources;
 
         sceneRoot.OnClickToOpen_PlanetInfo += storePlanetPresenter.SelectSecondPlanet;
-        sceneRoot.OnClickToClose_InfoPlanet += planetRocketVisualPresenter.SelectDefault;
-        sceneRoot.OnClickToClose_ResourceDescription += planetRocketVisualPresenter.SelectDefault;
-        sceneRoot.OnClickToClose_ResourceSale += planetRocketVisualPresenter.SelectDefault;
-        sceneRoot.OnClickToOpen_ResourceDescription += planetRocketVisualPresenter.SelectShip;
-        sceneRoot.OnClickToOpen_ResourceSale += planetRocketVisualPresenter.SelectShip;
         storePlanetPresenter.OnSelectPlanet_Value += planetRocketVisualPresenter.Select;
 
         ActivateTransitionEvents();
@@ -222,11 +217,6 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         planetRocketUpgradePresenter.OnUpgradeSpeed -= storePlanetPresenter.UpgradeRocketSpeed;
 
         sceneRoot.OnClickToOpen_PlanetInfo -= storePlanetPresenter.SelectSecondPlanet;
-        sceneRoot.OnClickToClose_InfoPlanet -= planetRocketVisualPresenter.SelectDefault;
-        sceneRoot.OnClickToClose_ResourceDescription -= planetRocketVisualPresenter.SelectDefault;
-        sceneRoot.OnClickToClose_ResourceSale -= planetRocketVisualPresenter.SelectDefault;
-        sceneRoot.OnClickToOpen_ResourceDescription -= planetRocketVisualPresenter.SelectShip;
-        sceneRoot.OnClickToOpen_ResourceSale -= planetRocketVisualPresenter.SelectShip;
         storePlanetPresenter.OnSelectPlanet_Value -= planetRocketVisualPresenter.Select;
 
         DeactivateTransitionEvents();

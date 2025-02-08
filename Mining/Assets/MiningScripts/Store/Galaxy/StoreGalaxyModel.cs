@@ -77,6 +77,8 @@ public class StoreGalaxyModel
             if (!galaxyDatas[i].IsOpen)
                 OnCloseGalaxy?.Invoke(galaxyDatas[i].Number);
         }
+
+        SelectGalaxy(int.Parse(galaxies.Galaxies.FirstOrDefault(data => data.GalaxyData.IsSelect).GetID()));
     }
 
     public void Dispose()
@@ -141,12 +143,6 @@ public class StoreGalaxyModel
             OnSelectGalaxy_Value?.Invoke(currentGalaxy);
             OnSelectGalaxy?.Invoke();
         }
-    }
-
-
-    private int GetSelectGalaxy()
-    {
-        return galaxyDatas.FirstOrDefault(data => data.IsSelect).Number;
     }
 }
 

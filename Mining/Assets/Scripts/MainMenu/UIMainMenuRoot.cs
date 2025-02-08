@@ -60,6 +60,8 @@ public class UIMainMenuRoot : MonoBehaviour
 
     public void OpenGalaxyInfoPanel()
     {
+        if (galaxyInfoPanel.IsActive) return;
+
         OpenOtherPanel(galaxyInfoPanel);
     }
 

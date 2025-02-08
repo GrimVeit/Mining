@@ -70,6 +70,8 @@ public class UIMiniGameSceneRoot : MonoBehaviour
 
     public void OpenPlanetInfoPanel()
     {
+        if (planetInfoPanel.IsActive) return;
+
         OpenOtherPanel(planetInfoPanel);
     }
 
@@ -83,6 +85,8 @@ public class UIMiniGameSceneRoot : MonoBehaviour
 
     public void OpenShopPanel()
     {
+        if(shopPanel.IsActive) return;
+
         OpenOtherPanel(shopPanel);
     }
 
@@ -95,6 +99,8 @@ public class UIMiniGameSceneRoot : MonoBehaviour
     
     public void OpenResourceDescriptionPanel()
     {
+        if(resourceDescriptionPanel.IsActive) return;
+
         OpenOtherPanel(resourceDescriptionPanel);
     }
 
@@ -108,6 +114,8 @@ public class UIMiniGameSceneRoot : MonoBehaviour
 
     public void OpenResourceSalePanel()
     {
+        if(resourceSalePanel.IsActive) return;
+
         OpenOtherPanel(resourceSalePanel);
     }
 

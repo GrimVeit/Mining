@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class StoreShipModel : MonoBehaviour
+public class StoreShipModel
 {
     public event Action<Ship> OnOpenShip;
     public event Action<Ship> OnCloseShip;

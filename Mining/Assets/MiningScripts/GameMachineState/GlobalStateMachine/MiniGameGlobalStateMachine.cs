@@ -9,12 +9,13 @@ public class MiniGameGlobalStateMachine : IControlGlobalStateMachine
 
     public MiniGameGlobalStateMachine(
         UIMiniGameSceneRoot sceneRoot,
-        PlanetInteractivePresenter planetInteractivePresenter)
+        PlanetInteractivePresenter planetInteractivePresenter,
+        PlanetRocketVisualPresenter planetRocketVisualPresenter)
     {
-        states[typeof(Main_GlobalState)] = new Main_GlobalState(this, sceneRoot, planetInteractivePresenter);
+        states[typeof(Main_GlobalState)] = new Main_GlobalState(this, sceneRoot, planetInteractivePresenter, planetRocketVisualPresenter);
         states[typeof(PlanetInfo_GlobalState)] = new PlanetInfo_GlobalState(this, sceneRoot, planetInteractivePresenter);
-        states[typeof(ResourceDescription_GlobalState)] = new ResourceDescription_GlobalState(this, sceneRoot, planetInteractivePresenter);
-        states[typeof(ResourceSale_GlobalState)] = new ResourceSale_GlobalState(this, sceneRoot, planetInteractivePresenter);
+        states[typeof(ResourceDescription_GlobalState)] = new ResourceDescription_GlobalState(this, sceneRoot, planetInteractivePresenter, planetRocketVisualPresenter);
+        states[typeof(ResourceSale_GlobalState)] = new ResourceSale_GlobalState(this, sceneRoot, planetInteractivePresenter, planetRocketVisualPresenter);
         states[typeof(Shop_GlobalState)] = new Shop_GlobalState(this, sceneRoot, planetInteractivePresenter);
     }
 

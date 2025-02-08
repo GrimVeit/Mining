@@ -6,17 +6,20 @@ public class ResourceDescription_GlobalState : IGlobalState
 {
     private UIMiniGameSceneRoot sceneRoot;
     private PlanetInteractivePresenter planetInteractivePresenter;
+    private PlanetRocketVisualPresenter planetRocketVisualPresenter;
 
     private IControlGlobalStateMachine controlMachine;
 
     public ResourceDescription_GlobalState(
         IControlGlobalStateMachine controlMachine, 
         UIMiniGameSceneRoot sceneRoot,
-        PlanetInteractivePresenter planetInteractivePresenter)
+        PlanetInteractivePresenter planetInteractivePresenter,
+        PlanetRocketVisualPresenter planetRocketVisualPresenter)
     {
         this.controlMachine = controlMachine;
         this.sceneRoot = sceneRoot;
         this.planetInteractivePresenter = planetInteractivePresenter;
+        this.planetRocketVisualPresenter = planetRocketVisualPresenter;
     }
 
     public void EnterState()
@@ -30,6 +33,8 @@ public class ResourceDescription_GlobalState : IGlobalState
         sceneRoot.OnClickToOpen_Shop += ChangeStateToShop;
 
         sceneRoot.OpenResourceDescriptionPanel();
+
+        planetRocketVisualPresenter.SelectShip();
     }
 
     public void ExitState()
@@ -41,12 +46,12 @@ public class ResourceDescription_GlobalState : IGlobalState
         sceneRoot.OnClickToOpen_ResourceSale -= ChangeStateToResourceSale;
         sceneRoot.OnClickToOpen_PlanetInfo -= ChangeStateToPlanetInfo;
         sceneRoot.OnClickToOpen_Shop -= ChangeStateToShop;
-
-        sceneRoot.CloseResourceDescriptionPanel();
     }
 
     private void ChangeStateToMain()
     {
+        sceneRoot.CloseResourceDescriptionPanel();
+
         controlMachine.SetState(controlMachine.GetState<Main_GlobalState>());
     }
 
@@ -57,16 +62,22 @@ public class ResourceDescription_GlobalState : IGlobalState
 
     private void ChangeStateToResourceSale()
     {
+        sceneRoot.CloseResourceDescriptionPanel();
+
         controlMachine.SetState(controlMachine.GetState<ResourceSale_GlobalState>());
     }
 
     private void ChangeStateToPlanetInfo()
     {
+        sceneRoot.CloseResourceDescriptionPanel();
+
         controlMachine.SetState(controlMachine.GetState<PlanetInfo_GlobalState>());
     }
 
     private void ChangeStateToShop()
     {
+        sceneRoot.CloseResourceDescriptionPanel();
+
         controlMachine.SetState(controlMachine.GetState<Shop_GlobalState>());
     }
 }

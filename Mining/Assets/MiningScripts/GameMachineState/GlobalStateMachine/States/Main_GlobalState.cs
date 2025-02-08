@@ -6,17 +6,20 @@ public class Main_GlobalState : IGlobalState
 {
     private UIMiniGameSceneRoot sceneRoot;
     private PlanetInteractivePresenter planetInteractivePresenter;
+    private PlanetRocketVisualPresenter planetRocketVisualPresenter;
 
     private IControlGlobalStateMachine controlMachine;
 
     public Main_GlobalState(
         IControlGlobalStateMachine controlMachine, 
         UIMiniGameSceneRoot sceneRoot,
-        PlanetInteractivePresenter planetInteractivePresenter)
+        PlanetInteractivePresenter planetInteractivePresenter,
+        PlanetRocketVisualPresenter rocketVisualPresenter)
     {
         this.controlMachine = controlMachine;
         this.sceneRoot = sceneRoot;
         this.planetInteractivePresenter = planetInteractivePresenter;
+        this.planetRocketVisualPresenter = rocketVisualPresenter;
     }
 
     public void EnterState()
@@ -27,6 +30,8 @@ public class Main_GlobalState : IGlobalState
         sceneRoot.OnClickToOpen_ResourceSale += ChangeStateToResourceSale;
         sceneRoot.OnClickToOpen_PlanetInfo += ChangeStateToPlanetInfo;
         sceneRoot.OnClickToOpen_Shop += ChangeStateToShop;
+
+        planetRocketVisualPresenter.SelectDefault();
     }
 
     public void ExitState()

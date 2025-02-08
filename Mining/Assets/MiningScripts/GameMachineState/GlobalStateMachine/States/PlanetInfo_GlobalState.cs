@@ -41,22 +41,23 @@ public class PlanetInfo_GlobalState : IGlobalState
         sceneRoot.OnClickToOpen_ResourceSale -= ChangeStateToResourceSale;
         sceneRoot.OnClickToOpen_PlanetInfo -= ChangeStateToPlanetInfo;
         sceneRoot.OnClickToOpen_Shop += ChangeStateToShop;
-
-        sceneRoot.ClosePlanetInfoPanel();
     }
 
     private void ChangeStateToMain()
     {
+        sceneRoot.ClosePlanetInfoPanel();
         controlMachine.SetState(controlMachine.GetState<Main_GlobalState>());
     }
 
     private void ChangeStateToResourceDescription()
     {
+        sceneRoot.ClosePlanetInfoPanel();
         controlMachine.SetState(controlMachine.GetState<ResourceDescription_GlobalState>());
     }
 
     private void ChangeStateToResourceSale()
     {
+        sceneRoot.ClosePlanetInfoPanel();
         controlMachine.SetState(controlMachine.GetState<ResourceSale_GlobalState>());
     }
 
@@ -67,6 +68,7 @@ public class PlanetInfo_GlobalState : IGlobalState
 
     private void ChangeStateToShop()
     {
+        sceneRoot.ClosePlanetInfoPanel();
         controlMachine.SetState(controlMachine.GetState<Shop_GlobalState>());
     }
 }
