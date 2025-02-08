@@ -47,11 +47,13 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private MiniGameGlobalStateMachine globalStateMachine;
 
-    private void Awake()
+    public void Run(UIRootView uIRootView)
     {
-        sceneRoot = sceneRootPrefab;
+        sceneRoot = Instantiate(sceneRootPrefab);
+
+        uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
+
         sceneRoot.Activate();
-        //uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
 
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
         viewContainer.Initialize();
@@ -226,12 +228,16 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
     {
         storePlanetPresenter.OnSelectPlanet += sceneRoot.OpenPlanetInfoPanel;
         sceneRoot.OnClickToClose_InfoPlanet += sceneRoot.ClosePlanetInfoPanel;
+
+        sceneRoot.OnClickToExit += HandleGoToMainMenu;
     }
 
     private void DeactivateTransitionEvents()
     {
         storePlanetPresenter.OnSelectPlanet -= sceneRoot.OpenPlanetInfoPanel;
         sceneRoot.OnClickToClose_InfoPlanet -= sceneRoot.ClosePlanetInfoPanel;
+
+        sceneRoot.OnClickToExit -= HandleGoToMainMenu;
     }
 
     public void Dispose()
@@ -271,8 +277,6 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
     }
 
     public event Action OnGoToMainMenu;
-
-    public event Action OnGoToRestart;
 
     private void HandleGoToMainMenu()
     {

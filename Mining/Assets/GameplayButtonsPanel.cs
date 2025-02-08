@@ -9,6 +9,7 @@ public class GameplayButtonsPanel : MovePanel
     [SerializeField] private Button buttonResourceDescription;
     [SerializeField] private Button buttonResourceSale;
     [SerializeField] private Button buttonPlanetInfo;
+    [SerializeField] private Button buttonMap;
     [SerializeField] private Button buttonShop;
 
     public override void Initialize()
@@ -17,6 +18,7 @@ public class GameplayButtonsPanel : MovePanel
         buttonResourceDescription.onClick.AddListener(()=> OnClickToOpen_ResourceDescription?.Invoke());
         buttonResourceSale.onClick.AddListener(() => OnClickToOpen_ResourceSale?.Invoke());
         buttonShop.onClick.AddListener(()=> OnClickToOpen_Shop?.Invoke());
+        buttonMap.onClick.AddListener(()=> OnClickToOpen_Map?.Invoke());
     }
 
     public override void Dispose()
@@ -25,6 +27,7 @@ public class GameplayButtonsPanel : MovePanel
         buttonResourceDescription.onClick.RemoveListener(() => OnClickToOpen_ResourceDescription?.Invoke());
         buttonResourceSale.onClick.RemoveListener(() => OnClickToOpen_ResourceSale?.Invoke());
         buttonShop.onClick.RemoveListener(() => OnClickToOpen_Shop?.Invoke());
+        buttonMap.onClick.RemoveListener(() => OnClickToOpen_Map?.Invoke());
     }
 
     #region Input
@@ -33,6 +36,7 @@ public class GameplayButtonsPanel : MovePanel
     public event Action OnClickToOpen_ResourceDescription;
     public event Action OnClickToOpen_ResourceSale;
     public event Action OnClickToOpen_Shop;
+    public event Action OnClickToOpen_Map;
 
     #endregion
 }

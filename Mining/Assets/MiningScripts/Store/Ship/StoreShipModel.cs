@@ -67,7 +67,7 @@ public class StoreShipModel
                 OnCloseShip?.Invoke(ships.ships[i]);
         }
 
-        SelectGalaxy(GetSelectGalaxyIndex());
+        SelectShip(GetSelectShipIndex());
     }
 
     public void Dispose()
@@ -92,7 +92,7 @@ public class StoreShipModel
         }
     }
 
-    public void SelectGalaxy(int number)
+    public void SelectShip(int number)
     {
         currentShip = ships.GetShipByID(number.ToString());
 
@@ -100,7 +100,7 @@ public class StoreShipModel
     }
 
 
-    private int GetSelectGalaxyIndex()
+    private int GetSelectShipIndex()
     {
         return int.Parse(ships.ships.FirstOrDefault(ship => ship.ShipData.IsSelect == true).GetID());
     }

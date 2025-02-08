@@ -102,10 +102,20 @@ public class UIMainMenuRoot : MonoBehaviour
         remove { startPanel.OnGoToMain -= value; }
     }
 
+
+
+
+
     public event Action OnCloseGalaxyInfoPanel
     {
         add { galaxyInfoPanel.OnClose += value; }
         remove { galaxyInfoPanel.OnClose -= value; }
+    }
+
+    public event Action OnPlay
+    {
+        add { galaxyInfoPanel.OnOpenGalaxy += value; }
+        remove { galaxyInfoPanel.OnOpenGalaxy -= value; }
     }
 
     #endregion

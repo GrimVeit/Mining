@@ -18,7 +18,7 @@ public class GameEntryPoint
 
     }
 
-    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Autorun()
     {
         GlobalGameSettings();
@@ -69,10 +69,9 @@ public class GameEntryPoint
         yield return new WaitForSeconds(0.1f);
 
         var sceneEntryPoint = Object.FindObjectOfType<MiniGameSceneEntryPoint>();
-        //sceneEntryPoint.Run(rootView);
+        sceneEntryPoint.Run(rootView);
 
         sceneEntryPoint.OnGoToMainMenu += () => coroutines.StartCoroutine(LoadAndStartMainMenu());
-        sceneEntryPoint.OnGoToRestart += () => coroutines.StartCoroutine(LoadAndStartMiniGameScene());
 
 
         yield return rootView.HideLoadingScreen();

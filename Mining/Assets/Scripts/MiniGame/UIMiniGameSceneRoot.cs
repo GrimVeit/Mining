@@ -10,6 +10,7 @@ public class UIMiniGameSceneRoot : MonoBehaviour
     [SerializeField] private ShopPanel_MiniGameScene shopPanel;
     [SerializeField] private ResourceDescriptionPanel resourceDescriptionPanel;
     [SerializeField] private ResourceSalePanel resourceSalePanel;
+    [SerializeField] private ExitPanel exitPanel;
 
     private ISoundProvider soundProvider;
 
@@ -27,6 +28,7 @@ public class UIMiniGameSceneRoot : MonoBehaviour
         shopPanel.Initialize();
         resourceDescriptionPanel.Initialize();
         resourceSalePanel.Initialize();
+        exitPanel.Initialize();
     }
 
     public void Dispose()
@@ -36,6 +38,7 @@ public class UIMiniGameSceneRoot : MonoBehaviour
         shopPanel.Dispose();
         resourceDescriptionPanel.Dispose();
         resourceSalePanel.Dispose();
+        exitPanel.Dispose();
     }
 
 
@@ -48,7 +51,7 @@ public class UIMiniGameSceneRoot : MonoBehaviour
 
     public void Deactivate()
     {
-        CloseOtherPanel(currentPanel);
+        //CloseOtherPanel(currentPanel);
     }
 
 
@@ -122,6 +125,21 @@ public class UIMiniGameSceneRoot : MonoBehaviour
     public void CloseResourceSalePanel()
     {
         CloseOtherPanel(resourceSalePanel);
+    }
+
+    
+
+
+    public void OpenExitPanel()
+    {
+        if(exitPanel.IsActive) return;
+
+        OpenOtherPanel(exitPanel);
+    }
+
+    public void CloseExitPanel()
+    {
+        CloseOtherPanel(exitPanel);
     }
 
 
@@ -198,6 +216,28 @@ public class UIMiniGameSceneRoot : MonoBehaviour
     {
         add { gameplayButtonsPanel.OnClickToOpen_Shop += value; }
         remove { gameplayButtonsPanel.OnClickToOpen_Shop -= value; }
+    }
+
+    public event Action OnClickToOpen_Map
+    {
+        add { gameplayButtonsPanel.OnClickToOpen_Map += value; }
+        remove { gameplayButtonsPanel.OnClickToOpen_Map -= value; }
+    }
+
+
+
+
+
+    public event Action OnClickToExit
+    {
+        add { exitPanel.OnClickToExit += value; }
+        remove { exitPanel.OnClickToExit -= value; }
+    }
+
+    public event Action OnClickToCancelExit
+    {
+        add { exitPanel.OnClickToCancel += value; }
+        remove { exitPanel.OnClickToCancel -= value; }
     }
 
     #endregion

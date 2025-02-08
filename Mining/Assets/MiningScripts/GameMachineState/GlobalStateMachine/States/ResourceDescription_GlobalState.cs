@@ -27,6 +27,7 @@ public class ResourceDescription_GlobalState : IGlobalState
         planetInteractivePresenter.OnChoosePlanet += ChangeStateToPlanetInfo;
         sceneRoot.OnClickToClose_ResourceDescription += ChangeStateToMain;
 
+        sceneRoot.OnClickToOpen_Map += ChangeStateToExit;
         sceneRoot.OnClickToOpen_ResourceDescription += ChangeStateToResourceDescription;
         sceneRoot.OnClickToOpen_ResourceSale += ChangeStateToResourceSale;
         sceneRoot.OnClickToOpen_PlanetInfo += ChangeStateToPlanetInfo;
@@ -42,6 +43,7 @@ public class ResourceDescription_GlobalState : IGlobalState
         planetInteractivePresenter.OnChoosePlanet -= ChangeStateToPlanetInfo;
         sceneRoot.OnClickToClose_ResourceDescription -= ChangeStateToMain;
 
+        sceneRoot.OnClickToOpen_Map -= ChangeStateToExit;
         sceneRoot.OnClickToOpen_ResourceDescription -= ChangeStateToResourceDescription;
         sceneRoot.OnClickToOpen_ResourceSale -= ChangeStateToResourceSale;
         sceneRoot.OnClickToOpen_PlanetInfo -= ChangeStateToPlanetInfo;
@@ -79,5 +81,12 @@ public class ResourceDescription_GlobalState : IGlobalState
         sceneRoot.CloseResourceDescriptionPanel();
 
         controlMachine.SetState(controlMachine.GetState<Shop_GlobalState>());
+    }
+
+    private void ChangeStateToExit()
+    {
+        sceneRoot.CloseResourceDescriptionPanel();
+        
+        controlMachine.SetState(controlMachine.GetState<Exit_GlobalState>());
     }
 }

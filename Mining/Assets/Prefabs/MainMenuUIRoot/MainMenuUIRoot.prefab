@@ -4148,6 +4148,7 @@ MonoBehaviour:
   time: 0.2
   canvasGroup: {fileID: 7598904080237793180}
   buttonClose: {fileID: 4225553489687505361}
+  buttonOpenGalaxy: {fileID: 5770671360081554143}
 --- !u!1 &6210626678412596116
 GameObject:
   m_ObjectHideFlags: 0
