@@ -5,20 +5,36 @@ using UnityEngine;
 
 public class PlanetRocketVisualModel
 {
-    public event Action<int> OnSelect;
+    public event Action<int> OnSelectHighPlanet;
+    public event Action<int> OnSelectLowPlanet;
+    public event Action<int> OnSelectMiddlePlanet;
 
-    public void Select(int id)
+    public event Action OnSelectShip;
+    public event Action OnSelectDefault;
+
+    public void Select(int id, PlanetType type)
     {
-        OnSelect?.Invoke(id);
+        switch (type)
+        {
+            case PlanetType.High:
+                OnSelectHighPlanet?.Invoke(id);
+                break;
+            case PlanetType.Low:
+                OnSelectLowPlanet?.Invoke(id);
+                break;
+            case PlanetType.Middle:
+                OnSelectMiddlePlanet?.Invoke(id);
+                break;
+        }
     }
 
     public void SelectShip()
     {
-        OnSelect?.Invoke(6);
+        OnSelectShip?.Invoke();
     }
 
     public void SelectDefault()
     {
-        OnSelect?.Invoke(7);
+        OnSelectDefault?.Invoke();
     }
 }

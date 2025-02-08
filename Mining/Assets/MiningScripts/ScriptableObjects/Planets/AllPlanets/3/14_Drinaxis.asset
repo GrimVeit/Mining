@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Drinaxys
   resourceType: 6
   planetType: 1
-  resourceReserve: 0
+  planetPrice: 19000
+  resourceReserve: 800
   planetSprite: {fileID: 21300000, guid: afefd40e5d5d78141bb9952d74a17690, type: 3}
+  interactivePosition: {fileID: 0}

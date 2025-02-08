@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Momban
   resourceType: 0
   planetType: 0
-  resourceReserve: 3000
+  planetPrice: 20
+  resourceReserve: 4200
   planetSprite: {fileID: 21300000, guid: 50d3163d0e180614cace4252de231b84, type: 3}
+  interactivePosition: {fileID: 0}

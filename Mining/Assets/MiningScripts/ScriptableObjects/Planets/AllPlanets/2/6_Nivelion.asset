@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Nivelion
   resourceType: 5
   planetType: 2
-  resourceReserve: 0
+  planetPrice: 4700
+  resourceReserve: 2700
   planetSprite: {fileID: 21300000, guid: e0847cc5a3cc5264eb642b052ff0b1d2, type: 3}
+  interactivePosition: {fileID: 0}

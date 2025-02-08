@@ -26,19 +26,27 @@ public class PlanetRocketVisualPresenter
 
     private void ActivateEvents()
     {
-        model.OnSelect += view.MoveTo;
+        model.OnSelectLowPlanet += view.SelectLow;
+        model.OnSelectMiddlePlanet += view.SelectMiddle;
+        model.OnSelectHighPlanet += view.SelectHigh;
+        model.OnSelectShip += view.SelectShip;
+        model.OnSelectDefault += view.SelectDefault;
     }
 
     private void DeactivateEvents()
     {
-        model.OnSelect -= view.MoveTo;
+        model.OnSelectLowPlanet -= view.SelectLow;
+        model.OnSelectMiddlePlanet -= view.SelectMiddle;
+        model.OnSelectHighPlanet -= view.SelectHigh;
+        model.OnSelectShip -= view.SelectShip;
+        model.OnSelectDefault -= view.SelectDefault;
     }
 
     #region Input
 
     public void Select(Planet planet)
     {
-        model.Select(planet.interactivePosition.PositionID);
+        model.Select(planet.interactivePosition.PositionID, planet.PlanetType);
     }
 
     public void SelectShip()

@@ -16,7 +16,7 @@ MonoBehaviour:
   namePlanet: Pyraxon
   resourceType: 13
   planetType: 0
-  planetPrice: 100
-  resourceReserve: 7200
+  planetPrice: 50000
+  resourceReserve: 5200
   planetSprite: {fileID: 21300000, guid: 2ab2ecb2a75749040b143f41cbff9df7, type: 3}
   interactivePosition: {fileID: 0}

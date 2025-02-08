@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Cynthera
   resourceType: 4
   planetType: 0
-  resourceReserve: 0
+  planetPrice: 16000
+  resourceReserve: 6300
   planetSprite: {fileID: 21300000, guid: f4dfe6fb4ea517541b0c45d534345f7b, type: 3}
+  interactivePosition: {fileID: 0}

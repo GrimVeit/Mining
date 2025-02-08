@@ -43,7 +43,7 @@ MonoBehaviour:
   - UpgradeLevelNumber: 1
     rocketUpgradeSpeedPrices:
     - rocketID: 0
-      speedValue: 200
+      speedValue: 22
       price: 100
     - rocketID: 1
       speedValue: 0

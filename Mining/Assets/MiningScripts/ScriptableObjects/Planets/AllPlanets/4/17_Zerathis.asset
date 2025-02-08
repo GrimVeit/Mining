@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Zerathis
   resourceType: 6
   planetType: 2
-  resourceReserve: 0
+  planetPrice: 17000
+  resourceReserve: 2900
   planetSprite: {fileID: 21300000, guid: 34c032b6dcf1f034484b3772374d0db0, type: 3}
+  interactivePosition: {fileID: 0}

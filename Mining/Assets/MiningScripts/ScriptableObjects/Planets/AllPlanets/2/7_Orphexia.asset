@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Orphexia
   resourceType: 4
   planetType: 1
-  resourceReserve: 0
+  planetPrice: 5200
+  resourceReserve: 1400
   planetSprite: {fileID: 21300000, guid: 6ce042c916ace7a41af7ffdc76c3c7ca, type: 3}
+  interactivePosition: {fileID: 0}

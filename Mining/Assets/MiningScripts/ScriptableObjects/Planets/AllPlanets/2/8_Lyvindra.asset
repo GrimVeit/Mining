@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Lyvindra
   resourceType: 11
   planetType: 1
-  resourceReserve: 0
+  planetPrice: 5000
+  resourceReserve: 900
   planetSprite: {fileID: 21300000, guid: 04c1619b890d5f94882fd2555b6422bc, type: 3}
+  interactivePosition: {fileID: 0}

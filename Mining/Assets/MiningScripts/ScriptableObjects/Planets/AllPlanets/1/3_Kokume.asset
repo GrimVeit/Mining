@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Kokume
   resourceType: 11
   planetType: 1
-  resourceReserve: 0
+  planetPrice: 1400
+  resourceReserve: 1500
   planetSprite: {fileID: 21300000, guid: 4e90d61edb7cc6c42bd6d4d7b0dc2277, type: 3}
+  interactivePosition: {fileID: 0}

@@ -16,5 +16,7 @@ MonoBehaviour:
   namePlanet: Telnia
   resourceType: 2
   planetType: 2
-  resourceReserve: 0
+  planetPrice: 500
+  resourceReserve: 3300
   planetSprite: {fileID: 21300000, guid: b46d6f3886594ca4994528f5fc2e9b94, type: 3}
+  interactivePosition: {fileID: 0}
