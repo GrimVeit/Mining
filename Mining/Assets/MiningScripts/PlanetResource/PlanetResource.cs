@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class PlanetResource : IPlanetResource
 {
@@ -6,7 +7,7 @@ public class PlanetResource : IPlanetResource
 
     public event Action<int, float> OnChangePlanetResourceData;
 
-    public event Action<Planet> OnEndResources;
+    public event Action<int> OnEndResources;
 
     public float PersentMined() => MathF.Round(((float)allResourceCount - currentResourceCount) / allResourceCount * 100f * 1f, 2);
     public int AllResourceCount() => allResourceCount;
@@ -30,11 +31,13 @@ public class PlanetResource : IPlanetResource
         if(currentResourceCount >= count)
         {
             currentResourceCount -= count;
-        } 
-        else if(currentResourceCount <= 0)
+        }
+        
+        if(currentResourceCount <= 0)
         {
+            Debug.Log("GTBYUHNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
             currentResourceCount = 0;
-            OnEndResources?.Invoke(CurrentPlanet);
+            OnEndResources?.Invoke(int.Parse(CurrentPlanet.GetID()));
         }
 
         percentMined = MathF.Round((((float)allResourceCount - currentResourceCount) / allResourceCount * 100f * 1f), 2);

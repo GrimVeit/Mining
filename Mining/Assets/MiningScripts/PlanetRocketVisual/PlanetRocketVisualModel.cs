@@ -1,18 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlanetRocketVisualModel : MonoBehaviour
+public class PlanetRocketVisualModel
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action<int> OnSelect;
+
+    public void Select(int id)
     {
-        
+        OnSelect?.Invoke(id);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SelectShip()
     {
-        
+        OnSelect?.Invoke(6);
+    }
+
+    public void SelectDefault()
+    {
+        OnSelect?.Invoke(7);
     }
 }

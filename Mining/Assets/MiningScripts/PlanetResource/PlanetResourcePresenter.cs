@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,12 @@ public class PlanetResourcePresenter : IPlanetResourceProvider
     }
 
     #region Input
+
+    public event Action<int> OnEndResources
+    {
+        add { model.OnEndResources += value; }
+        remove { model.OnEndResources -= value; }
+    }
 
     public IPlanetResource GetResource(int id)
     {

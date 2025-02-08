@@ -52,5 +52,10 @@ public class StoreResourcePresenter
         model.SaleSelectResource();
     }
 
+    public void SendResources(ResourceType type, int count)
+    {
+        model.SendResources(type, count);
+    }
+
     #endregion
 }

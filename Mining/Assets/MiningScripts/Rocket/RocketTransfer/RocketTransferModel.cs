@@ -24,8 +24,8 @@ public class RocketTransferModel
         OnSendResources?.Invoke(resourceType, count);
     }
 
-    public void ReturnRocketToShip(Planet planet)
+    public void ReturnRocketToShip(int id)
     {
-        OnReturnRocketToShip?.Invoke(int.Parse(planet.GetID()));
+        OnReturnRocketToShip?.Invoke(id);
     }
 }

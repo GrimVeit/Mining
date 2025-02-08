@@ -86,6 +86,15 @@ public class StoreResourceModel
 
         OnVisualizeResource.Invoke(currentResource);
     }
+
+    public void SendResources(ResourceType type, int count)
+    {
+        var resource = resources.GetResourceByType(type);
+
+        resource.ResourceData.SendResource(count);
+
+        OnVisualizeResource?.Invoke(resource);
+    }
 }
 
 public class ResourceDatas
@@ -106,6 +115,11 @@ public class ResourceData
     public ResourceData(int mineCount)
     {
         MineCount = mineCount;
+    }
+
+    public void SendResource(int count)
+    {
+        MineCount += count;
     }
 }
 

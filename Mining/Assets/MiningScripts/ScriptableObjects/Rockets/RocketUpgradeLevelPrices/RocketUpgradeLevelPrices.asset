@@ -43,7 +43,7 @@ MonoBehaviour:
   - UpgradeLevelNumber: 1
     rocketUpgradeSpeedPrices:
     - rocketID: 0
-      speedValue: 22
+      speedValue: 200
       price: 100
     - rocketID: 1
       speedValue: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
       price: 0
     rocketUpgradeCapacityPrices:
     - rocketID: 0
-      capacityValue: 12
+      capacityValue: 400
       price: 50
     - rocketID: 1
       capacityValue: 15
@@ -502,7 +502,7 @@ MonoBehaviour:
   - UpgradeLevelNumber: 18
     rocketUpgradeSpeedPrices:
     - rocketID: 0
-      speedValue: 39
+      speedValue: 300
       price: 31210
     - rocketID: 1
       speedValue: 0

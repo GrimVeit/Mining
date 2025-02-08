@@ -16,6 +16,7 @@ public class RocketTransferView : View
     {
         var transfer = Instantiate(rocketTransferPrefab, transformParent);
         transfer.SetData(planet, planetResource, transformShip);
+        transfer.transform.SetSiblingIndex(0);
         transfer.OnSendResources += HandleSendResources;
         transfer.Initialize();
 
@@ -34,7 +35,7 @@ public class RocketTransferView : View
 
     public void ReturnRocketToShip(int id)
     {
-        //rocketTransfers.FirstOrDefault(data => data.ID == id)
+        rocketTransfers.FirstOrDefault(data => data.ID == id).ReturnToShip();
     }
 
     #region Input

@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlanetResourceModel : MonoBehaviour
+public class PlanetResourceModel
 {
-    public event Action<Planet, int, float> OnVisualizePlanetResourceData;
-
     private List<PlanetResource> planetResources = new List<PlanetResource>();
     private PlanetResource currentPlanetResource;
 
@@ -17,6 +15,8 @@ public class PlanetResourceModel : MonoBehaviour
         {
             PlanetResource resource = new();
             resource.SetPlanet(planets.planets[i]);
+
+            resource.OnEndResources += HandleEndResources;
 
             planetResources.Add(resource);
         }
@@ -41,6 +41,11 @@ public class PlanetResourceModel : MonoBehaviour
 
     public void Dispose()
     {
+        for (int i = 0; i < planetResources.Count; i++)
+        {
+            planetResources[i].OnEndResources -= HandleEndResources;
+        }
+
         currentPlanetResource.OnChangePlanetResourceData -= ChangePlanetResourceData;
     }
 
@@ -49,8 +54,20 @@ public class PlanetResourceModel : MonoBehaviour
         return planetResources.FirstOrDefault(data => data.PlanetID() == id);
     }
 
+    #region Input
+
+    public event Action<Planet, int, float> OnVisualizePlanetResourceData;
+    public event Action<int> OnEndResources;
+
     private void ChangePlanetResourceData(int currentCountMined, float persentMined)
     {
         OnVisualizePlanetResourceData?.Invoke(currentPlanetResource.CurrentPlanet, currentCountMined, persentMined);
     }
+
+    private void HandleEndResources(int id)
+    {
+        OnEndResources?.Invoke(id);
+    }
+
+    #endregion
 }

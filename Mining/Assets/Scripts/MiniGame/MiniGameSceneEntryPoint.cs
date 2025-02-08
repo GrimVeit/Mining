@@ -43,6 +43,8 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private PlanetResourcePresenter planetResourcePresenter;
 
+    private PlanetRocketVisualPresenter planetRocketVisualPresenter;
+
     private MiniGameGlobalStateMachine globalStateMachine;
 
     private void Awake()
@@ -93,6 +95,8 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         rocketTransferPresenter = new RocketTransferPresenter(new RocketTransferModel(planetResourcePresenter), viewContainer.GetView<RocketTransferView>());
 
+        planetRocketVisualPresenter = new PlanetRocketVisualPresenter(new PlanetRocketVisualModel(), viewContainer.GetView<PlanetRocketVisualView>());
+
         globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter);
 
         ActivateEvents();
@@ -109,6 +113,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         planetRocketUpgradePresenter.Initialize();
         rocketTransferPresenter.Initialize();
         planetResourcePresenter.Initialize();
+        planetRocketVisualPresenter.Initialize();
 
         storeRocketPresenter.Initialize();
         storeShipPresenter.Initialize();
@@ -162,6 +167,16 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storePlanetPresenter.OnSelectPlanet_Value += planetResourcePresenter.SelectPlanet;
 
         storePlanetPresenter.OnBuyRocketToPlanet_Value += rocketTransferPresenter.SetPlanet;
+        planetResourcePresenter.OnEndResources += rocketTransferPresenter.ReturnRocketToShip;
+        rocketTransferPresenter.OnSendResources += storeResourcePresenter.SendResources;
+
+        sceneRoot.OnClickToOpen_PlanetInfo += storePlanetPresenter.SelectSecondPlanet;
+        sceneRoot.OnClickToClose_InfoPlanet += planetRocketVisualPresenter.SelectDefault;
+        sceneRoot.OnClickToClose_ResourceDescription += planetRocketVisualPresenter.SelectDefault;
+        sceneRoot.OnClickToClose_ResourceSale += planetRocketVisualPresenter.SelectDefault;
+        sceneRoot.OnClickToOpen_ResourceDescription += planetRocketVisualPresenter.SelectShip;
+        sceneRoot.OnClickToOpen_ResourceSale += planetRocketVisualPresenter.SelectShip;
+        storePlanetPresenter.OnSelectPlanet_Value += planetRocketVisualPresenter.Select;
 
         ActivateTransitionEvents();
     }
@@ -206,7 +221,13 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         planetRocketUpgradePresenter.OnUpgradeCapacity -= storePlanetPresenter.UpgradeRocketCapacity;
         planetRocketUpgradePresenter.OnUpgradeSpeed -= storePlanetPresenter.UpgradeRocketSpeed;
 
-        storePlanetPresenter.OnBuyRocketToPlanet_Value -= rocketTransferPresenter.SetPlanet;
+        sceneRoot.OnClickToOpen_PlanetInfo -= storePlanetPresenter.SelectSecondPlanet;
+        sceneRoot.OnClickToClose_InfoPlanet -= planetRocketVisualPresenter.SelectDefault;
+        sceneRoot.OnClickToClose_ResourceDescription -= planetRocketVisualPresenter.SelectDefault;
+        sceneRoot.OnClickToClose_ResourceSale -= planetRocketVisualPresenter.SelectDefault;
+        sceneRoot.OnClickToOpen_ResourceDescription -= planetRocketVisualPresenter.SelectShip;
+        sceneRoot.OnClickToOpen_ResourceSale -= planetRocketVisualPresenter.SelectShip;
+        storePlanetPresenter.OnSelectPlanet_Value -= planetRocketVisualPresenter.Select;
 
         DeactivateTransitionEvents();
     }
@@ -231,6 +252,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         soundPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        planetRocketVisualPresenter?.Dispose();
         planetResourcePresenter?.Dispose();
         rocketTransferPresenter?.Dispose();
         planetRocketUpgradePresenter?.Dispose();

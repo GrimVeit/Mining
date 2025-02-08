@@ -53,9 +53,9 @@ public class RocketTransferPresenter
         model.SpawnRocket(planet);
     }
 
-    public void ReturnRocketToShip(Planet planet)
+    public void ReturnRocketToShip(int id)
     {
-        model.ReturnRocketToShip(planet);
+        model.ReturnRocketToShip(id);
     }
 
     #endregion

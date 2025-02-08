@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlanetInteractivePosition : MonoBehaviour
 {
+    public int PositionID;
     public Transform TransformPlanet => transformPositionPlanet;
     public int PlanetID => planetID;
 

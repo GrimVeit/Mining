@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-public class PlanetRocketVisualView : MonoBehaviour
+public class PlanetRocketVisualView : View
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Transform transformShipRocketPlanets;
+    [SerializeField] private List<Transform> transformPositions = new List<Transform>();
 
-    // Update is called once per frame
-    void Update()
+    private Transform currentTransformPosition;
+
+    public void MoveTo(int index)
     {
-        
+        currentTransformPosition = transformPositions[index];
+
+        transformShipRocketPlanets.DOLocalMove(currentTransformPosition.localPosition, 0.2f);
     }
 }
