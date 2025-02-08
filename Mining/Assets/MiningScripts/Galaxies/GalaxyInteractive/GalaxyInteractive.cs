@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GalaxyVisualize : MonoBehaviour, IPointerClickHandler
+public class GalaxyInteractive : MonoBehaviour, IPointerClickHandler
 {
     public int ID => id;
 

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GalaxyVisualizeModel
+public class GalaxyInteractiveModel
 {
     public event Action<int> OnLock;
     public event Action<int> OnUnlock;

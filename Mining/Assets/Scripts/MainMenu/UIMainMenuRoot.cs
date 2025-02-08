@@ -5,6 +5,7 @@ public class UIMainMenuRoot : MonoBehaviour
 {
     [SerializeField] private StartPanel_MainMenuScene startPanel;
     [SerializeField] private MainPanel_MainMenuScene mainPanel;
+    [SerializeField] private GalaxyInfoPanel galaxyInfoPanel;
 
     private ISoundProvider soundProvider;
 
@@ -22,6 +23,7 @@ public class UIMainMenuRoot : MonoBehaviour
 
         startPanel.Initialize();
         mainPanel.Initialize();
+        galaxyInfoPanel.Initialize();
 
     }
 
@@ -39,7 +41,10 @@ public class UIMainMenuRoot : MonoBehaviour
     {
         startPanel?.Dispose();
         mainPanel?.Dispose();
+        galaxyInfoPanel?.Dispose();
     }
+
+
 
     public void OpenStartPanel()
     {
@@ -52,6 +57,17 @@ public class UIMainMenuRoot : MonoBehaviour
     }
 
     
+
+    public void OpenGalaxyInfoPanel()
+    {
+        OpenOtherPanel(galaxyInfoPanel);
+    }
+
+    public void CloseGalaxyInfoPanel()
+    {
+        CloseOtherPanel(galaxyInfoPanel);
+    }
+
 
     private void OpenPanel(Panel panel)
     {
@@ -82,6 +98,12 @@ public class UIMainMenuRoot : MonoBehaviour
     {
         add { startPanel.OnGoToMain += value; }
         remove { startPanel.OnGoToMain -= value; }
+    }
+
+    public event Action OnCloseGalaxyInfoPanel
+    {
+        add { galaxyInfoPanel.OnClose += value; }
+        remove { galaxyInfoPanel.OnClose -= value; }
     }
 
     #endregion

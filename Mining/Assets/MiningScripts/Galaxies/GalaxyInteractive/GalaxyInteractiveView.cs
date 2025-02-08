@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GalaxyVisualizeView : View
+public class GalaxyInteractiveView : View
 {
-    [SerializeField] private List<GalaxyVisualize> galaxyVisualizes = new List<GalaxyVisualize>();
+    [SerializeField] private List<GalaxyInteractive> galaxyVisualizes = new List<GalaxyInteractive>();
 
     public void Initialize()
     {

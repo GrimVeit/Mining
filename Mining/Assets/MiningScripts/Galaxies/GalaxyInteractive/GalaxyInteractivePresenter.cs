@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 
-public class GalaxyVisualizePresenter
+public class GalaxyInteractivePresenter
 {
-    private GalaxyVisualizeModel model;
-    private GalaxyVisualizeView view;
+    private GalaxyInteractiveModel model;
+    private GalaxyInteractiveView view;
 
-    public GalaxyVisualizePresenter(GalaxyVisualizeModel model, GalaxyVisualizeView view)
+    public GalaxyInteractivePresenter(GalaxyInteractiveModel model, GalaxyInteractiveView view)
     {
         this.model = model;
         this.view = view;

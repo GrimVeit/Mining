@@ -14,10 +14,12 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ParticleEffectPresenter particleEffectPresenter;
     private SoundPresenter soundPresenter;
 
-    private StoreGalaxyPresenter galaxyPresenter;
+    private StoreGalaxyPresenter storeGalaxyPresenter;
     private GalaxyInfoPresenter galaxyInfoPresenter;
-    private GalaxyVisualizePresenter galaxyVisualizePresenter;
+    private GalaxyInteractivePresenter galaxyInteractivePresenter;
     private GalaxyPlayBuyPresenter galaxyPlayBuyPresenter;
+
+    private GalaxyVisualPresenter galaxyVisualPresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -38,13 +40,15 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
 
-        galaxyPresenter = new StoreGalaxyPresenter(new StoreGalaxyModel(galaxys));
+        storeGalaxyPresenter = new StoreGalaxyPresenter(new StoreGalaxyModel(galaxys));
 
         galaxyInfoPresenter = new GalaxyInfoPresenter(new GalaxyInfoModel(), viewContainer.GetView<GalaxyInfoView>());
 
-        galaxyVisualizePresenter = new GalaxyVisualizePresenter(new GalaxyVisualizeModel(), viewContainer.GetView<GalaxyVisualizeView>());
+        galaxyInteractivePresenter = new GalaxyInteractivePresenter(new GalaxyInteractiveModel(), viewContainer.GetView<GalaxyInteractiveView>());
 
         galaxyPlayBuyPresenter = new GalaxyPlayBuyPresenter(new GalaxyPlayBuyModel(bankPresenter), viewContainer.GetView<GalaxyPlayBuyView>());
+
+        galaxyVisualPresenter = new GalaxyVisualPresenter(new GalaxyVisualModel(), viewContainer.GetView<GalaxyVisualView>());
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -57,61 +61,72 @@ public class MainMenuEntryPoint : MonoBehaviour
         bankPresenter.Initialize();
 
         galaxyInfoPresenter.Initialize();
-        galaxyVisualizePresenter.Initialize();
-        galaxyPresenter.Initialize();
+        galaxyInteractivePresenter.Initialize();
+        storeGalaxyPresenter.Initialize();
         galaxyPlayBuyPresenter.Initialize();
+        galaxyVisualPresenter.Initialize();
     }
 
     private void ActivateEvents()
     {
         ActivateTransitionsSceneEvents();
 
-        galaxyVisualizePresenter.OnChooseGalaxy += galaxyPresenter.SelectGalaxy;
+        galaxyInteractivePresenter.OnChooseGalaxy += storeGalaxyPresenter.SelectGalaxy;
 
-        galaxyPresenter.OnOpenGalaxy += galaxyVisualizePresenter.Unlock;
-        galaxyPresenter.OnCloseGalaxy += galaxyVisualizePresenter.Lock;
+        storeGalaxyPresenter.OnOpenGalaxy += galaxyInteractivePresenter.Unlock;
+        storeGalaxyPresenter.OnCloseGalaxy += galaxyInteractivePresenter.Lock;
 
-        galaxyPresenter.OnSelectOpenGalaxy_Value += galaxyVisualizePresenter.Unlock;
-        galaxyPresenter.OnSelectCloseGalaxy_Value += galaxyVisualizePresenter.UnlockSelect;
-        galaxyPresenter.OnDeselectCloseGalaxy_Value += galaxyVisualizePresenter.Lock;
-        galaxyPresenter.OnDeselectOpenGalaxy_Value += galaxyVisualizePresenter.Unlock;
+        storeGalaxyPresenter.OnSelectOpenGalaxy_Value += galaxyInteractivePresenter.Unlock;
+        storeGalaxyPresenter.OnSelectCloseGalaxy_Value += galaxyInteractivePresenter.UnlockSelect;
+        storeGalaxyPresenter.OnDeselectCloseGalaxy_Value += galaxyInteractivePresenter.Lock;
+        storeGalaxyPresenter.OnDeselectOpenGalaxy_Value += galaxyInteractivePresenter.Unlock;
 
-        galaxyPresenter.OnSelectGalaxy += galaxyInfoPresenter.SetGalaxy;
+        storeGalaxyPresenter.OnSelectGalaxy_Value += galaxyInfoPresenter.SetGalaxy;
 
-        galaxyPlayBuyPresenter.OnBuyGalaxy += galaxyPresenter.UnlockGalaxy;
-        galaxyPresenter.OnSelectOpenGalaxy_Value += galaxyPlayBuyPresenter.SetOpenGalaxy;
-        galaxyPresenter.OnSelectCloseGalaxy_Value += galaxyPlayBuyPresenter.SetCloseGalaxy;
+        galaxyPlayBuyPresenter.OnBuyGalaxy += storeGalaxyPresenter.UnlockGalaxy;
+        storeGalaxyPresenter.OnSelectOpenGalaxy_Value += galaxyPlayBuyPresenter.SetOpenGalaxy;
+        storeGalaxyPresenter.OnSelectCloseGalaxy_Value += galaxyPlayBuyPresenter.SetCloseGalaxy;
+
+        storeGalaxyPresenter.OnSelectGalaxy_Value += galaxyVisualPresenter.Select;
+        sceneRoot.OnCloseGalaxyInfoPanel += galaxyVisualPresenter.SelectDefault;
     }
 
     private void DeactivateEvents()
     {
         DeactivateTransitionsSceneEvents();
 
-        galaxyVisualizePresenter.OnChooseGalaxy -= galaxyPresenter.SelectGalaxy;
+        galaxyInteractivePresenter.OnChooseGalaxy -= storeGalaxyPresenter.SelectGalaxy;
 
-        galaxyPresenter.OnOpenGalaxy -= galaxyVisualizePresenter.Unlock;
-        galaxyPresenter.OnCloseGalaxy -= galaxyVisualizePresenter.Lock;
+        storeGalaxyPresenter.OnOpenGalaxy -= galaxyInteractivePresenter.Unlock;
+        storeGalaxyPresenter.OnCloseGalaxy -= galaxyInteractivePresenter.Lock;
 
-        galaxyPresenter.OnSelectOpenGalaxy_Value -= galaxyVisualizePresenter.Unlock;
-        galaxyPresenter.OnSelectCloseGalaxy_Value -= galaxyVisualizePresenter.UnlockSelect;
-        galaxyPresenter.OnDeselectCloseGalaxy_Value -= galaxyVisualizePresenter.Lock;
-        galaxyPresenter.OnDeselectOpenGalaxy_Value -= galaxyVisualizePresenter.Unlock;
+        storeGalaxyPresenter.OnSelectOpenGalaxy_Value -= galaxyInteractivePresenter.Unlock;
+        storeGalaxyPresenter.OnSelectCloseGalaxy_Value -= galaxyInteractivePresenter.UnlockSelect;
+        storeGalaxyPresenter.OnDeselectCloseGalaxy_Value -= galaxyInteractivePresenter.Lock;
+        storeGalaxyPresenter.OnDeselectOpenGalaxy_Value -= galaxyInteractivePresenter.Unlock;
 
-        galaxyPresenter.OnSelectGalaxy -= galaxyInfoPresenter.SetGalaxy;
+        storeGalaxyPresenter.OnSelectGalaxy_Value -= galaxyInfoPresenter.SetGalaxy;
 
-        galaxyPlayBuyPresenter.OnBuyGalaxy -= galaxyPresenter.UnlockGalaxy;
-        galaxyPresenter.OnSelectOpenGalaxy_Value -= galaxyPlayBuyPresenter.SetOpenGalaxy;
-        galaxyPresenter.OnSelectCloseGalaxy_Value -= galaxyPlayBuyPresenter.SetCloseGalaxy;
+        galaxyPlayBuyPresenter.OnBuyGalaxy -= storeGalaxyPresenter.UnlockGalaxy;
+        storeGalaxyPresenter.OnSelectOpenGalaxy_Value -= galaxyPlayBuyPresenter.SetOpenGalaxy;
+        storeGalaxyPresenter.OnSelectCloseGalaxy_Value -= galaxyPlayBuyPresenter.SetCloseGalaxy;
+
+        storeGalaxyPresenter.OnSelectGalaxy -= sceneRoot.OpenGalaxyInfoPanel;
+        sceneRoot.OnCloseGalaxyInfoPanel -= sceneRoot.CloseGalaxyInfoPanel;
     }
 
     private void ActivateTransitionsSceneEvents()
     {
         sceneRoot.OnGoToMain += sceneRoot.OpenMainPanel;
+        storeGalaxyPresenter.OnSelectGalaxy += sceneRoot.OpenGalaxyInfoPanel;
+        sceneRoot.OnCloseGalaxyInfoPanel += sceneRoot.CloseGalaxyInfoPanel;
     }
 
     private void DeactivateTransitionsSceneEvents()
     {
         sceneRoot.OnGoToMain -= sceneRoot.OpenMainPanel;
+        storeGalaxyPresenter.OnSelectGalaxy -= sceneRoot.OpenGalaxyInfoPanel;
+        sceneRoot.OnCloseGalaxyInfoPanel -= sceneRoot.CloseGalaxyInfoPanel;
     }
 
     private void Deactivate()
@@ -130,9 +145,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         bankPresenter?.Dispose();
 
         galaxyInfoPresenter.Dispose();
-        galaxyVisualizePresenter.Dispose();
-        galaxyPresenter.Dispose();
+        galaxyInteractivePresenter.Dispose();
+        storeGalaxyPresenter.Dispose();
         galaxyPlayBuyPresenter.Dispose();
+        galaxyVisualPresenter.Dispose();
     }
 
     private void OnDestroy()

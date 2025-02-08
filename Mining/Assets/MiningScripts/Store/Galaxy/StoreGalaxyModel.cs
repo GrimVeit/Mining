@@ -12,7 +12,9 @@ public class StoreGalaxyModel
     public event Action<Galaxy> OnDeselectOpenGalaxy_Value;
     public event Action<Galaxy> OnDeselectCloseGalaxy_Value;
 
-    public event Action<Galaxy> OnSelectGalaxy;
+    public event Action OnSelectGalaxy;
+    public event Action OnDeselectGalaxy;
+    public event Action<Galaxy> OnSelectGalaxy_Value;
 
 
     public event Action<int> OnOpenGalaxy;
@@ -75,8 +77,6 @@ public class StoreGalaxyModel
             if (!galaxyDatas[i].IsOpen)
                 OnCloseGalaxy?.Invoke(galaxyDatas[i].Number);
         }
-
-        SelectGalaxy(GetSelectGalaxy());
     }
 
     public void Dispose()
@@ -116,6 +116,7 @@ public class StoreGalaxyModel
                 Debug.Log($"Deselect закрытой галактики под номером {currentGalaxy.GalaxyData.Number}");
             }
 
+            OnDeselectGalaxy?.Invoke();
             currentGalaxy.GalaxyData.IsSelect = false;
         }
 
@@ -137,8 +138,8 @@ public class StoreGalaxyModel
             }
 
             currentGalaxy.GalaxyData.IsSelect = true;
-
-            OnSelectGalaxy?.Invoke(currentGalaxy);
+            OnSelectGalaxy_Value?.Invoke(currentGalaxy);
+            OnSelectGalaxy?.Invoke();
         }
     }
 

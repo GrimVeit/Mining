@@ -48,10 +48,28 @@ public class StoreGalaxyPresenter
         remove { model.OnDeselectCloseGalaxy_Value -= value; }
     }
 
-    public event Action<Galaxy> OnSelectGalaxy
+
+
+
+    public event Action OnSelectGalaxy
     {
         add { model.OnSelectGalaxy += value; }
         remove { model.OnSelectGalaxy -= value; }
+    }
+
+    public event Action OnDeselectGalaxy
+    {
+        add { model.OnDeselectGalaxy += value; }
+        remove { model.OnDeselectGalaxy -= value; }
+    }
+
+
+
+
+    public event Action<Galaxy> OnSelectGalaxy_Value
+    {
+        add { model.OnSelectGalaxy_Value += value; }
+        remove { model.OnSelectGalaxy_Value -= value; }
     }
 
 
