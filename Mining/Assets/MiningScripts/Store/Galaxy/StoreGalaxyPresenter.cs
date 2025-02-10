@@ -85,6 +85,11 @@ public class StoreGalaxyPresenter
         remove { model.OnCloseGalaxy -= value; }
     }
 
+    public void UnselectGalaxy()
+    {
+        model.UnselectGalaxy();
+    }
+
 
     public void SelectGalaxy(int id)
     {

@@ -144,6 +144,28 @@ public class StoreGalaxyModel
             OnSelectGalaxy?.Invoke();
         }
     }
+
+    public void UnselectGalaxy()
+    {
+        if (currentGalaxy != null)
+        {
+            if (currentGalaxy.GalaxyData.IsOpen)
+            {
+                OnDeselectOpenGalaxy_Value?.Invoke(currentGalaxy);
+
+                Debug.Log($"Deselect открытой галактики под номером {currentGalaxy.GalaxyData.Number}");
+            }
+            else
+            {
+                OnDeselectCloseGalaxy_Value?.Invoke(currentGalaxy);
+
+                Debug.Log($"Deselect закрытой галактики под номером {currentGalaxy.GalaxyData.Number}");
+            }
+
+            OnDeselectGalaxy?.Invoke();
+            currentGalaxy.GalaxyData.IsSelect = false;
+        }
+    }
 }
 
 public class GalaxyDatas

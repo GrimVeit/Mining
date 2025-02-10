@@ -88,6 +88,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         storeGalaxyPresenter.OnSelectCloseGalaxy_Value += galaxyPlayBuyPresenter.SetCloseGalaxy;
 
         storeGalaxyPresenter.OnSelectGalaxy_Value += galaxyVisualPresenter.Select;
+        sceneRoot.OnCloseGalaxyInfoPanel += storeGalaxyPresenter.UnselectGalaxy;
         sceneRoot.OnCloseGalaxyInfoPanel += galaxyVisualPresenter.SelectDefault;
     }
 
@@ -111,8 +112,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         storeGalaxyPresenter.OnSelectOpenGalaxy_Value -= galaxyPlayBuyPresenter.SetOpenGalaxy;
         storeGalaxyPresenter.OnSelectCloseGalaxy_Value -= galaxyPlayBuyPresenter.SetCloseGalaxy;
 
-        storeGalaxyPresenter.OnSelectGalaxy -= sceneRoot.OpenGalaxyInfoPanel;
-        sceneRoot.OnCloseGalaxyInfoPanel -= sceneRoot.CloseGalaxyInfoPanel;
+        storeGalaxyPresenter.OnSelectGalaxy_Value -= galaxyVisualPresenter.Select;
+        sceneRoot.OnCloseGalaxyInfoPanel -= storeGalaxyPresenter.UnselectGalaxy;
+        sceneRoot.OnCloseGalaxyInfoPanel -= galaxyVisualPresenter.SelectDefault;
     }
 
     private void ActivateTransitionsSceneEvents()
