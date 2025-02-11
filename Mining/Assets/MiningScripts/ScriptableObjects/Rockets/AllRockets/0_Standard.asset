@@ -16,5 +16,5 @@ MonoBehaviour:
   nameRocket: Standard
   spriteRocket: {fileID: 21300000, guid: 09dd5c570b8ed984883e55efe8a61637, type: 3}
   baseLoadCapacity: 10
-  baseSpeed: 20
+  baseSpeed: 10
   price: 5000
