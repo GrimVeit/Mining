@@ -63,6 +63,9 @@ public class StoreGalaxyModel
             }
         }
 
+        Debug.Log(galaxies.Galaxies.Count);
+        Debug.Log(galaxyDatas.Count);
+
         for (int i = 0; i < galaxies.Galaxies.Count; i++)
         {
             galaxies.Galaxies[i].SetData(galaxyDatas[i]);

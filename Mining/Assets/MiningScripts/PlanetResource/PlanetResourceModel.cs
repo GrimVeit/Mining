@@ -46,7 +46,8 @@ public class PlanetResourceModel
             planetResources[i].OnEndResources -= HandleEndResources;
         }
 
-        currentPlanetResource.OnChangePlanetResourceData -= ChangePlanetResourceData;
+        if(currentPlanetResource != null)
+           currentPlanetResource.OnChangePlanetResourceData -= ChangePlanetResourceData;
     }
 
     public IPlanetResource GetResource(int id)

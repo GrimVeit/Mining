@@ -32,6 +32,8 @@ public class Main_GlobalState : IGlobalState
         sceneRoot.OnClickToOpen_PlanetInfo += ChangeStateToPlanetInfo;
         sceneRoot.OnClickToOpen_Shop += ChangeStateToShop;
 
+        sceneRoot.OpenGamePanel();
+        sceneRoot.OpenGameplayButtonsPanel();
         planetRocketVisualPresenter.SelectDefault();
     }
 

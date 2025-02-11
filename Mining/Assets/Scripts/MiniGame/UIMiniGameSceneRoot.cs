@@ -12,6 +12,10 @@ public class UIMiniGameSceneRoot : MonoBehaviour
     [SerializeField] private ResourceSalePanel resourceSalePanel;
     [SerializeField] private ExitPanel exitPanel;
 
+    [SerializeField] private StartGamePanel startGamePanel;
+    [SerializeField] private GamePanel gamePanel;
+    [SerializeField] private HeaderGamePanel headerGamePanel;
+
     private ISoundProvider soundProvider;
 
     public void SetSoundProvider(ISoundProvider soundProvider)
@@ -29,6 +33,10 @@ public class UIMiniGameSceneRoot : MonoBehaviour
         resourceDescriptionPanel.Initialize();
         resourceSalePanel.Initialize();
         exitPanel.Initialize();
+
+        startGamePanel.Initialize();
+        gamePanel.Initialize();
+        headerGamePanel.Initialize();
     }
 
     public void Dispose()
@@ -39,6 +47,10 @@ public class UIMiniGameSceneRoot : MonoBehaviour
         resourceDescriptionPanel.Dispose();
         resourceSalePanel.Dispose();
         exitPanel.Dispose();
+
+        startGamePanel.Initialize();
+        gamePanel.Dispose();
+        headerGamePanel.Dispose();
     }
 
 
@@ -46,20 +58,54 @@ public class UIMiniGameSceneRoot : MonoBehaviour
 
     public void Activate()
     {
-        OpenGameplayButtonsPanel();
+        OpenStartGamePanel();
+        OpenHeaderGamePanel();
     }
 
     public void Deactivate()
     {
-        //CloseOtherPanel(currentPanel);
+        if(currentPanel != null)
+           CloseOtherPanel(currentPanel);
+
+        CloseHeaderGamePanel();
     }
 
+
+
+
+    public void OpenStartGamePanel()
+    {
+        OpenPanel(startGamePanel);
+    }
+
+    public void OpenGamePanel()
+    {
+        if(gamePanel.IsActive) return;
+
+        OpenPanel(gamePanel);
+    }
+
+
+
+
+
+    public void OpenHeaderGamePanel()
+    {
+        OpenOtherPanel(headerGamePanel);
+    }
+
+    public void CloseHeaderGamePanel()
+    {
+        CloseOtherPanel(headerGamePanel);
+    }
 
 
 
 
     public void OpenGameplayButtonsPanel()
     {
+        if (gameplayButtonsPanel.IsActive) return;
+
         OpenOtherPanel(gameplayButtonsPanel);
     }
 

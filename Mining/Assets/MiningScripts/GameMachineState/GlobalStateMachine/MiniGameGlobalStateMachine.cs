@@ -10,8 +10,10 @@ public class MiniGameGlobalStateMachine : IControlGlobalStateMachine
     public MiniGameGlobalStateMachine(
         UIMiniGameSceneRoot sceneRoot,
         PlanetInteractivePresenter planetInteractivePresenter,
-        PlanetRocketVisualPresenter planetRocketVisualPresenter)
+        PlanetRocketVisualPresenter planetRocketVisualPresenter,
+        ShipInfoPresenter shipInfoPresenter)
     {
+        states[typeof(StartGame_GlobalState)] = new StartGame_GlobalState(this, sceneRoot, shipInfoPresenter);
         states[typeof(Main_GlobalState)] = new Main_GlobalState(this, sceneRoot, planetInteractivePresenter, planetRocketVisualPresenter);
         states[typeof(PlanetInfo_GlobalState)] = new PlanetInfo_GlobalState(this, sceneRoot, planetInteractivePresenter);
         states[typeof(ResourceDescription_GlobalState)] = new ResourceDescription_GlobalState(this, sceneRoot, planetInteractivePresenter, planetRocketVisualPresenter);
@@ -22,7 +24,7 @@ public class MiniGameGlobalStateMachine : IControlGlobalStateMachine
 
     public void Initialize()
     {
-        SetState(GetState<Main_GlobalState>());
+        SetState(GetState<StartGame_GlobalState>());
     }
 
     public void Dispose()

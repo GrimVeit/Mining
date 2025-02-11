@@ -45,6 +45,10 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private PlanetRocketVisualPresenter planetRocketVisualPresenter;
 
+    private ShipTakePresenter shipTakePresenter;
+    private ShipInfoPresenter shipInfoPresenter;
+    private RocketTakePresenter rocketTakePresenter;
+
     private MiniGameGlobalStateMachine globalStateMachine;
 
     public void Run(UIRootView uIRootView)
@@ -99,7 +103,15 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
         planetRocketVisualPresenter = new PlanetRocketVisualPresenter(new PlanetRocketVisualModel(), viewContainer.GetView<PlanetRocketVisualView>());
 
-        globalStateMachine = new MiniGameGlobalStateMachine(sceneRoot, planetInteractivePresenter, planetRocketVisualPresenter);
+        shipTakePresenter = new ShipTakePresenter(new ShipTakeModel(), viewContainer.GetView<ShipTakeView>());
+        shipInfoPresenter = new ShipInfoPresenter(new ShipInfoModel(), viewContainer.GetView<ShipInfoView>());
+        rocketTakePresenter = new RocketTakePresenter(new RocketTakeModel(), viewContainer.GetView<RocketTakeView>());
+
+        globalStateMachine = new MiniGameGlobalStateMachine(
+            sceneRoot, 
+            planetInteractivePresenter, 
+            planetRocketVisualPresenter, 
+            shipInfoPresenter);
 
         ActivateEvents();
 
@@ -116,6 +128,9 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         rocketTransferPresenter.Initialize();
         planetResourcePresenter.Initialize();
         planetRocketVisualPresenter.Initialize();
+        shipTakePresenter.Initialize();
+        shipInfoPresenter.Initialize();
+        rocketTakePresenter.Initialize();
 
         storeRocketPresenter.Initialize();
         storeShipPresenter.Initialize();
@@ -126,6 +141,20 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private void ActivateEvents()
     {
+        storeShipPresenter.OnOpenShip += shipTakePresenter.SetShip;
+        storeShipPresenter.OnCloseShip += shipTakePresenter.SetShip;
+        storeShipPresenter.OnSelectShip += shipTakePresenter.SelectShip;
+        storeShipPresenter.OnDeselectShip += shipTakePresenter.DeselectShip;
+        shipTakePresenter.OnTakeShip += storeShipPresenter.SelectShip;
+
+        storeRocketPresenter.OnOpenRocket += rocketTakePresenter.SetOpenRocket;
+        storeRocketPresenter.OnCloseRocket += rocketTakePresenter.SetCloseRocket;
+        rocketTakePresenter.OnBuyRocket += storeRocketPresenter.BuyRocket;
+
+        storeShipPresenter.OnSelectOpenShip += shipInfoPresenter.SetOpenShip;
+        storeShipPresenter.OnSelectCloseShip += shipInfoPresenter.SetCloseShip;
+        shipInfoPresenter.OnBuyShip += storeShipPresenter.BuyShip;
+
         storeGalaxyPresenter.OnSelectGalaxy_Value += storePlanetPresenter.SetGalaxy;
         storePlanetPresenter.OnSetPlanets += planetInteractivePresenter.SetPlanets;
 
@@ -180,6 +209,20 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
 
     private void DeactivateEvents()
     {
+        storeShipPresenter.OnOpenShip -= shipTakePresenter.SetShip;
+        storeShipPresenter.OnCloseShip -= shipTakePresenter.SetShip;
+        storeShipPresenter.OnSelectShip -= shipTakePresenter.SelectShip;
+        storeShipPresenter.OnDeselectShip -= shipTakePresenter.DeselectShip;
+        shipTakePresenter.OnTakeShip -= storeShipPresenter.SelectShip;
+
+        storeRocketPresenter.OnOpenRocket -= rocketTakePresenter.SetOpenRocket;
+        storeRocketPresenter.OnCloseRocket -= rocketTakePresenter.SetCloseRocket;
+        rocketTakePresenter.OnBuyRocket -= storeRocketPresenter.BuyRocket;
+
+        storeShipPresenter.OnSelectOpenShip -= shipInfoPresenter.SetOpenShip;
+        storeShipPresenter.OnSelectCloseShip -= shipInfoPresenter.SetCloseShip;
+        shipInfoPresenter.OnBuyShip -= storeShipPresenter.BuyShip;
+
         storeGalaxyPresenter.OnSelectGalaxy_Value -= storePlanetPresenter.SetGalaxy;
         storePlanetPresenter.OnSetPlanets -= planetInteractivePresenter.SetPlanets;
 
@@ -248,6 +291,9 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         soundPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        rocketTakePresenter?.Dispose();
+        shipInfoPresenter?.Dispose();
+        shipTakePresenter?.Dispose();
         planetRocketVisualPresenter?.Dispose();
         planetResourcePresenter?.Dispose();
         rocketTransferPresenter?.Dispose();
@@ -266,6 +312,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         storeResourcePresenter.Dispose();
         storePlanetPresenter?.Dispose();
         storeGalaxyPresenter?.Dispose();
+
         globalStateMachine?.Dispose();
     }
 

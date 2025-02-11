@@ -36,15 +36,49 @@ public class StoreShipPresenter
         remove { model.OnCloseShip -= value; }
     }
 
+
+
+
+    public event Action<Ship> OnSelectOpenShip
+    {
+        add { model.OnSelectOpenShip += value; }
+        remove { model.OnSelectOpenShip -= value; }
+    }
+
+    public event Action<Ship> OnSelectCloseShip
+    {
+        add { model.OnSelectCloseShip += value; }
+        remove { model.OnSelectCloseShip -= value; }
+    }
+
+
+
+
+
+    public event Action<Ship> OnDeselectShip
+    {
+        add { model.OnDeselectShip += value; }
+        remove { model.OnDeselectShip -= value; }
+    }
+
     public event Action<Ship> OnSelectShip
     {
         add { model.OnSelectShip += value; }
         remove { model.OnSelectShip -= value; }
     }
 
+
+
+
+
     public void BuyShip(int id)
     {
         model.BuyShip(id);
+    }
+
+    public void SelectShip(int id)
+    {
+        model.SelectShip(id);
     }
 
     #endregion

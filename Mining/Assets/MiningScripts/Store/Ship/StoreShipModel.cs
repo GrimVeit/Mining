@@ -9,6 +9,11 @@ public class StoreShipModel
 {
     public event Action<Ship> OnOpenShip;
     public event Action<Ship> OnCloseShip;
+
+    public event Action<Ship> OnSelectOpenShip;
+    public event Action<Ship> OnSelectCloseShip;
+
+    public event Action<Ship> OnDeselectShip;
     public event Action<Ship> OnSelectShip;
 
 
@@ -42,13 +47,15 @@ public class StoreShipModel
         }
         else
         {
+            Debug.Log("HDBNJJJJJJJJJJJJJJJJJJJJJJ");
+
             shipDatas = new List<ShipData>();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if (i == 0)
                 {
-                    shipDatas.Add(new ShipData(true, true));
+                    shipDatas.Add(new ShipData(false, true));
                 }
                 else
                 {
@@ -78,25 +85,46 @@ public class StoreShipModel
 
     public void BuyShip(int number)
     {
-        var galaxy = ships.GetShipByID(number.ToString());
+        var ship = ships.GetShipByID(number.ToString());
 
-        if(galaxy.ShipData.IsOpen) return;
+        if(ship.ShipData.IsOpen) return;
 
-        if (moneyProvider.CanAfford(galaxy.Price))
+        if (moneyProvider.CanAfford(ship.Price))
         {
-            moneyProvider.SendMoney(-galaxy.Price);
+            moneyProvider.SendMoney(-ship.Price);
 
-            galaxy.ShipData.IsOpen = true;
+            ship.ShipData.IsOpen = true;
 
-            OnOpenShip?.Invoke(galaxy);
+            OnOpenShip?.Invoke(ship);
+
+            SelectShip(number);
         }
     }
 
     public void SelectShip(int number)
     {
+        if(currentShip != null)
+        {
+            currentShip.ShipData.IsSelect = false;
+            OnDeselectShip?.Invoke(currentShip);
+        }
+
         currentShip = ships.GetShipByID(number.ToString());
 
-        OnSelectShip?.Invoke(currentShip);
+        if(currentShip != null)
+        {
+            if (currentShip.ShipData.IsOpen)
+            {
+                OnSelectOpenShip?.Invoke(currentShip);
+            }
+            else
+            {
+                OnSelectCloseShip?.Invoke(currentShip);
+            }
+
+            currentShip.ShipData.IsSelect = true;
+            OnSelectShip?.Invoke(currentShip);
+        }
     }
 
 
@@ -106,6 +134,7 @@ public class StoreShipModel
     }
 }
 
+[Serializable]
 public class ShipDatas
 {
     public ShipData[] Datas;
