@@ -86,6 +86,9 @@ public class StoreGalaxyModel
 
     public void Dispose()
     {
+        if(currentGalaxy != null)
+           currentGalaxy.GalaxyData.IsSelect = true;
+
         string json = JsonUtility.ToJson(new GalaxyDatas(galaxyDatas.ToArray()));
         File.WriteAllText(FilePath, json);
     }

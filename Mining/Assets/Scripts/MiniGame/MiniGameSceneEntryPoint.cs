@@ -49,6 +49,8 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
     private ShipInfoPresenter shipInfoPresenter;
     private RocketTakePresenter rocketTakePresenter;
 
+    private GalaxyDesignPresenter galaxyDesignPresenter;
+
     private MiniGameGlobalStateMachine globalStateMachine;
 
     public void Run(UIRootView uIRootView)
@@ -107,6 +109,8 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         shipInfoPresenter = new ShipInfoPresenter(new ShipInfoModel(), viewContainer.GetView<ShipInfoView>());
         rocketTakePresenter = new RocketTakePresenter(new RocketTakeModel(), viewContainer.GetView<RocketTakeView>());
 
+        galaxyDesignPresenter = new GalaxyDesignPresenter(new GalaxyDesignModel(), viewContainer.GetView<GalaxyDesignView>());
+
         globalStateMachine = new MiniGameGlobalStateMachine(
             sceneRoot, 
             planetInteractivePresenter, 
@@ -131,6 +135,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         shipTakePresenter.Initialize();
         shipInfoPresenter.Initialize();
         rocketTakePresenter.Initialize();
+        galaxyDesignPresenter.Initialize();
 
         storeRocketPresenter.Initialize();
         storeShipPresenter.Initialize();
@@ -204,6 +209,8 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         sceneRoot.OnClickToOpen_PlanetInfo += storePlanetPresenter.SelectSecondPlanet;
         storePlanetPresenter.OnSelectPlanet_Value += planetRocketVisualPresenter.Select;
 
+        storeGalaxyPresenter.OnSelectGalaxy_Value += galaxyDesignPresenter.SetGalaxy;
+
         ActivateTransitionEvents();
     }
 
@@ -264,6 +271,8 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         sceneRoot.OnClickToOpen_PlanetInfo -= storePlanetPresenter.SelectSecondPlanet;
         storePlanetPresenter.OnSelectPlanet_Value -= planetRocketVisualPresenter.Select;
 
+        storeGalaxyPresenter.OnSelectGalaxy_Value -= galaxyDesignPresenter.SetGalaxy;
+
         DeactivateTransitionEvents();
     }
 
@@ -291,6 +300,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         soundPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        galaxyDesignPresenter?.Dispose();
         rocketTakePresenter?.Dispose();
         shipInfoPresenter?.Dispose();
         shipTakePresenter?.Dispose();
