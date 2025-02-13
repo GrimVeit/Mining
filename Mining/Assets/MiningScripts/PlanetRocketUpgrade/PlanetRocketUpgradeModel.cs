@@ -30,9 +30,10 @@ public class PlanetRocketUpgradeModel
 
     private IMoneyProvider moneyProvider;
 
-    public PlanetRocketUpgradeModel(RocketUpgradeLevelPrices upgradeLevelPrices)
+    public PlanetRocketUpgradeModel(RocketUpgradeLevelPrices upgradeLevelPrices, IMoneyProvider moneyProvider)
     {
         this.upgradeLevelPrices = upgradeLevelPrices;
+        this.moneyProvider = moneyProvider;
     }
 
     public void SetRocketPlanet(Planet planet)
@@ -99,15 +100,33 @@ public class PlanetRocketUpgradeModel
 
     public void UpgradeSpeed()
     {
-        OnUpgradeSpeed?.Invoke(int.Parse(currentPlanet.GetID()), 
-            upgradeSecondLevelSpeed.rocketUpgradeSpeedPrices
-            .FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).speedValue);
+        int value = upgradeSecondLevelSpeed.rocketUpgradeSpeedPrices
+            .FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).speedValue;
+
+        int price = upgradeSecondLevelSpeed.rocketUpgradeSpeedPrices
+            .FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).price;
+
+        if (moneyProvider.CanAfford(price))
+        {
+            OnUpgradeSpeed?.Invoke(int.Parse(currentPlanet.GetID()), value);
+
+            moneyProvider.SendMoney(-price);
+        }
     }
 
     public void UpgradeCapacity()
     {
-        OnUpgradeCapacity?.Invoke(int.Parse(currentPlanet.GetID()),
-            upgradeSecondLevelCapacity.rocketUpgradeCapacityPrices
-            .FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).capacityValue);
+        int value = upgradeSecondLevelCapacity.rocketUpgradeCapacityPrices
+            .FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).capacityValue;
+
+        int price = upgradeSecondLevelCapacity.rocketUpgradeCapacityPrices
+            .FirstOrDefault(data => data.rocketID == int.Parse(currentPlanet.RocketPlanetData.Rocket.GetID())).price;
+
+        if (moneyProvider.CanAfford(price))
+        {
+            OnUpgradeCapacity?.Invoke(int.Parse(currentPlanet.GetID()), value);
+
+            moneyProvider.SendMoney(-price);
+        }
     }
 }

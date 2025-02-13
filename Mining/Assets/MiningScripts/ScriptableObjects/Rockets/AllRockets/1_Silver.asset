@@ -15,6 +15,6 @@ MonoBehaviour:
   id: 1
   nameRocket: Silver
   spriteRocket: {fileID: 21300000, guid: 60f6d4ff26cd37c46998cb39245057fe, type: 3}
-  baseLoadCapacity: 15
+  baseLoadCapacity: 10
   baseSpeed: 25
   price: 12000

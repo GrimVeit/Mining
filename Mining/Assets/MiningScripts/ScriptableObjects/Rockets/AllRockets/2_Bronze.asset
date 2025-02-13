@@ -15,6 +15,6 @@ MonoBehaviour:
   id: 2
   nameRocket: Bronze
   spriteRocket: {fileID: 21300000, guid: fad7d8b7253e09241b3af51a93df51eb, type: 3}
-  baseLoadCapacity: 25
+  baseLoadCapacity: 15
   baseSpeed: 40
   price: 20000

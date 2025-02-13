@@ -44,7 +44,7 @@ public class StoreResourceModel
 
             for (int i = 0; i < 14; i++)
             {
-                resourceDatas.Add(new ResourceData(20));
+                resourceDatas.Add(new ResourceData(0));
             }
         }
 

@@ -50,6 +50,8 @@ public class StorePlanetModel
             {
                 currentPlanets.planets[i].SetPlanetData(new PlanetData(false));
             }
+
+            currentPlanets.planets[i].SetRocketPlanetData(null);
         }
 
         OnSetPlanets?.Invoke(currentPlanets);

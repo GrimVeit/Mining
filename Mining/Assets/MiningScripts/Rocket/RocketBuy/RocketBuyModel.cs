@@ -75,12 +75,16 @@ public class RocketBuyModel
 
     public void BuyRocket()
     {
-        if (moneyProvider.CanAfford(prices.rocketBuyLevelPrices.
+        int price = prices.rocketBuyLevelPrices.
             FirstOrDefault(data => data.BuyLevelNumber == levelBuy).rocketBuyPrices.
-            FirstOrDefault(data => data.rocketID == int.Parse(currentRocket.GetID())).price))
+            FirstOrDefault(data => data.rocketID == int.Parse(currentRocket.GetID())).price;
+
+        if (moneyProvider.CanAfford(price))
         {
             levelBuy += 1;
             OnBuyRocket?.Invoke(planetID, currentRocket);
+
+            moneyProvider.SendMoney(-price);
 
             OnDeselectRocket?.Invoke(currentRocket);
         }

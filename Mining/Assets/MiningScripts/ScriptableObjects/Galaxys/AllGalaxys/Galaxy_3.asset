@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Galaxy_3
   m_EditorClassIdentifier: 
   id: 2
-  price: 50
+  price: 100000
   sprite: {fileID: 21300000, guid: 2414c846ea400004093e8358ad7a3609, type: 3}
   GalaxyData:
     Number: 2

@@ -17,4 +17,4 @@ MonoBehaviour:
   spriteShip: {fileID: 21300000, guid: ecf70298a764c9d43852bf21944109d4, type: 3}
   loadCapacity: 16000
   countBoats: 30
-  price: 14500
+  price: 100

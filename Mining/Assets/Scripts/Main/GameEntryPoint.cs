@@ -36,12 +36,29 @@ public class GameEntryPoint
 
     private void Run()
     {
-        coroutines.StartCoroutine(LoadAndStartMainMenu());
+        coroutines.StartCoroutine(LoadAndStartStart());
+    }
+
+    private IEnumerator LoadAndStartStart()
+    {
+        rootView.SetLoadScreen(0);
+
+        yield return rootView.ShowLoadingScreen();
+
+        yield return LoadScene(Scenes.BOOT);
+        yield return LoadScene(Scenes.START);
+
+        var sceneEntryPoint = Object.FindObjectOfType<StartEntryPoint>();
+        sceneEntryPoint.Run(rootView);
+
+        sceneEntryPoint.OnGoToMap += () => coroutines.StartCoroutine(LoadAndStartMainMenu());
+
+        yield return rootView.HideLoadingScreen();
     }
 
     private IEnumerator LoadAndStartMainMenu()
     {
-        rootView.SetLoadScreen(0);
+        rootView.SetLoadScreen(1);
 
         yield return rootView.ShowLoadingScreen();
 
@@ -58,7 +75,7 @@ public class GameEntryPoint
 
     private IEnumerator LoadAndStartMiniGameScene()
     {
-        rootView.SetLoadScreen(1);
+        rootView.SetLoadScreen(2);
         yield return rootView.ShowLoadingScreen();
 
         yield return new WaitForSeconds(0.3f);

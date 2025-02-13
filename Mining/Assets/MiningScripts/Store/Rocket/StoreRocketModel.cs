@@ -46,7 +46,7 @@ public class StoreRocketModel
             {
                 if (i == 0)
                 {
-                    rocketDatas.Add(new RocketData(true, true));
+                    rocketDatas.Add(new RocketData(false, true));
                 }
                 else
                 {

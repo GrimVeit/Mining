@@ -97,7 +97,7 @@ public class MiniGameSceneEntryPoint : MonoBehaviour
         planetBuyPresenter = new PlanetBuyPresenter(new PlanetBuyModel(bankPresenter), viewContainer.GetView<PlanetBuyView>());
         rocketBuyPresenter = new RocketBuyPresenter(new RocketBuyModel(prices, bankPresenter), viewContainer.GetView<RocketBuyView>());
 
-        planetRocketUpgradePresenter = new PlanetRocketUpgradePresenter(new PlanetRocketUpgradeModel(upgradeLevelPrices), viewContainer.GetView<PlanetRocketUpgradeView>());
+        planetRocketUpgradePresenter = new PlanetRocketUpgradePresenter(new PlanetRocketUpgradeModel(upgradeLevelPrices, bankPresenter), viewContainer.GetView<PlanetRocketUpgradeView>());
 
         planetResourcePresenter = new PlanetResourcePresenter(new PlanetResourceModel(), viewContainer.GetView<PlanetResourceView>());
 

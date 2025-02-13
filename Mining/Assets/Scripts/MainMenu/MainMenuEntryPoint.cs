@@ -119,7 +119,6 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private void ActivateTransitionsSceneEvents()
     {
-        sceneRoot.OnGoToMain += sceneRoot.OpenMainPanel;
         storeGalaxyPresenter.OnSelectGalaxy += sceneRoot.OpenGalaxyInfoPanel;
         sceneRoot.OnCloseGalaxyInfoPanel += sceneRoot.CloseGalaxyInfoPanel;
 
@@ -128,7 +127,6 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private void DeactivateTransitionsSceneEvents()
     {
-        sceneRoot.OnGoToMain -= sceneRoot.OpenMainPanel;
         storeGalaxyPresenter.OnSelectGalaxy -= sceneRoot.OpenGalaxyInfoPanel;
         sceneRoot.OnCloseGalaxyInfoPanel -= sceneRoot.CloseGalaxyInfoPanel;
 

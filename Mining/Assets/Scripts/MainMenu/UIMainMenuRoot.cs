@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class UIMainMenuRoot : MonoBehaviour
 {
-    [SerializeField] private StartPanel_MainMenuScene startPanel;
     [SerializeField] private MainPanel_MainMenuScene mainPanel;
     [SerializeField] private GalaxyInfoPanel galaxyInfoPanel;
 
@@ -19,9 +18,7 @@ public class UIMainMenuRoot : MonoBehaviour
     public void Initialize()
     {
         mainPanel.SetSoundProvider(soundProvider);
-        startPanel.SetSoundProvider(soundProvider);
 
-        startPanel.Initialize();
         mainPanel.Initialize();
         galaxyInfoPanel.Initialize();
 
@@ -29,26 +26,18 @@ public class UIMainMenuRoot : MonoBehaviour
 
     public void Activate()
     {
-        OpenStartPanel();
+
     }
 
     public void Deactivate()
     {
-        currentPanel.DeactivatePanel();
+        currentPanel?.DeactivatePanel();
     }
 
     public void Dispose()
     {
-        startPanel?.Dispose();
         mainPanel?.Dispose();
         galaxyInfoPanel?.Dispose();
-    }
-
-
-
-    public void OpenStartPanel()
-    {
-        OpenPanel(startPanel);
     }
 
     public void OpenMainPanel()
@@ -95,16 +84,6 @@ public class UIMainMenuRoot : MonoBehaviour
 
 
     #region Input Actions
-
-    public event Action OnGoToMain
-    {
-        add { startPanel.OnGoToMain += value; }
-        remove { startPanel.OnGoToMain -= value; }
-    }
-
-
-
-
 
     public event Action OnCloseGalaxyInfoPanel
     {
